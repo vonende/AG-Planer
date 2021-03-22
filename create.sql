@@ -38,7 +38,7 @@ registrationtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 enabled BOOLEAN NOT NULL
 );
 
-INSERT INTO users (username,password) VALUES ('admin','$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke');
+INSERT INTO users (username,password, enabled) VALUES ('admin','$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke',True);
 
 CREATE TABLE IF NOT EXISTS sessions (
 session_id  VARCHAR(255) PRIMARY KEY,
