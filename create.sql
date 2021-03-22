@@ -26,7 +26,6 @@ CREATE USER ag_user WITH PASSWORD 'kd83kCd[dj0i';
 
 CREATE DATABASE ag_manager WITH OWNER ag_admin;
 
-
 CREATE TABLE IF NOT EXISTS users (
 id		SERIAL PRIMARY KEY,
 firstname		VARCHAR(30),
@@ -38,6 +37,8 @@ roll		VARCHAR(10),
 registrationtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 enabled BOOLEAN NOT NULL
 );
+
+INSERT INTO users (username,password) VALUES ("admin","$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke");
 
 CREATE TABLE IF NOT EXISTS sessions (
 session_id  VARCHAR(255) PRIMARY KEY,
