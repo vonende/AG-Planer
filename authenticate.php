@@ -32,14 +32,10 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
        <h1>AG-Manager (Anmeldung) </h1>
 
        <form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" >
-         <label for="username">
- 					<i class="fas fa-user"></i>
-         </label>
+         <label for="username">Benutzername</label>
          <input type="text" name="user" id="username" placeholder="Benutzername" required>
 
-         <label for="password">
-         	<i class="fas fa-lock"></i>
-         </label>
+         <label for="password">Passwort</label>
          <input type="password" name="pwd" id="password" placeholder="Passwort" required>
 
          <input type="submit" value="anmelden">

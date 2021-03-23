@@ -17,6 +17,7 @@ if (!($account->sessionLogin())) {
 	exit;
 }
 
+// Benutzerdaten aus der Datenbank laden
 $row = $account->getAccountData();
 $username  = $row['username'];
 $firstname = $row['firstname'];
@@ -24,34 +25,8 @@ $lastname  = $row['lastname'];
 $email     = $row['email'];
 $roll      = $row['roll'];
 $member    = $row['member'];
-/*
-// Nutzerdaten aus der Datenbank laden:
-$query = 'SELECT * FROM users WHERE (id = :id)';
-$values = array(':id' => $account->getId());
-try
-{
-	$res = $pdo->prepare($query);
-	$res->execute($values);
-}
-catch (PDOException $e)
-{
-	 echo "Datenbankfehler beim Aufruf des Profils. </br>";
-	 echo htmlspecialchars ($e->getMessage ());
-	 die();
-}
-$row = $res->fetch(PDO::FETCH_ASSOC);
-if (is_array($row))
-{
-	$username  = $row['username'];
-	$firstname = $row['firstname'];
-	$lastname  = $row['lastname'];
-	$email     = $row['email'];
-	$roll      = $row['roll'];
-} else {
-	echo "Sie sind kein registrierter Nutzer. </br>";
-	die();
-}
-*/
+
+// Falls das Formular sich selbst aufgerufen hat werden nun einige Dinge überprüft:
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$pw 				= $_POST["password"];
 	$pw2 				= $_POST["password2"];
@@ -98,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<?php
 			if ($member=="student") {echo '<p>Du bist als Schüler registriert.</p>';};
 			if ($member=="teacher") {echo '<p>Sie sind als Lehrer registriert.</p>';};
-			if ($member=="other") {echo '<p>Sie sind als Mitarbeiter registriert.</p>';};
+			if ($member=="other")   {echo '<p>Sie sind als Mitarbeiter registriert.</p>';};
 			 ?>
       <form method="post" action="profile.php">
         <label for="username">Benutzername</label>
