@@ -1,4 +1,4 @@
-# AG-Planer
+# AG-Manager
 
 ## Was muss die App können?
 ### Für alle
@@ -12,12 +12,14 @@
 - AG-Termine einsehen
 
 ### Aus AG-Leiter-Sicht (keine Rolle, sondern über Beziehung "leitet" zw. AGs und Benutzern definiert)
-- Termine seiner AG erstellen und editieren
+- Termine seiner AG erstellen
 - Anwesenheit dokumentieren
 
 ### Aus Lehrer-Sicht (Rolle: editor)
 - neue AG anlegen
 - eigene AG editieren
+- eigene AG-Termine editieren
+- Anwesenheit eigener AGs editieren
 - Schüler einschreiben und austragen
 
 ### Aus Klassenlehrersicht (Rolle: viewer)
