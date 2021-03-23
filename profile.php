@@ -5,6 +5,7 @@ session_start();
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>AG-Manager</title>
 	<link href="style.css" rel="stylesheet" type="text/css">
 </head>
@@ -76,23 +77,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if ($member=="other")   {echo '<p>Sie sind als Mitarbeiter registriert.</p>';};
 			 ?>
       <form method="post" action="profile.php">
-        <label for="username">Benutzername</label>
-        <input type="text" id="username" name="username" value="<?php echo $username ?>" required>
+				<div>
+        	<label for="username">Benutzername</label><br>
+        	<input type="text" id="username" name="username" value="<?php echo $username ?>" required>
+			  </div>
 
-        <label for="password">Passwort</label>
-        <input type="password" id="password" name="password" placeholder="Passwort..." required>
+				<div>
+        	<label for="password">Passwort</label><br>
+        	<input type="password" id="password" name="password" placeholder="Passwort..." required>
+			  </div>
 
-        <label for="password">Passwort (Wiederholung)</label>
-        <input type="password" id="password2" name="password2" placeholder="Passwort..." required>
+				<div>
+        	<label for="password">Passwort (Wiederholung)</label><br>
+        	<input type="password" id="password2" name="password2" placeholder="Passwort..." required>
+				</div>
 
-        <label for="firstname">Vorname</label>
-        <input type="text" id="firstname" name="firstname" value="<?php echo $firstname ?>" placeholder="Vorname...">
+				<div>
+        	<label for="firstname">Vorname</label><br>
+        	<input type="text" id="firstname" name="firstname" value="<?php echo $firstname ?>" placeholder="Vorname...">
+				</div>
 
-        <label for="lastname">Nachname</label>
-        <input type="text" id="lastname" name="lastname" value="<?php echo $lastname ?>" placeholder="Nachname...">
+				<div>
+        	<label for="lastname">Nachname</label><br>
+        	<input type="text" id="lastname" name="lastname" value="<?php echo $lastname ?>" placeholder="Nachname...">
+				</div>
 
-        <label for="email">E-Mail</label>
-        <input type="text" id="email" name="email" value="<?php echo $email ?>"placeholder="mailadresse@irgendwo.de">
+				<div>
+        	<label for="email">E-Mail</label><br>
+        	<input type="text" id="email" name="email" value="<?php echo $email ?>"placeholder="mailadresse@irgendwo.de">
+				</div>
 
         <input type="submit" value="Speichern">
       </form>
