@@ -31,10 +31,11 @@ last_import TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 user_id INTEGER PRIMARY KEY NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS externals (
-telephone VARCHAR(30),
+/*
+CREATE TABLE IF NOT EXISTS others (
 user_id INTEGER PRIMARY KEY NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
+*/
 
 CREATE TABLE IF NOT EXISTS sessions (
 session_id  VARCHAR(255) PRIMARY KEY,
@@ -43,6 +44,7 @@ logintime  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO users (username,password, enabled) VALUES ('admin','$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke',True);
+INSERT INTO teachers (shorthand,user_id) VALUES ('adm',(SELECT id FROM users WHERE username='admin'));
 
 GRANT ALL PRIVILEGES ON DATABASE ag_manager TO ag_admin;
 GRANT USAGE ON SCHEMA public TO ag_admin;

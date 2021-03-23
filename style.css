@@ -15,6 +15,13 @@ body {
   background-color: #ffcccc;
 }
 
+.confirm {
+  padding: 20px;
+  text-align: center;
+  color: #004400;
+  background-color: #ccffcc;
+}
+
 .login {
   	width: 400px;
   	background-color: #ffffff;
@@ -103,9 +110,6 @@ body {
 	text-decoration: none;
 	color: #c1c4c8;
 	font-weight: bold;
-}
-.navtop div a i {
-	padding: 2px 8px 0 0;
 }
 .navtop div a:hover {
 	color: #eaebed;
