@@ -6,6 +6,7 @@ try {
 } catch (PDOException $e) {
   echo "Fehler: Verbindung mit der Datenbank schlug fehl.\n";
   echo "Fehlermeldung: " . htmlspecialchars ($e->getMessage ());
+  die();
 }
 
 

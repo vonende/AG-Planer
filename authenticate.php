@@ -1,5 +1,9 @@
 <?php
 session_start();
+?>
+<!DOCTYPE html>
+<html>
+<?php
 require 'account_class.php';
 if ( isset($_POST['user'], $_POST['pwd']) ) {
   if ($account->login($_POST["user"], $_POST["pwd"]))
@@ -9,8 +13,6 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
   }
 }
  ?>
- <!DOCTYPE html>
- <html>
    <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
