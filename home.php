@@ -18,11 +18,9 @@ if (!($account->sessionLogin())) {
 	</head>
 	<body class="loggedin">
 		<nav class="navtop">
-			<div>
-				<h1>AG-Manager</h1>
-				<a href="profile.php">Profil</a>
-				<a href="logout.php">Logout</a>
-			</div>
+			<h1>AG-Manager</h1>
+			<a href="profile.php">Profil</a>
+			<a href="logout.php">Logout</a>
 		</nav>
 		<div class="content">
 			<h2>Deine AGs:</h2>

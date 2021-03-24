@@ -63,11 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	<body class="loggedin">
 		<nav class="navtop">
-			<div>
-				<h1><a href="home.php">AG-Manager</a></h1>
-				<a href="profile.php">Profil</a>
-				<a href="logout.php">Logout</a>
-			</div>
+			<h1><a href="home.php">AG-Manager</a></h1>
+			<a href="profile.php">Profil</a>
+			<a href="logout.php">Logout</a>
 		</nav>
 		<div class="content">
 			<h2><?php echo $member=='student'?"Dein":"Ihr"?> Profil:</h2>
@@ -76,10 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if ($member=="teacher") {echo '<p>Sie sind als Lehrer registriert.</p>';};
 			if ($member=="other")   {echo '<p>Sie sind als Mitarbeiter registriert.</p>';};
 			 ?>
-      <form method="post" action="profile.php">
+      <form method="post" action="profile.php" class="flexbox">
 				<div>
         	<label for="username">Benutzername</label><br>
-        	<input type="text" id="username" name="username" value="<?php echo $username ?>" required>
+        	<input class="textinput" type="text" id="username" name="username" value="<?php echo $username ?>" required>
 			  </div>
 
 				<div>
@@ -107,7 +105,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         	<input type="text" id="email" name="email" value="<?php echo $email ?>"placeholder="mailadresse@irgendwo.de">
 				</div>
 
-        <input type="submit" value="Speichern">
+				<div class="fullwidth">
+        	<input class="onebutton" type="submit" value="Speichern">
+				</div>
       </form>
 		</div>
 	</body>
