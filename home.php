@@ -12,20 +12,19 @@ if (!($account->sessionLogin())) {
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>AG-Manager</title>
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body class="loggedin">
 		<nav class="navtop">
-			<div>
-				<h1>AG-Manager</h1>
-				<a href="profile.php">Profil</a>
-				<a href="logout.php">Logout</a>
-			</div>
+			<h1>AG-Manager</h1>
+			<a href="profile.php">Profil</a>
+			<a href="logout.php">Logout</a>
 		</nav>
 		<div class="content">
 			<h2>Deine AGs:</h2>
-			<?php 
+			<?php
 				echo "<p>Du bist für keine AG eingetragen.</p>";
 			 ?>
 		</div>

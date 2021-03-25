@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 body {
@@ -15,8 +15,15 @@ body {
   background-color: #ffcccc;
 }
 
+.confirm {
+  padding: 20px;
+  text-align: center;
+  color: #004400;
+  background-color: #ccffcc;
+}
+
 .login {
-  	width: 400px;
+  	max-width: 400px;
   	background-color: #ffffff;
   	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
   	margin: 100px auto;
@@ -39,12 +46,11 @@ body {
 
 .login form label {
   	display: flex;
-  	justify-content: center;
-  	align-items: center;
-  	width: 50px;
-  	height: 50px;
-  	background-color: #3274d6;
-  	color: #ffffff;
+  	justify-content: left;
+    width: 310px;
+    padding: 5px;
+  	background-color: lightgray;
+  	color: black;
 }
 
 .login form input[type="password"], .login form input[type="text"] {
@@ -69,72 +75,105 @@ body {
 
 .login form input[type="submit"]:hover {
 	background-color: #2868c7;
-  	transition: background-color 0.2s;
+  transition: background-color 0.2s;
 }
 
 .navtop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 	background-color: #2f3947;
 	height: 60px;
 	width: 100%;
 	border: 0;
 }
-.navtop div {
-	display: flex;
-	margin: 0 auto;
-  padding-left: 10px;
-	max-width: 1000px;
-	height: 100%;
+
+.navtop > h1 {
+  margin: 0 10px;
+  flex: 1;
 }
-.navtop div h1, .navtop div a {
-	display: inline-flex;
-	align-items: center;
-}
-.navtop div h1>a, .navtop div h1{
-	flex: 1;
+
+.navtop h1>a, .navtop h1{
 	font-size: 24px;
-	padding: 0;
-	margin: 0;
 	color: #eaebed;
 	font-weight: normal;
   text-decoration: none;
 }
-.navtop div>a {
-	padding: 0 20px;
+
+.navtop > a {
+  margin: 0 10px;
+  flex: 0;
 	text-decoration: none;
 	color: #c1c4c8;
 	font-weight: bold;
 }
-.navtop div a i {
-	padding: 2px 8px 0 0;
-}
-.navtop div a:hover {
+
+.navtop a:hover {
 	color: #eaebed;
+  background-color: #1f2937;
 }
+
+@media screen and (max-width: 800px) {
+  .navtop {
+    flex-direction: column;
+  	height: auto;
+  }
+  .navtop > h1, .navtop > a {
+    margin: 0;
+    padding: 10px;
+    flex: 0;
+  }
+}
+
 body.loggedin {
 	background-color: #f3f4f7;
 }
 .content {
-	max-width: 1000px;
+	/*max-width: 1000px;*/
 	margin: 0 auto;
 }
 .content h2 {
 	margin: 0;
 	padding: 25px 10px;
-	font-size: 22px;
+	font-size: 24px;
 	border-bottom: 1px solid #e0e0e3;
 	color: #4a536e;
 }
-.content > p, .content > div, .content > form {
+
+.flexbox, .content > div, .content > p {
+  display: flex;
+  flex-wrap: wrap;
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
 	margin: 25px 0;
 	padding: 25px;
 	background-color: #fff;
 }
-.content > form > input{
+
+.flexbox > div {
+  margin-left:  30px;
+  margin-right: 30px;
+}
+
+.fullwidth {
+  margin-top:    30px;
+  margin-bottom: 10px;
   width: 100%;
+}
+
+.content input {
+  width: 400px;
   height: 50px;
   margin-bottom: 20px;
   margin-top: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .content input {
+    width: 100%;
+  }
+  .flexbox > div {
+    width: 100%;
+  }
 }
 
 .content > p table td, .content > div table td {

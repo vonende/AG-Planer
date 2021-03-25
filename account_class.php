@@ -6,6 +6,7 @@ try {
 } catch (PDOException $e) {
   echo "Fehler: Verbindung mit der Datenbank schlug fehl.\n";
   echo "Fehlermeldung: " . htmlspecialchars ($e->getMessage ());
+  die();
 }
 
 
@@ -115,6 +116,73 @@ class Account
     	}
     }
 
+    public function getAccountData() {
+      global $pdo;
+      if ($this->authenticated) {
+        $query = 'SELECT * FROM users WHERE (id = :id)';
+        $values = array(':id' => $this->id);
+        try
+        {
+      	   $res = $pdo->prepare($query);
+      	   $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+      	   echo "Datenbankfehler beim Aufruf des Profils. </br>";
+      	   echo htmlspecialchars ($e->getMessage ());
+      	   die();
+        }
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+        if (!is_array($row))
+        {
+      	   echo "Sie sind kein registrierter Nutzer. </br>";
+           $this->logout();
+      	   die();
+        }
+        $row['member'] = 'other';
+        $query = 'SELECT * FROM students WHERE (user_id = :id)';
+        $values = array(':id' => $this->id);
+        try
+        {
+      	   $res = $pdo->prepare($query);
+      	   $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+      	   echo "Datenbankfehler beim Aufruf des Profils. </br>";
+      	   echo htmlspecialchars ($e->getMessage ());
+      	   die();
+        }
+        $row2 = $res->fetch(PDO::FETCH_ASSOC);
+        if (is_array($row2))
+        {
+          $row['member'] = 'student';
+        }
+        $query = 'SELECT * FROM teachers WHERE (user_id = :id)';
+        $values = array(':id' => $this->id);
+        try
+        {
+      	   $res = $pdo->prepare($query);
+      	   $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+      	   echo "Datenbankfehler beim Aufruf des Profils. </br>";
+      	   echo htmlspecialchars ($e->getMessage ());
+      	   die();
+        }
+        $row2 = $res->fetch(PDO::FETCH_ASSOC);
+        if (is_array($row2))
+        {
+          $row['member'] = 'teacher';
+        }
+      } else {
+        header('Location: authenticate.php');
+      	exit;
+      }
+      return $row;
+    }
+
     //deleteAccount löscht einen Benutzer aus der Tabelle users und aus der Tabelle sessions
     public function deleteAccount(int $id)
     {
@@ -158,11 +226,13 @@ class Account
     	{
     		return FALSE;
     	}
+      /*
     	if (!$this->isPasswdValid($passwd))
     	{
     		return FALSE;
     	}
-    	$query = 'SELECT * FROM users WHERE (username = :name) AND (enabled = TRUE)';
+      */
+    	$query = 'SELECT id, username, password FROM users WHERE (username = :name) AND (enabled = TRUE)';
     	$values = array(':name' => $name);
     	try
     	{
@@ -236,7 +306,7 @@ class Account
     		*/
 
     		$query =
-    		'SELECT * FROM sessions, users WHERE (sessions.session_id = :sid) '.
+    		'SELECT id, username FROM sessions, users WHERE (sessions.session_id = :sid) '.
     		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.account_id = users.id) '.
     		'AND (users.enabled = TRUE)';
     		$values = array(':sid' => session_id());
@@ -344,7 +414,14 @@ class Account
        return $valid;
     }
 
-    // getIdFromName gibt die ID des Accounts zurück oder NULL, falls dieser nicht existiert
+
+    public function getId(): int
+    {
+      return $this->id;
+    }
+
+
+// getIdFromName gibt die ID des Accounts zurück oder NULL, falls dieser nicht existiert
     public function getIdFromName(string $name): ?int
     {
        global $pdo;
