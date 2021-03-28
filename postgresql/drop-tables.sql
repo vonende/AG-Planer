@@ -2,6 +2,8 @@ DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS teachers;
 DROP TABLE IF EXISTS students;
 
+DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS wgs;
 
 DROP TRIGGER IF EXISTS last_userupdate ON users;
 
