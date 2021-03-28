@@ -99,7 +99,7 @@ class Account
     		throw new Exception('Der Benutzername ist schon vergeben');
     	}
 
-    	$query = 'UPDATE users SET username = :na, password = :pwd, enabled = :en, firstname = :fn, lastname = :ln, email = :email, roll = :roll WHERE id = :id';
+    	$query = 'UPDATE users SET username = :na, password = :pwd, enabled = :en, firstname = :fn, lastname = :ln, email = :email, roll = :roll WHERE user_id = :id';
 
     	$hash = password_hash($passwd, PASSWORD_DEFAULT);
 
@@ -118,7 +118,7 @@ class Account
     public function getAccountData() {
       global $pdo;
       if ($this->authenticated) {
-        $query = 'SELECT * FROM users WHERE (id = :id)';
+        $query = 'SELECT * FROM users WHERE (user_id = :id)';
         $values = array(':id' => $this->id);
         try
         {
@@ -182,7 +182,7 @@ class Account
     	{
     		throw new Exception('Unbekannte Benutzer-ID');
     	}
-    	$query = 'DELETE FROM users WHERE id = :id';
+    	$query = 'DELETE FROM users WHERE user_id = :id';
     	$values = array(':id' => $id);
     	try
     	{
@@ -194,7 +194,7 @@ class Account
     	   throw new Exception('Datenbankfehler beim Löschen des Benutzers');
     	}
       /* Unnötig, da Fremdschlüssel in Datenbank mittels ON DELETE CASCADE definiert wurde
-    	$query = 'DELETE FROM sessions WHERE (account_id = :id)';
+    	$query = 'DELETE FROM sessions WHERE (user_id = :id)';
     	$values = array(':id' => $id);
     	try
     	{
@@ -223,7 +223,7 @@ class Account
     		return FALSE;
     	}
       */
-    	$query = 'SELECT id, username, password FROM users WHERE (username = :name) AND (enabled = TRUE)';
+    	$query = 'SELECT user_id, username, password FROM users WHERE (username = :name) AND (enabled = TRUE)';
     	$values = array(':name' => $name);
     	try
     	{
@@ -240,7 +240,7 @@ class Account
       {
          if (password_verify($passwd, $row['password']))
          {
-             $this->id = intval($row['id'], 10);
+             $this->id = intval($row['user_id'], 10);
              $this->name = $name;
              $this->authenticated = TRUE;
              $this->registerLoginSession();
@@ -262,8 +262,8 @@ class Account
     			- insert a new row with the session id, if it doesn't exist, or...
     			- update the row having the session id, if it does exist.
     		*/
-    		$query = 'INSERT INTO sessions (session_id, account_id, logintime) VALUES (:sid, :accountId, now())
-                  ON CONFLICT (session_id) DO UPDATE SET account_id = :accountId, logintime = now()';
+    		$query = 'INSERT INTO sessions (session_id, user_id, logintime) VALUES (:sid, :accountId, now())
+                  ON CONFLICT (session_id) DO UPDATE SET user_id = :accountId, logintime = now()';
     		$values = array(':sid' => session_id(), ':accountId' => $this->id);
     		try
     		{
@@ -297,8 +297,8 @@ class Account
     		*/
 
     		$query =
-    		'SELECT id, username FROM sessions, users WHERE (sessions.session_id = :sid) '.
-    		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.account_id = users.id) '.
+    		'SELECT users.user_id, username FROM sessions, users WHERE (sessions.session_id = :sid) '.
+    		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.user_id = users.user_id) '.
     		'AND (users.enabled = TRUE)';
     		$values = array(':sid' => session_id());
 
@@ -309,14 +309,14 @@ class Account
     		}
     		catch (PDOException $e)
     		{
-    		   echo "Datenbankfehler beim Sessionlogin";
+    		   echo "Datenbankfehler beim Sessionlogin: ".$e->getMessage();
            exit;
     		}
 
     		$row = $res->fetch(PDO::FETCH_ASSOC);
     		if (is_array($row))
     		{
-    			$this->id = intval($row['id'], 10);
+    			$this->id = intval($row['user_id'], 10);
     			$this->name = $row['username'];
     			$this->authenticated = TRUE;
     			return TRUE;
@@ -365,8 +365,8 @@ class Account
     	}
     	if (session_status() == PHP_SESSION_ACTIVE)
     	{
-    		$query = 'DELETE FROM sessions WHERE (session_id != :sid) AND (account_id = :account_id)';
-    		$values = array(':sid' => session_id(), ':account_id' => $this->id);
+    		$query = 'DELETE FROM sessions WHERE (session_id != :sid) AND (user_id = :user_id)';
+    		$values = array(':sid' => session_id(), ':user_id' => $this->id);
     		try
     		{
     			$res = $pdo->prepare($query);
@@ -421,7 +421,7 @@ class Account
          throw new Exception('Ungültiger Benutzername');
        }
        $id = NULL;
-	     $query = 'SELECT id FROM users WHERE (username = :name)';
+	     $query = 'SELECT user_id FROM users WHERE (username = :name)';
 	     $values = array(':name' => $name);
        try
        {
@@ -435,7 +435,7 @@ class Account
        $row = $res->fetch(PDO::FETCH_ASSOC);
        if (is_array($row))
        {
-         $id = intval($row['id'], 10);
+         $id = intval($row['user_id'], 10);
        }
        return $id;
     }
