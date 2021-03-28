@@ -104,7 +104,6 @@ class Account
     	$hash = password_hash($passwd, PASSWORD_DEFAULT);
 
     	$values = array(':na' => $name, ':pwd' => $hash, ':en' => $enabled ? 'TRUE' : 'FALSE', ':id' => $id, ':fn' => $firstname, ':ln' => $lastname, ':email' => $email, ':roll'=>$roll);
-
     	try
     	{
     		$res = $pdo->prepare($query);
@@ -128,16 +127,12 @@ class Account
         }
         catch (PDOException $e)
         {
-      	   echo "Datenbankfehler beim Aufruf des Profils. </br>";
-      	   echo htmlspecialchars ($e->getMessage ());
-      	   die();
+      	   throw new Exception("Datenbankfehler beim Aufruf des Profils.<br/>".htmlspecialchars($e->getMessage()));
         }
         $row = $res->fetch(PDO::FETCH_ASSOC);
         if (!is_array($row))
         {
-      	   echo "Sie sind kein registrierter Nutzer. </br>";
-           $this->logout();
-      	   die();
+      	   throw new Exception("Datensatz in der Benutzertabelle konnte nicht gefunden werden.");
         }
         $row['member'] = 'other';
         $query = 'SELECT * FROM students WHERE (user_id = :id)';
