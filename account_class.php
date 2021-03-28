@@ -240,7 +240,7 @@ class Account
       {
          if (password_verify($passwd, $row['password']))
          {
-             $this->id = intval($row['id'], 10);
+             $this->id = intval($row['user_id'], 10);
              $this->name = $name;
              $this->authenticated = TRUE;
              $this->registerLoginSession();
@@ -297,7 +297,7 @@ class Account
     		*/
 
     		$query =
-    		'SELECT user_id, username FROM sessions, users WHERE (sessions.session_id = :sid) '.
+    		'SELECT users.user_id, username FROM sessions, users WHERE (sessions.session_id = :sid) '.
     		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.user_id = users.user_id) '.
     		'AND (users.enabled = TRUE)';
     		$values = array(':sid' => session_id());
@@ -309,14 +309,14 @@ class Account
     		}
     		catch (PDOException $e)
     		{
-    		   echo "Datenbankfehler beim Sessionlogin";
+    		   echo "Datenbankfehler beim Sessionlogin: ".$e->getMessage();
            exit;
     		}
 
     		$row = $res->fetch(PDO::FETCH_ASSOC);
     		if (is_array($row))
     		{
-    			$this->id = intval($row['id'], 10);
+    			$this->id = intval($row['user_id'], 10);
     			$this->name = $row['username'];
     			$this->authenticated = TRUE;
     			return TRUE;
@@ -435,7 +435,7 @@ class Account
        $row = $res->fetch(PDO::FETCH_ASSOC);
        if (is_array($row))
        {
-         $id = intval($row['id'], 10);
+         $id = intval($row['user_id'], 10);
        }
        return $id;
     }
