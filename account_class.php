@@ -144,9 +144,7 @@ class Account
         }
         catch (PDOException $e)
         {
-      	   echo "Datenbankfehler beim Aufruf des Profils. </br>";
-      	   echo htmlspecialchars ($e->getMessage ());
-      	   die();
+      	   throw new Exception("Datenbankfehler beim Aufruf des Profils. </br>".htmlspecialchars ($e->getMessage ()));
         }
         $row2 = $res->fetch(PDO::FETCH_ASSOC);
         if (is_array($row2))
@@ -162,9 +160,7 @@ class Account
         }
         catch (PDOException $e)
         {
-      	   echo "Datenbankfehler beim Aufruf des Profils. </br>";
-      	   echo htmlspecialchars ($e->getMessage ());
-      	   die();
+      	   throw new Exception("Datenbankfehler beim Aufruf des Profils. </br>".htmlspecialchars ($e->getMessage ()));
         }
         $row2 = $res->fetch(PDO::FETCH_ASSOC);
         if (is_array($row2))
