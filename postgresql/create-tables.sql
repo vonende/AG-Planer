@@ -43,9 +43,6 @@ account_id  INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CA
 logintime  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (username,password, enabled) VALUES ('admin','$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke',True);
-INSERT INTO teachers (shorthand,user_id) VALUES ('adm',(SELECT id FROM users WHERE username='admin'));
-
 GRANT ALL PRIVILEGES ON DATABASE ag_manager TO ag_admin;
 GRANT USAGE ON SCHEMA public TO ag_admin;
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO ag_admin;
