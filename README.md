@@ -46,8 +46,9 @@ Ja, siehe oben.
 ### Können Benutzer ohne Benutzername existieren?
 Nein, daher ist der Benutzername als NOT NULL gekennzeichnet. Man könnte ihn auch als Schlüssel verwenden, da er UNIQUE ist. So wäre aber eine Änderung des Benutzernamens durch den Benutzer schwierig, da man alle Einträge in der Datenbank, die diesen als Fremdschlüssel verwenden, ebenfalls ändern müsste.
 
-### Situation
+### Weltausschnitt
 Leiter bieten AGs an, SuS kommen am Schuljahresbeginn zum Vortreffen (keine Zweit- und Drittwünsche?), Leiter wählt SuS aus (was ist bei zu vielen SuS?).
 Leiter & SuS sind an den Terminen anwesend, an denen die AGs stattfinden (was ist bei Krankheit? Des Leiters?). Sie können sich auf dem AG-Portal mit einer Session anmelden.
 Leiter können dort AGs erstellen. Sie tragen die Anwesenheit dort ein.
-SuS können AGs sehen. (Und WunschAG angeben?) Sie können auch die Eintragung ihrer Anwesenheit prüfen (ihre Eltern auch, wenn sie Benutzername und Passwort kennen)
+SuS können AGs sehen. (Und WunschAG angeben?) Sie können auch die Eintragung ihrer Anwesenheit prüfen (ihre Eltern auch, wenn sie Benutzername und Passwort kennen).
+Klassenlehrer sehen die Anwesenheit und können bei entsprechend häufiger Anwesenheit einen Vermerk auf dem Zeugnis notieren.
