@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(-1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,13 +20,21 @@ if (!($account->sessionLogin())) {
 }
 
 // Benutzerdaten aus der Datenbank laden
-$row = $account->getAccountData();
-$username  = $row['username'];
-$firstname = $row['firstname'];
-$lastname  = $row['lastname'];
-$email     = $row['email'];
-$roll      = $row['roll'];
-$member    = $row['member'];
+try {
+	$row = $account->getAccountData();
+	$username  = $row['username'];
+	$firstname = $row['firstname'];
+	$lastname  = $row['lastname'];
+	$email     = $row['email'];
+	$roll      = is_string($row['roll']?$row['roll']:'');
+	$member    = is_string($row['member'])?$row['member']:'';
+}
+catch (Exception $e) {
+	echo '<div class="alert">';
+	echo 'Fehler beim Holen der Accountinfos. <br/>';
+	echo $e->getMessage();
+	echo '</div>';
+}
 
 // Falls das Formular sich selbst aufgerufen hat werden nun einige Dinge überprüft:
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -53,10 +62,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		echo "Bitte ein längeres Passwort wählen. Mindestens 8 Zeichen. <br/>";
 		echo '</div>';
 	} else {
-			$account->editAccount($account->getId(),$username,$pw,true,$firstname,$lastname,$email,$roll);
-			echo '<div class="confirm">';
-			echo "Die Daten wurden erfolgreich gespeichert. <br/>";
-			echo '</div>';
+			try {
+				$account->editAccount($account->getId(), $username, $pw, true, $firstname, $lastname, $email, $roll);
+				echo '<div class="confirm">';
+				echo "Die Daten wurden erfolgreich gespeichert. <br/>";
+				echo '</div>';
+			}
+			catch (Exception $e){
+				echo '<div class="alert">Ein Fehler ist aufgetreten.<br/>';
+				echo $e->getMessage();
+				echo '</div>';
+			}
 	}
 }
 ?>

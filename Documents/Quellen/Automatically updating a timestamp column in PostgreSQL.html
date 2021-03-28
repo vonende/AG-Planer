@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatically updating a timestamp column in PostgreSQL</title>
+  <meta name="google-site-verification" content="9Gxm1mE9DlsjjGW-e_ThwtIpe2Z67bV3S9FQgFzndwY" />
+  <link rel="apple-touch-icon" sizes="180x180" href="//www.revsys.com/static/icons/apple-touch-icon.10b562419492.png">
+  <link rel="icon" type="image/png" href=//www.revsys.com/static/icons/favicon-32x32.52cdfb81a952.png sizes="32x32">
+  <link rel="icon" type="image/png" href=//www.revsys.com/static/icons/favicon-16x16.d75462ec0fe9.png sizes="16x16">
+  <link rel="manifest" href="//www.revsys.com/static/icons/manifest.280524f104dd.json">
+  <link rel="mask-icon" href="//www.revsys.com/static/icons/safari-pinned-tab.c6ddd5def733.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="//www.revsys.com/static/icons/favicon.ce76a067cca9.ico">
+
+
+  <!-- Custom CSS using -->
+  <link href="//www.revsys.com/static/css/main.min.css" rel="stylesheet" property="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <meta name="application-name" content="REVSYS">
+  <meta name="msapplication-tooltip" content="REVSYS">
+  <meta name="apple-mobile-web-app-title" content="REVSYS">
+
+  <meta property="og:site_name" content="REVSYS">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="//www.revsys.com/static/icons/apple-touch-icon.10b562419492.png" />
+
+  <meta name="twitter:site" : content"@revsys">
+  <meta name="twitter:creator" content="@revsys">
+
+  
+  <meta property="og:title" content="Automatically updating a timestamp column in PostgreSQL">
+  <meta name="twitter:title" content="Automatically updating a timestamp column in PostgreSQL">
+  
+
+  
+  
+
+
+  
+  
+<link rel="alternate" type="application/rss+xml"
+  title="REVSYS Blog RSS Feed"
+  href="/blog/feeds/latest/" />
+
+
+  
+
+  <!-- Place favicon.ico in the root directory -->
+</head>
+
+<body class=" blog-article">
+  <header>
+    <div class="container">
+      <div class="flex-grid">
+        <div class="col">
+          <a href="/">
+            <img class="revsys-image" src="//www.revsys.com/static/images/2017/revsys_logo_white.png" alt="REVSYS" />
+          </a>
+        </div>
+        <div class="col nav-col">
+          <input type="checkbox" id="menu-toggle" class="menu-check"></input>
+          <label for="menu-toggle" class="label-toggle">
+            <span></span>
+          </label>
+          <div class="menu-ov"></div>
+          <ul class="nav">
+            <li><a href="/about/">About</a></li>
+            <li><a href="/impact/">Impact</a></li>
+            <li><a href="/products/">Products</a></li>
+            <li><a href="/tidbits/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+    <section class="article-mast">
+      <div class="article-header">
+        <div class="container80">
+          <meta>Tidbits  |  Aug. 4, 2006</meta>
+          <h1>
+          Automatically updating a timestamp column in PostgreSQL</h1>
+          
+          <author>by Frank Wiles | &nbsp; <a href="/tidbits/author/frankwiles/" style="color: white;">More posts by Frank</a></author>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="article-first">
+      <div class="container80">
+        <article itemscope itemtype="http://schema.org/Article">
+          <div class="block-markdown"><p>One of the great things about modern databases is you can let your database automate some of what used to only happen in application logic.  The example I love to show people is automatically updating a "last modified time" timestamp column in a table. </p>
+<p>This is easily accomplished if you always use the same name for those types of columns.  I like to use 'created' for the creation timestamp and 'modified' for the last modified time.  First we create a simple function: </p>
+<div class="codehilite"><pre><span></span>CREATE OR REPLACE FUNCTION update_modified_column() 
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.modified = now();
+    RETURN NEW; 
+END;
+$$ language &#39;plpgsql&#39;;
+</pre></div>
+
+
+<p>This function simply sets any column named 'modified' to the current timestamp for each row passed to it by the trigger. If you use the same column name consitently you only have to do this step once.  Now, you just have to create your trigger like so: </p>
+<div class="codehilite"><pre><span></span>CREATE TRIGGER update_customer_modtime BEFORE UPDATE ON customer FOR EACH ROW EXECUTE PROCEDURE  update_modified_column();
+</pre></div>
+
+
+<p>`</p>
+<p>This technique is very useful when you don't want to have to rely on your application developers to always remember to update the time stamps.  You can just let PostgreSQL handle it for you. </p>
+<p>You should note that you will have to create a separate trigger for each table, which isn't a big deal.  Also, the BEFORE UPDATE is very important.  If you attempt to use AFTER UPDATE you put yourself into an infinite loop!</p></div>
+          
+            <hr>
+            <p>
+              
+                <i class="fa fa-tag"></i> <a href="/tidbits/tag/postgresql/">postgresql</a> &nbsp;
+              
+            </p>
+          
+        </article>
+
+          
+      </div>
+    </section>
+
+    <section class="share-section">
+      <div class="share-box">
+        <ul>
+          <li>
+            <a href="https://twitter.com/home?status=From%20REVSYS:%20Automatically updating a timestamp column in PostgreSQL%20https://www.revsys.com/tidbits/automatically-updating-a-timestamp-column-in-postgresql/">
+              <img src="//www.revsys.com/static/images/2017/icon_twitter.png">
+            </a>
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://www.facebook.com/sharer/sharer.php?u=https://www.revsys.com//tidbits/automatically-updating-a-timestamp-column-in-postgresql/&amp;caption=hello"
+              >
+              <img src="//www.revsys.com/static/images/2017/icon_fb.png">
+
+            </a>
+          </li>
+          <li>
+            <a href="mailto:?subject=Automatically updating a timestamp column in PostgreSQL&body=From%20REVSYS:%20https://www.revsys.com/tidbits/automatically-updating-a-timestamp-column-in-postgresql/">
+              <img src="//www.revsys.com/static/images/2017/icon_email.png">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="hide" itemprop="description"></p>
+    <span itemprop="dateCreated" class="hide">2006-08-04T07:00:00</span>
+    <span itemprop="datePublished" class="hide">2006-08-04T07:00:00</span>
+    <span itemprop="dateModified" class="hide">2018-04-18T16:07:04.095317</span>
+    <span itemprop="copyrightYear" class="hide">2006</span>
+    <span itemprop="keywords" class="hide">postgresql</span>
+    
+
+  <footer>
+    <div class="container80">
+      <div class="together flex-grid">
+        <div class="col footer-image">
+        </div>
+        <div class="desktop-wrap--flex">
+          <div class="col footer-title">
+            <h3>Let’s work together.</h3>
+            <ul>
+              <li><a href="mailto:sales@revsys.com">sales@revsys.com</a></li>
+              <li><a href="/contact/">Contact us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="flex-grid desktop-flex-grid">
+        <div class="col footer-col">
+          <ul>
+            <li>
+              <h2>Services</h2>
+            </li>
+            <li><a href="/services/django/">Django</a></li>
+            <li><a href="/services/postgresql/">PostgreSQL</a></li>
+            <li><a href="/services/operations/">Operations</a></li>
+            <li><a href="/services/development/">Development</a></li>
+            <li><a href="/services/support/">Open Source</a></li>
+            <li><a href="/services/sysadmin/">Systems Admin</a></li>
+          </ul>
+        </div>
+        <div class="col footer-col">
+          <ul>
+            <li>
+              <h2>Products</h2>
+            </li>
+            <li><a href="/products/">Spectrum</a></li>
+            <li><a href="/products/">Open Source</a></li>
+          </ul>
+        </div>
+        <div class="col footer-col">
+          <ul>
+            <li>
+              <h2>Blog</h2>
+            </li>
+            <li><a href="/about/press/">News</a></li>
+            <li><a href="/tidbits/">Blog</a></li>
+            <li><a href="/writings/quicktips/">Quick Tips</a></li>
+            <li><a href="/talks/">Talks</a></li>
+            <li><a href="/writings/">Other</a></li>
+          </ul>
+        </div>
+        <div class="col footer-col about-col">
+          <ul>
+            <li>
+              <h2>About</h2>
+            </li>
+            <li><a href="/impact/">Case Studies</a></li>
+            <li><a href="/about/">Team</a></li>
+            <li><a href="/testimonials/">Testimonials</a></li>
+            <li><a href="/clients/">Clients</a></li>
+            <li><a href="/about/press/">Press</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col newsletter-col">
+          <div class="form-wrap">
+            <h2>Get Connected</h2>
+            <div>
+              <p><a href="http://eepurl.com/wBHg1">Signup for our newsletter for tips and tricks.</a></p>
+            </div>
+            <a href="https://www.facebook.com/revsysllc/"><img src="//www.revsys.com/static/images/2017/icon_fb.png" /></a>
+            <a href="https://twitter.com/revsys"><img src="//www.revsys.com/static/images/2017/icon_twitter.png" /></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>Have a comment or suggestion? <a href="mailto:comments@revsys.com">comments@revsys.com</a></p>
+        <p>©2002–2021 Revolution Systems, LLC. All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-1145759-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('send', 'pageview');
+  </script>
+  
+</body>
+
+</html>
