@@ -17,16 +17,19 @@ if (!($account->sessionLogin())) {
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body class="loggedin">
-		<nav class="navtop">
-			<h1>AG-Manager</h1>
-			<a href="profile.php">Profil</a>
-			<a href="logout.php">Logout</a>
-		</nav>
+		<?php require 'navbar.php'; ?>
 		<div class="content">
-			<h2>Deine AGs:</h2>
-			<?php
-				echo "<p>Du bist für keine AG eingetragen.</p>";
-			 ?>
+			<h2>Willkommen beim AG-Manager</h2>
+      <div>
+				<div>
+				Mit dieser App können
+				<ul>
+						<li>SchülerInnen sich über die aktuell angebotenen AGs informieren und einsehen, an welchen Terminen sie teilgenommen haben,</li>
+						<li>AG-LeiterInnen Informationen zu ihrer AG veröffentlichen, Teilnehmer verwalten und deren Anwesenheit dokumentieren,</li>
+						<li>Klassenlehrer sich über AG-Teilnahmen ihrer Schüler informieren zwecks Zeugnisvermerk.</li>
+				</ul>
+			</div>
+			</div>
 		</div>
 	</body>
 </html>

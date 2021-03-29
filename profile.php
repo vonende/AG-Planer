@@ -44,28 +44,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$lastname 	= $_POST['lastname'];
 	$email 			= $_POST['email'];
 
-	if ($pw!=$pw2) {
-		echo '<div class="alert">';
-		echo "Die Passwörter stimmen nicht überein! <br/>";
-		echo '</div>';
+	if ($pw!=$pw2) {?>
+		<div class="alert">
+			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+			<strong>Die Passwörter stimmen nicht überein!</strong>
+		</div>
+		<?php
 	} elseif ($username=="") { // Dieser Fall dürfte wegen "required" nie auftreten.
-		echo '<div class="alert">';
-		echo "Es muss ein Benutzername eingetragen werden. <br/>";
-		echo '</div>';
+?>
+		<div class="alert">
+			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+			<strong>Es muss ein Benutzername eingetragen werden.</strong>
+		</div>
+			<?php
 	} elseif ($pw=="") { // Dieser Fall dürfte wegen "required" nie auftreten.
 		echo '<div class="alert">';
 		echo "Es muss ein Passwort eingetragen werden. <br/>";
 		echo '</div>';
 	} elseif (!$account->isPasswdValid($pw)) {
-		echo '<div class="alert">';
-		echo "Bitte ein längeres Passwort wählen. Mindestens 8 Zeichen. <br/>";
-		echo '</div>';
+		?>
+				<div class="alert">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong>Bitte ein längeres Passwort wählen. Mindestens 8 Zeichen.</strong>
+				</div>
+		<?php
 	} else {
 			try {
 				$account->editAccount($account->getId(), $username, $pw, true, $firstname, $lastname, $email, $roll);
-				echo '<div class="confirm">';
-				echo "Die Daten wurden erfolgreich gespeichert. <br/>";
-				echo '</div>';
+				?>
+				<div class="confirm">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong>Die Daten wurden erfolgreich gespeichert.</strong>
+				</div>
+				<?php
 			}
 			catch (Exception $e){
 				echo '<div class="alert">Ein Fehler ist aufgetreten.<br/>';
@@ -77,11 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 	<body class="loggedin">
-		<nav class="navtop">
-			<h1><a href="home.php">AG-Manager</a></h1>
-			<a href="profile.php">Profil</a>
-			<a href="logout.php">Logout</a>
-		</nav>
+		<?php require 'navbar.php'; ?>
 		<div class="content">
 			<h2><?php echo $member=='student'?"Dein":"Ihr"?> Profil:</h2>
 			<?php
@@ -92,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <form method="post" action="profile.php" class="flexbox">
 				<div>
         	<label for="username">Benutzername</label><br>
-        	<input class="textinput" type="text" id="username" name="username" value="<?php echo $username ?>" required>
+        	<input type="text" id="username" name="username" value="<?php echo $username ?>" required>
 			  </div>
 
 				<div>

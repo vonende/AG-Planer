@@ -22,9 +22,12 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
    <body>
      <?php
        if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
-         echo '<div class="alert">';
-         echo "Fehlerhafte Eingabedaten <br/>";
-         echo '</div>';
+         ?>
+         <div class="alert">
+         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+         <strong>Fehlerhafte Eingabedaten</strong>
+         </div>
+         <?php
        }
       ?>
 

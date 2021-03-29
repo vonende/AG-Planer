@@ -9,6 +9,7 @@ try {
   die();
 }
 
+require 'config.php';
 
 function sanitize($data) {
   $data = trim($data);

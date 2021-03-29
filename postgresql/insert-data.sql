@@ -5,7 +5,11 @@ INSERT INTO teachers (shorthand,user_id) VALUES ('adm',(SELECT user_id FROM user
 
 /* AGs anlegen */
 INSERT INTO wgs (title, day, time, duration, max_num, multiple, schoolyear, description)
-VALUES ('Nähen',1,'15:00',90,10,TRUE,'2021/22','Wir nähen alle einen Teddybären.');
+VALUES
+('Nähen','Dienstag','15:00',90,10,FALSE,'2019/20','Wir nähen alle einen Teddybären.'),
+('Nähen','Montag','15:00',90,10,FALSE,'2020/21','Wir nähen alle einen Teddybären.'),
+('Schach','Montag','15:00',90,10,TRUE,'2020/21','Klassisches Schachspiel für jung und alt.'),
+('Basketball','Mittwoch','16:00',90,20,TRUE,'2020/21','Was gibt es da zu erklären?');
 
 
 /* Termine anlegen */
