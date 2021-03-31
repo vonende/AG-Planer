@@ -69,7 +69,8 @@ class Account
 
     // editAccount ändert die Daten für einen bestehenden Account
     // Es würd nur auf Gültigkeit hinsichtlich der Syntax geprüft.
-    public function editAccount(int $id, string $name, string $passwd, bool $enabled, string $firstname, string $lastname, string $email, string $roll)
+    public function editAccount(int $id, string $name, string $passwd, bool $enabled, string $firstname,
+    string $lastname, string $email, string $roll)
     {
     	global $pdo;
     	$name = sanitize($name);
@@ -116,6 +117,40 @@ class Account
     	}
     }
 
+    public function setTeacher(int $id, string $shorthand){
+      global $pdo;
+      if ($this->authenticated) {
+        $query = 'SELECT user_id FROM teachers WHERE (user_id = :id)';
+        $values = array(':id' => $id);
+        try
+        {
+      	   $res = $pdo->prepare($query);
+      	   $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+      	   throw new Exception("Datenbankfehler beim Suchen des Lehrerdatensatzes.<br/>".htmlspecialchars($e->getMessage()));
+        }
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+        if (is_array($row))
+        {
+          $query = 'UPDATE teachers SET shorthand = :sh WHERE user_id = :id';
+        } else {
+          $query = 'INSERT INTO teachers (user_id, shorthand) VALUES (:id, :sh)';
+        }
+        $values = array(':id' => $id, ':sh' => $shorthand);
+        try
+        {
+      	   $res = $pdo->prepare($query);
+      	   $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+      	   throw new Exception("Datenbankfehler beim Aktualisieren des Lehrerdatensatzes.<br/>".htmlspecialchars($e->getMessage()));
+        }
+      }
+    }
+
     public function getAccountData() {
       global $pdo;
       if ($this->authenticated) {
@@ -151,6 +186,8 @@ class Account
         if (is_array($row2))
         {
           $row['member'] = 'student';
+          $row['studentnumber'] = $row2['studentnumber'];
+          $row['class'] = $row2['class'];
         }
         $query = 'SELECT * FROM teachers WHERE (user_id = :id)';
         $values = array(':id' => $this->id);
@@ -167,6 +204,7 @@ class Account
         if (is_array($row2))
         {
           $row['member'] = 'teacher';
+          $row['shorthand'] = $row2['shorthand'];
         }
       } else {
         header('Location: authenticate.php');

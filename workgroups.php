@@ -20,11 +20,16 @@ if (!($account->sessionLogin())) {
 		<?php require 'navbar.php'; ?>
     <?php require 'navworkgroups.php' ?>
 		<div class="content">
-			<h2>AGs</h2>
+			<h2>Alle Arbeitsgemeinschaften auf einen Blick</h2>
+      <div>
+        Ein Klick auf einen AG-Titel öffnet das zugehörige Infofeld. Ein Klick auf das geöffnete Infofeld schließt dieses wieder.
+      <br>
+        Diese Tabelle ist rein informativ. Es können keine Plätze reserviert werden. Nähere Infos zur Teilnahme erhält man vom jeweiligen AG-Leiter.
+      </div>
       <div>
 
 <?php
-$query = 'SELECT * FROM wgs WHERE schoolyear = :sy';
+$query = 'SELECT * FROM wgs WHERE schoolyear = :sy ORDER BY day, time, title ASC';
 $values = array(':sy' => $schoolyear);
 
 try
@@ -62,7 +67,7 @@ foreach ($aglist as $row) {
   <td onclick="document.getElementById('row$count').style.display='table-row';" style="cursor: pointer; font-weight: bold;"> {$row['title']} </td>
   <td> {$row['day']} </td>
   <td> {$row['time']} </td>
-  <td> {$row['duration']} </td>
+  <td> {$row['duration']} min</td>
   <td> $max </td>
   <td> $mul </td>
   </tr>
