@@ -143,6 +143,10 @@ class Account
         {
       	   $res = $pdo->prepare($query);
       	   $res->execute($values);
+           $query = 'DELETE FROM students WHERE user_id = :id';
+           $values = array(':id' => $id);
+           $res = $pdo->prepare($query);
+      	   $res->execute($values);
         }
         catch (PDOException $e)
         {

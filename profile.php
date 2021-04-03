@@ -25,14 +25,17 @@ try {
 	$firstname = $row['firstname'];
 	$lastname  = $row['lastname'];
 	$email     = $row['email'];
-	$roll      = is_string($row['roll']?$row['roll']:'');
-	$member    = is_string($row['member'])?$row['member']:'';
+	$roll      = $row['roll'];
+	$member    = $row['member'];
 }
 catch (Exception $e) {
-	echo '<div class="alert">';
-	echo 'Fehler beim Holen der Accountinfos. <br/>';
-	echo $e->getMessage();
-	echo '</div>';
+	?>
+	<div class="alert">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		<strong>Fehler beim Holen der Accountinfos. <br></strong>
+		<?php echo $e->getMessage();?>
+	</div>
+	<?php
 }
 
 // Falls das Formular sich selbst aufgerufen hat werden nun einige Dinge überprüft:
@@ -68,6 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<strong>Bitte ein längeres Passwort wählen. Mindestens 8 Zeichen.</strong>
 				</div>
 		<?php
+	} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			echo '<div class="alert">';
+			echo "Das Format der E-Mail-Adresse stimmt nicht. <br/>";
+			echo '</div>';
 	} else {
 			try {
 				$account->editAccount($account->getId(), $username, $pw, true, $firstname, $lastname, $email, $roll);

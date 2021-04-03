@@ -209,11 +209,15 @@ body.loggedin {
   width: 100%;
 }
 
-.content input {
+.content input, .content select {
   width: 400px;
   height: 50px;
   margin-bottom: 20px;
   margin-top: 10px;
+}
+
+.content input[type="checkbox"]{
+  width: 50px;
 }
 
 .content ul > li, .content ol > li {

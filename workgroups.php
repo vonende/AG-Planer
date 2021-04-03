@@ -31,18 +31,18 @@ if (!($account->sessionLogin())) {
 <?php
 $query = 'SELECT * FROM wgs WHERE schoolyear = :sy ORDER BY day, time, title ASC';
 $values = array(':sy' => $schoolyear);
-
+$aglist = array();
 try
 {
   $res = $pdo->prepare($query);
   $res->execute($values);
+	$aglist = $res->fetchAll(PDO::FETCH_ASSOC);
 }
 catch (PDOException $e)
 {
   echo 'Abfragefehler bei Ermittlung der AG-Liste des aktuellen Schuljahres.';
 }
 
-$aglist = $res->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div>
 <table>
