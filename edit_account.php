@@ -8,17 +8,8 @@ if (!($account->sessionLogin())) {
 	exit;
 }
 
-// Im Array $row werden die aktuellen Accountdaten hinterlegt.
-try {
-  $row = $account->getAccountData();
-}
-catch (Exception $e){
-  echo $e->getMessage();
-  exit;
-}
-
 // Wenn ein Nicht-Admin versucht, diese Seite aufzurufen, wird er weggeschickt.
-if ($row['roll']!='admin') {
+if ($account->getRoll()!='admin') {
   header('Location: home.php');
   exit;
 }
@@ -44,13 +35,27 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
   }
 }
 
-if (!isset($_GET['id']) && !isset($_POST['id'])) {
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+} else if (isset($_POST['id'])) {
+	$id = $_POST['id'];
+} else {
   header('Location: administration.php');
   exit;
 }
 
-$row = $account->getAccountData();
+try{
+	$row = $account->getAccountData($id);
+}
+catch (Exception $e) {
+	?>
+	<div class="alert">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		<strong><?php echo $e->getMessage();?></strong>
 
+	</div>
+	<?php
+}
 
 ?>
 
@@ -88,12 +93,12 @@ $row = $account->getAccountData();
 
 				<div>
         	<label for="firstname">Vorname</label><br>
-        	<input type="text" id="firstname" name="firstname" value="<?php echo $row['firstname']; ?>" placeholder="Vorname...">
+        	<input type="text" id="firstname" name="firstname" value="<?php echo $row['firstname']; ?>" placeholder="Vorname..." required>
 				</div>
 
 				<div>
         	<label for="lastname">Nachname</label><br>
-        	<input type="text" id="lastname" name="lastname" value="<?php echo $row['lastname']; ?>" placeholder="Nachname...">
+        	<input type="text" id="lastname" name="lastname" value="<?php echo $row['lastname']; ?>" placeholder="Nachname..." required>
 				</div>
 
 				<div>
@@ -122,7 +127,7 @@ $row = $account->getAccountData();
         	<input type="submit" value="Speichern">
         </div>
         <div>
-          <input type="button" value="Zurück">
+          <input type="button" value="Zurück" onclick="window.location.href='administration.php'">
         </div>
       </div>
       </form>

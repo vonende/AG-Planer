@@ -24,14 +24,26 @@ class Account
     private   $id;            // ID des eingeloggten Users
     private   $name;          // Benutzername des eingeloggten Users
     private   $authenticated; // True, wenn sich der Benutzer authentifiziert hat
-
+    private   $roll;
     // Fügt der Datenbank einen neuen Benutzer hinzu.
-    public function addAccount(string $name, string $passwd): int
+    public function addAccount(string $name, string $passwd, bool $enabled, string $firstname,
+    string $lastname, string $email, string $roll): int
     {
       global $pdo;  // Objekt für Datenbankanbindung
 
       $name   = sanitize($name);
 	    $passwd = sanitize($passwd);
+      $email = sanitize($email);
+      $firstname = stripslashes(htmlspecialchars($firstname));
+      $lastname = stripslashes(htmlspecialchars($lastname));
+
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL) && $email!='') {
+        throw new Exception("Ungültiges E-Mail-Format");
+      }
+
+      if (!($roll=='user' || $roll=='admin' || $roll=='viewer' || $roll=='editor')) {
+        throw new Exception('Ungültige Rolle');
+      }
 
 	    if (!$this->isNameValid($name))
 	    {
@@ -48,11 +60,11 @@ class Account
 		     throw new Exception('Der Benutzename ist bereits vergeben');
 	    }
 
-	    $query = 'INSERT INTO users (username, password) VALUES (:name, :passwd)';
+	    $query = 'INSERT INTO users (username, password, firstname, lastname, email, roll, enabled) VALUES (:na, :pw, :fn, :ln, :em, :ro, :en)';
 
 	    $hash = password_hash($passwd, PASSWORD_DEFAULT);
 
-      $values = array(':name' => $name, ':passwd' => $hash);
+      $values = array(':na' => $name, ':pw' => $hash, ':fn'=>$firstname, ':ln'=>$lastname, ':em'=>$email, ':ro'=>$roll, ':en'=>$enabled);
 
       try
       {
@@ -61,7 +73,7 @@ class Account
       }
       catch (PDOException $e)
       {
-        throw new Exception('Abfragefehler in der Datenbank');
+        throw new Exception('Datenbankfehler beim Hinzufügen des Accounts: '.$e->getMessage());
       }
 
       return $pdo->lastInsertId();
@@ -155,11 +167,11 @@ class Account
       }
     }
 
-    public function getAccountData() {
+    public function getAccountData(int $id) {
       global $pdo;
       if ($this->authenticated) {
         $query = 'SELECT * FROM users WHERE (user_id = :id)';
-        $values = array(':id' => $this->id);
+        $values = array(':id' => $id);
         try
         {
       	   $res = $pdo->prepare($query);
@@ -176,7 +188,7 @@ class Account
         }
         $row['member'] = 'other';
         $query = 'SELECT * FROM students WHERE (user_id = :id)';
-        $values = array(':id' => $this->id);
+        $values = array(':id' => $id);
         try
         {
       	   $res = $pdo->prepare($query);
@@ -194,7 +206,7 @@ class Account
           $row['class'] = $row2['class'];
         }
         $query = 'SELECT * FROM teachers WHERE (user_id = :id)';
-        $values = array(':id' => $this->id);
+        $values = array(':id' => $id);
         try
         {
       	   $res = $pdo->prepare($query);
@@ -266,7 +278,7 @@ class Account
     		return FALSE;
     	}
       */
-    	$query = 'SELECT user_id, username, password FROM users WHERE (username = :name) AND (enabled = TRUE)';
+    	$query = 'SELECT user_id, username, password, roll FROM users WHERE (username = :name) AND (enabled = TRUE)';
     	$values = array(':name' => $name);
     	try
     	{
@@ -286,6 +298,7 @@ class Account
              $this->id = intval($row['user_id'], 10);
              $this->name = $name;
              $this->authenticated = TRUE;
+             $this->roll = $row['roll'];
              $this->registerLoginSession();
              return TRUE;
          }
@@ -340,7 +353,7 @@ class Account
     		*/
 
     		$query =
-    		'SELECT users.user_id, username FROM sessions, users WHERE (sessions.session_id = :sid) '.
+    		'SELECT users.user_id, username, roll FROM sessions, users WHERE (sessions.session_id = :sid) '.
     		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.user_id = users.user_id) '.
     		'AND (users.enabled = TRUE)';
     		$values = array(':sid' => session_id());
@@ -362,6 +375,7 @@ class Account
     			$this->id = intval($row['user_id'], 10);
     			$this->name = $row['username'];
     			$this->authenticated = TRUE;
+          $this->roll = $row['roll'];
     			return TRUE;
     		}
     	}
@@ -454,6 +468,12 @@ class Account
       return $this->id;
     }
 
+    public function getRoll(): string
+    {
+      return $this->roll;
+    }
+
+
 
 // getIdFromName gibt die ID des Accounts zurück oder NULL, falls dieser nicht existiert
     public function getIdFromName(string $name): ?int
@@ -496,6 +516,7 @@ class Account
       $this->id = NULL;
       $this->name = NULL;
       $this->authenticated = FALSE;
+      $this->roll = NULL;
     }
 
     public function __destruct()

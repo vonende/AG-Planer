@@ -8,17 +8,8 @@ if (!($account->sessionLogin())) {
 	exit;
 }
 
-// Im Array $row werden die aktuellen Accountdaten hinterlegt.
-try {
-  $row = $account->getAccountData();
-}
-catch (Exception $e){
-  echo $e->getMessage();
-  exit;
-}
-
 // Wenn ein Nicht-Admin versucht, diese Seite aufzurufen, wird er weggeschickt.
-if ($row['roll']!='admin') {
+if ($account->getRoll()!='admin') {
   header('Location: home.php');
   exit;
 }

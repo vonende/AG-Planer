@@ -20,7 +20,7 @@ if (!($account->sessionLogin())) {
 
 // Benutzerdaten aus der Datenbank laden
 try {
-	$row = $account->getAccountData();
+	$row = $account->getAccountData($account->getId());
 	$username  = $row['username'];
 	$firstname = $row['firstname'];
 	$lastname  = $row['lastname'];
@@ -121,12 +121,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<div>
         	<label for="firstname">Vorname</label><br>
-        	<input type="text" id="firstname" name="firstname" value="<?php echo $firstname ?>" placeholder="Vorname...">
+        	<input type="text" id="firstname" name="firstname" value="<?php echo $firstname ?>" placeholder="Vorname..." required>
 				</div>
 
 				<div>
         	<label for="lastname">Nachname</label><br>
-        	<input type="text" id="lastname" name="lastname" value="<?php echo $lastname ?>" placeholder="Nachname...">
+        	<input type="text" id="lastname" name="lastname" value="<?php echo $lastname ?>" placeholder="Nachname..." required>
 				</div>
 
 				<div>

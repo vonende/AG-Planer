@@ -14,12 +14,12 @@ CREATE TYPE weekday AS ENUM ('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Fr
 
 CREATE TABLE IF NOT EXISTS users (
 user_id		SERIAL PRIMARY KEY,
-firstname		VARCHAR(30),
-lastname	VARCHAR(30),
+firstname		VARCHAR(30) NOT NULL,
+lastname	VARCHAR(30) NOT NULL,
 username	VARCHAR(30) UNIQUE NOT NULL,
 password	VARCHAR(255) NOT NULL,
 email		VARCHAR(100),
-roll		VARCHAR(10) DEFAULT 'user',
+roll		VARCHAR(6) DEFAULT 'user' CHECK (roll='admin' OR roll='viewer' OR roll='editor' OR roll='user'),
 registrationtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 enabled BOOLEAN NOT NULL DEFAULT TRUE,
 last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
@@ -110,7 +110,9 @@ CREATE TABLE IF NOT EXISTS participate (
 GRANT ALL PRIVILEGES ON DATABASE ag_manager TO ag_admin;
 GRANT USAGE ON SCHEMA public TO ag_admin;
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO ag_admin;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ag_admin;
 
 GRANT CONNECT ON DATABASE ag_manager TO ag_user;
 GRANT USAGE ON SCHEMA public TO ag_user;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO ag_user;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO ag_user;

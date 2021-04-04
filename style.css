@@ -220,6 +220,26 @@ body.loggedin {
   width: 50px;
 }
 
+.content input[type="submit"]{
+  color: white;
+  background-color: #00AA00;
+  cursor: pointer;
+}
+
+.content input[type="submit"]:hover{
+  background-color: #008800;
+}
+
+.content input[type="button"]{
+  color: white;
+  background-color: #CC0000;
+  cursor: pointer;
+}
+
+.content input[type="button"]:hover{
+  background-color: #AA0000;
+}
+
 .content ul > li, .content ol > li {
   padding: 5px 0;
 }
