@@ -58,3 +58,4 @@ Nein, daher ist der Benutzername als NOT NULL gekennzeichnet. Man könnte ihn au
 
 ## TODO
 ### Laut Teilaufgabe d) des Datenbankenpraktikums sollen u.a. "abstrakte Wertebereiche" angegeben werden. Ich habe Herker eine Mail geschrieben und gefragt, ob er da mehr als Nat bzw. String sehen möchte und wenn ja, was (Date, Float etc.?).
+Wir können die SQL-Domains nehmen (was ich auch schon getan habe.
