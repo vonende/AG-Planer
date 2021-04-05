@@ -34,6 +34,8 @@
 
 ## Diskussion
 
+### Das Attribut email bei users könnte auch unique, sein, oder?
+
 ### Der Trigger auf last_update bewirkt ja nur dann eine Aktualisierung, wenn in der Users Tabelle etwas geändert wird. Das soll uns ja helfen, "Karteileichen" zu löschen, oder? Wie würde das genau ablaufen? Ist mir nicht ganz klar...
 
 ### @Rayk: Warum wollten wir die Tabelle "others" nochmal rauslassen? (Weil sie z.Zt. auskommentiert ist.) - Hatten wir, glaub ich, mal besprochen, aber mir fällt's nicht mehr ein.
