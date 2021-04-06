@@ -16,6 +16,9 @@ if ($account->getRoll()!='admin') {
 
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
   try {
+		if ($_POST['password']!=$_POST['password2']) {
+			throw new Exception('Die Passwörter stimmen nicht überein.');
+		}
     $account->editAccount($_POST['id'], $_POST['username'],$_POST['password'], isset($_POST['enabled'])?true:false, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['roll']);
 ?>
     <div class="confirm">
@@ -28,8 +31,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     ?>
     <div class="alert">
       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      <strong>Fehler beim Editieren des Accounts. <br/></strong>
-      <?php echo $e->getMessage();?>
+      <strong>Fehler beim Editieren des Accounts: <?php echo $e->getMessage();?></strong>
     </div>
     <?php
   }
@@ -83,12 +85,12 @@ catch (Exception $e) {
 
 				<div>
         	<label for="password">Passwort</label><br>
-        	<input type="password" id="password" name="password" placeholder="Passwort..." required>
+        	<input type="password" id="password" name="password" placeholder="Passwort...">
 			  </div>
 
 				<div>
         	<label for="password">Passwort (Wiederholung)</label><br>
-        	<input type="password" id="password2" name="password2" placeholder="Passwort..." required>
+        	<input type="password" id="password2" name="password2" placeholder="Passwort...">
 				</div>
 
 				<div>

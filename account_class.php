@@ -91,40 +91,40 @@ class Account
       $firstname = stripslashes(htmlspecialchars($firstname));
       $lastname = stripslashes(htmlspecialchars($lastname));
 
-    	if (!$this->isIdValid($id))
-    	{
+    	if (!$this->isIdValid($id)) {
     		throw new Exception('Ungültige Benutzer-ID');
     	}
 
-    	if (!$this->isNameValid($name))
-    	{
+    	if (!$this->isNameValid($name)) {
     		throw new Exception('Ungültiger Benutzername');
     	}
 
-    	if (!$this->isPasswdValid($passwd))
-    	{
-    		throw new Exception('Ungültiges Passwort');
+    	if (!$this->isPasswdValid($passwd) && $passwd!='') {
+    		throw new Exception('Ungültiges Passwort (mind. 8 Zeichen)');
     	}
 
     	$idFromName = $this->getIdFromName($name);
 
-    	if (!is_null($idFromName) && ($idFromName != $id))
-    	{
+    	if (!is_null($idFromName) && ($idFromName != $id)) {
     		throw new Exception('Der Benutzername ist schon vergeben');
     	}
 
-    	$query = 'UPDATE users SET username = :na, password = :pwd, enabled = :en, firstname = :fn, lastname = :ln, email = :email, roll = :roll WHERE user_id = :id';
+      // Lässt man das Passwortfeld leer, so wird das alte Passwort beibehalten.
+      // Der Hash in der Datenbank bleibt dann unverändert.
+      if ($passwd=='') {
+        $query = 'UPDATE users SET username = :na, enabled = :en, firstname = :fn, lastname = :ln, email = :email, roll = :roll WHERE user_id = :id';
+      	$values = array(':na' => $name, ':en' => $enabled ? 'TRUE' : 'FALSE', ':id' => $id, ':fn' => $firstname, ':ln' => $lastname, ':email' => $email, ':roll'=>$roll);
+      } else {
+        $query = 'UPDATE users SET username = :na, password = :pwd, enabled = :en, firstname = :fn, lastname = :ln, email = :email, roll = :roll WHERE user_id = :id';
+      	$hash = password_hash($passwd, PASSWORD_DEFAULT);
+      	$values = array(':na' => $name, ':pwd' => $hash, ':en' => $enabled ? 'TRUE' : 'FALSE', ':id' => $id, ':fn' => $firstname, ':ln' => $lastname, ':email' => $email, ':roll'=>$roll);
+      }
 
-    	$hash = password_hash($passwd, PASSWORD_DEFAULT);
-
-    	$values = array(':na' => $name, ':pwd' => $hash, ':en' => $enabled ? 'TRUE' : 'FALSE', ':id' => $id, ':fn' => $firstname, ':ln' => $lastname, ':email' => $email, ':roll'=>$roll);
-    	try
-    	{
+    	try {
     		$res = $pdo->prepare($query);
     		$res->execute($values);
     	}
-    	catch (PDOException $e)
-    	{
+    	catch (PDOException $e) {
     	   throw new Exception('Datenbankfehler beim Ändern der Benutzerdaten');
     	}
     }
