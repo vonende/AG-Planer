@@ -132,6 +132,17 @@ class Account
     public function setTeacher(int $id, string $shorthand){
       global $pdo;
       if ($this->authenticated) {
+        $shorthand = sanitize($shorthand);
+        $query = 'INSERT INTO teachers (user_id, shorthand) VALUES (:id, :sh)';
+        $values = array(':id' => $id, ':sh' => $shorthand);
+        try {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+        }
+        catch (PDOException $e) {
+          throw new Exception("Datenbankfehler beim Einfügen des Lehrerkürzels.");
+        }
+/*
         $query = 'SELECT user_id FROM teachers WHERE (user_id = :id)';
         $values = array(':id' => $id);
         try
@@ -150,8 +161,7 @@ class Account
         } else {
           $query = 'INSERT INTO teachers (user_id, shorthand) VALUES (:id, :sh)';
         }
-        $values = array(':id' => $id, ':sh' => $shorthand);
-        try
+c        try
         {
       	   $res = $pdo->prepare($query);
       	   $res->execute($values);
@@ -163,6 +173,23 @@ class Account
         catch (PDOException $e)
         {
       	   throw new Exception("Datenbankfehler beim Aktualisieren des Lehrerdatensatzes.<br/>".htmlspecialchars($e->getMessage()));
+        }*/
+      }
+    }
+
+    public function setStudent(int $id, string $class, string $number){
+      global $pdo;
+      if ($this->authenticated) {
+        $class  = sanitize($class);
+        $number = sanitize($number);
+        $query = 'INSERT INTO students (user_id, class, studentnumber) VALUES (:id, :cl, :sn)';
+        $values = array(':id' => $id, ':cl' => $class, ':sn' => $number);
+        try {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+        }
+        catch (PDOException $e) {
+          throw new Exception("Datenbankfehler beim Einfügen der Schülernummer und der Klasse.");
         }
       }
     }
