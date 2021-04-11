@@ -1,31 +1,34 @@
 <?php
 session_start();
-
 require 'account_class.php';
 if ( isset($_POST['user'], $_POST['pwd']) ) {
-  if ($account->login($_POST["user"], $_POST["pwd"]))
-  {
-    header("Location: home.php");
-    exit;
+  try {
+  	$ok = $account->login($_POST["user"], $_POST["pwd"]);
+    if ($ok)
+    {
+      header("Location: home.php");
+      exit;
+    }
+  }
+  catch (Exception $e) {
+    echo $e->getMessage();
   }
 }
- ?>
- <!DOCTYPE html>
- <html>
-   <head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 		<link rel="stylesheet" href="style.css" type="text/css">
-     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-   </head>
-
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
    <body>
      <?php
        if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
          ?>
          <div class="alert">
          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-         <strong>Fehlerhafte Eingabedaten</strong>
+         <strong>Loginfehler</strong>
          </div>
          <?php
        }

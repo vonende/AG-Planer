@@ -326,7 +326,7 @@ c        try
     		return FALSE;
     	}
       */
-    	$query = 'SELECT user_id, username, password, roll FROM users WHERE (username = :name) AND (enabled = TRUE)';
+    	$query = 'SELECT user_id, username, password, roll, enabled FROM users WHERE (username = :name)';
     	$values = array(':name' => $name);
     	try
     	{
@@ -335,12 +335,16 @@ c        try
     	}
     	catch (PDOException $e)
     	{
-    	   echo "Datenbankfehler beim Login";
+    	   throw new Exception("Datenbankfehler beim Login");
          exit;
       }
+
       $row = $res->fetch(PDO::FETCH_ASSOC);
       if (is_array($row))
       {
+        if (!$row['enabled']) {
+          throw new Exception('Der Account ist gesperrt. Bitte an einen Administrator wenden.');
+        }
          if (password_verify($passwd, $row['password']))
          {
              $this->id = intval($row['user_id'], 10);
@@ -376,9 +380,7 @@ c        try
     		}
     		catch (PDOException $e)
     		{
-    		   echo "Datenbankfehler beim Setzen der Session während des Logins\n";
-           echo $e->getMessage(), "\n";
-           exit;
+    		   throw new Exception("Datenbankfehler beim Setzen der Session während des Logins\n".$e->getMessage());
     		}
     	}
     }
@@ -401,9 +403,8 @@ c        try
     		*/
 
     		$query =
-    		'SELECT users.user_id, username, roll FROM sessions, users WHERE (sessions.session_id = :sid) '.
-    		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.user_id = users.user_id) '.
-    		'AND (users.enabled = TRUE)';
+    		'SELECT users.user_id, username, roll, enabled FROM sessions, users WHERE (sessions.session_id = :sid) '.
+    		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.user_id = users.user_id)';
     		$values = array(':sid' => session_id());
 
         try
@@ -420,6 +421,9 @@ c        try
     		$row = $res->fetch(PDO::FETCH_ASSOC);
     		if (is_array($row))
     		{
+          if (!$row['enabled']){
+            throw new Exception('Der Account ist gesperrt. Bitte an einen Administrator wenden.');
+          }
     			$this->id = intval($row['user_id'], 10);
     			$this->name = $row['username'];
     			$this->authenticated = TRUE;
@@ -442,7 +446,7 @@ c        try
     	$this->id = NULL;
     	$this->name = NULL;
     	$this->authenticated = FALSE;
-    	if (session_status() == PHP_SESSION_ACTIVE)
+    	if (session_status() === PHP_SESSION_ACTIVE)
     	{
     		$query = 'DELETE FROM sessions WHERE (session_id = :sid)';
     		$values = array(':sid' => session_id());
@@ -455,8 +459,7 @@ c        try
     		}
     		catch (PDOException $e)
     		{
-    		   echo 'Datenbankfehler beim Logout';
-           die();
+    		   throw new Exception('Datenbankfehler beim Logout <br>'.$e->getMessage());
     		}
     	}
     }

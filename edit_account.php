@@ -3,16 +3,34 @@ session_start();
 require 'account_class.php';
 
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
-if (!($account->sessionLogin())) {
-	header('Location: authenticate.php');
-	exit;
-}
+require 'try_sessionlogin.php';
 
 // Wenn ein Nicht-Admin versucht, diese Seite aufzurufen, wird er weggeschickt.
 if ($account->getRoll()!='admin') {
   header('Location: home.php');
   exit;
 }
+
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+} else if (isset($_POST['id'])) {
+	$id = $_POST['id'];
+} else {
+  header('Location: administration.php');
+  exit;
+}
+
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>AG-Manager</title>
+		<link href="style.css" rel="stylesheet" type="text/css">
+	</head>
+<?php
+
 
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
   try {
@@ -37,15 +55,6 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
   }
 }
 
-if (isset($_GET['id'])) {
-	$id = $_GET['id'];
-} else if (isset($_POST['id'])) {
-	$id = $_POST['id'];
-} else {
-  header('Location: administration.php');
-  exit;
-}
-
 try{
 	$row = $account->getAccountData($id);
 }
@@ -60,15 +69,6 @@ catch (Exception $e) {
 }
 
 ?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>AG-Manager</title>
-		<link href="style.css" rel="stylesheet" type="text/css">
-	</head>
 
   <body class="loggedin">
     <?php require 'navbar.php'; require 'navadministration.php';?>

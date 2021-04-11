@@ -1,13 +1,10 @@
 <?php
 session_start();
 require 'account_class.php';
-// If the user is not logged in redirect to the login page...
-if (!($account->sessionLogin())) {
-	header('Location: authenticate.php');
-	exit;
-}
-?>
 
+// Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
+require 'try_sessionlogin.php';
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,6 +13,7 @@ if (!($account->sessionLogin())) {
 		<title>AG-Manager</title>
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
+
 	<body class="loggedin">
 		<?php require 'navbar.php'; ?>
 		<div class="content">

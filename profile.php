@@ -1,5 +1,10 @@
 <?php
 session_start();
+require 'account_class.php';
+
+// Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
+require 'try_sessionlogin.php';
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,13 +15,6 @@ session_start();
 	<link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <?php
-require 'account_class.php';
-
-// If the user is not logged in redirect to the login page...
-if (!($account->sessionLogin())) {
-	header('Location: authenticate.php');
-	exit;
-}
 
 // Benutzerdaten aus der Datenbank laden
 try {
@@ -86,9 +84,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<?php
 			}
 			catch (Exception $e){
-				echo '<div class="alert">Ein Fehler ist aufgetreten.<br/>';
-				echo $e->getMessage();
-				echo '</div>';
+				?>
+				<div class="alert">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong>Ein Fehler ist aufgetreten.<br/><?php echo $e->getMessage(); ?></strong>
+				</div>
+				<?php
 			}
 	}
 }
