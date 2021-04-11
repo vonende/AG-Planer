@@ -49,6 +49,7 @@ catch (PDOException $e)
   <thead>
   <tr>
     <th>Titel</th>
+		<th>Leiter</th>
     <th>Wochentag</th>
     <th>Uhrzeit</th>
     <th>Dauer</th>
@@ -60,11 +61,13 @@ catch (PDOException $e)
 <?php
 $count = 0;
 foreach ($aglist as $row) {
+	$leiter = getLeaders($row['wg_id']);
   $max = ($row['max_num']==0)?'keins':(string)$row['max_num'];
   $mul = $row['multiple']?'ja':'nein';
   echo <<<EOF
   <tr>
   <td onclick="document.getElementById('row$count').style.display='table-row';" style="cursor: pointer; font-weight: bold;"> {$row['title']} </td>
+	<td> $leiter </td>
   <td> {$row['day']} </td>
   <td> {$row['time']} </td>
   <td> {$row['duration']} min</td>
@@ -72,7 +75,7 @@ foreach ($aglist as $row) {
   <td> $mul </td>
   </tr>
   <tr id="row$count" style="display: none; cursor: pointer;" onclick="this.style.display='none';">
-    <td colspan="6"> {$row['description']} </td>
+    <td colspan="7"> {$row['description']} </td>
   </tr>
 EOF;
 $count++;

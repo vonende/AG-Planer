@@ -1,9 +1,17 @@
 /* Anlegen eines Testaccounts namens admin mit dem Passwort admin */
-INSERT INTO users (username,password, enabled, roll) VALUES
-('admin','$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke',True,'admin');
-INSERT INTO teachers (shorthand,user_id) VALUES
-('adm',(SELECT user_id FROM users WHERE username='admin'));
+INSERT INTO users (username,password,firstname,lastname,enabled,roll) VALUES
+('admin'         ,'$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke','Adam'  ,'Adler', True,'admin'),
+('sonnenschein'  ,'$2y$10$sQYHCXBpamR9d.p//7j6Fe9a9mtJpsp4tB66ftr1drr9jhxxk8jA.','Edwin' ,'Edison',True,'editor'),
+('herbstnebel'   ,'$2y$10$dD2.3nwlnewnqX/MgpczjOJgMka2k7y6ijKMQoBNvUOqyBw4JG/XO','Viki'  ,'Vigor', True,'viewer'),
+('frühlingsblume','$2y$10$CjCqCHAmXn4Ymlc0VaA11eBkeOMS8qwuLtc089BKSoTmrv6nPGqhW','Uschi' ,'Usus',  True,'user');
 
+INSERT INTO teachers (shorthand,user_id) VALUES
+('adm',(SELECT user_id FROM users WHERE username='admin')),
+('edi',(SELECT user_id FROM users WHERE username='sonnenschein')),
+('vig',(SELECT user_id FROM users WHERE username='herbstnebel'));
+
+INSERT INTO students (class, studentnumber, user_id) VALUES
+('7a','usus01',(SELECT user_id FROM users WHERE username='frühlingsblume'));
 
 /* AGs anlegen */
 INSERT INTO wgs (title, day, time, duration, max_num, multiple, schoolyear, description)
@@ -16,6 +24,14 @@ VALUES
 ('Chemie','Dienstag','16:00',90,8,TRUE,'2020/21','Experimente, die Puffen und Stinken.'),
 ('Basketball','Mittwoch','16:00',90,20,TRUE,'2020/21','Was gibt es da zu erklären?');
 
+INSERT INTO lead (user_id, wg_id) VALUES
+(2,1),(2,2),(4,3),(2,3);
+
+INSERT INTO participate (user_id,wg_id,schoolyear) VALUES
+(4,1,'2019/20'),(4,2,'2020/21'),(4,6,'2020/21');
+
+INSERT INTO present (event_id,user_id) VALUES
+(1,4),(2,4),(3,4);
 
 /* Termine anlegen */
 INSERT INTO events (date, time, duration, annotation, wg_id)

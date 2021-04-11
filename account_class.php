@@ -18,6 +18,27 @@ function sanitize($data) {
   return $data;
 }
 
+function getLeaders(int $id):string {
+  global $pdo;
+  $query = 'SELECT users.lastname FROM lead, users WHERE lead.wg_id = :id AND lead.user_id = users.user_id ORDER BY lastname ASC';
+  $values = array(':id' => $id);
+  $leaders = array();
+  $return = '';
+  try
+  {
+    $res = $pdo->prepare($query);
+    $res->execute($values);
+  	$leaders = $res->fetchAll(PDO::FETCH_ASSOC);
+  }
+  catch (PDOException $e)
+  {
+    echo 'Datenbankfehler bei Abfrage der AG-Leiter.';
+  }
+  foreach ($leaders as $leader) {
+    if ($return!='') {$return = $return.', '.$leader['lastname'];} else {$return = $leader['lastname'];}
+  }
+  return $return;
+}
 
 class Account
 {
