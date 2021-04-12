@@ -18,7 +18,7 @@ function sanitize($data) {
   return $data;
 }
 
-function getLeaders(int $id):string {
+function getLeaders(int $id) {
   global $pdo;
   $query = 'SELECT users.lastname FROM lead, users WHERE lead.wg_id = :id AND lead.user_id = users.user_id ORDER BY lastname ASC';
   $values = array(':id' => $id);
@@ -50,7 +50,7 @@ class Account
 
     // Fügt der Datenbank einen neuen Benutzer hinzu.
     public function addAccount(string $name, string $passwd, bool $enabled, string $firstname,
-    string $lastname, string $email, string $roll): int
+    string $lastname, string $email, string $roll)
     {
       global $pdo;  // Objekt für Datenbankanbindung
 
@@ -313,7 +313,7 @@ c        try
       */
     }
 
-    public function login(string $name, string $passwd): bool
+    public function login(string $name, string $passwd)
     {
     	global $pdo;
     	$name = sanitize($name);
@@ -410,7 +410,7 @@ c        try
     // hoch genug gewählt wurde. Diese muss in Sekunden angegeben werden:
     // session.cookie_lifetime = 604800
     // Ein Wert von 0 bedeutet, dass das Cookie beim Schließen des Browsers gelöscht wird.
-    public function sessionLogin(): bool
+    public function sessionLogin()
     {
     	global $pdo;
     	if (session_status() == PHP_SESSION_ACTIVE)
@@ -521,21 +521,21 @@ c        try
     }
 
     // isAuthenticated gibt den Wert von authenticated des Objekts zurück
-    public function isAuthenticated(): bool
+    public function isAuthenticated()
     {
     	return $this->authenticated;
     }
 
     // isNameValid prüft, ob der Nutzername gültig ist.
     // Ggf. Sonderzeichen ausschließen?
-    public function isNameValid(string $name): bool
+    public function isNameValid(string $name)
     {
       $valid = TRUE;
       return $valid;
     }
 
     // isPasswdValid prüft das neue Passwort auf Gültigkeit
-    public function isPasswdValid(string $passwd): bool
+    public function isPasswdValid(string $passwd)
     {
 	     $valid = TRUE;
        $len = mb_strlen($passwd);
@@ -547,24 +547,24 @@ c        try
     }
 
 
-    public function getId(): int
+    public function getId()
     {
       return $this->id;
     }
 
-    public function getRoll(): string
+    public function getRoll()
     {
       return $this->roll;
     }
 
-    public function isTeacher(): bool
+    public function isTeacher()
     {
       return $this->isTeacher;
     }
 
 
 // getIdFromName gibt die ID des Accounts zurück oder NULL, falls dieser nicht existiert
-    public function getIdFromName(string $name): ?int
+    public function getIdFromName(string $name)
     {
        global $pdo;
        if (!$this->isNameValid($name))
@@ -592,7 +592,7 @@ c        try
     }
 
     // isIdValid prüft die formale Gültigkeit der ID
-    public function isIdValid(int $id): bool
+    public function isIdValid(int $id)
     {
       $valid = TRUE;
       return $valid;
