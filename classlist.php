@@ -17,6 +17,18 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>AG-Manager</title>
 		<link href="style.css" rel="stylesheet" type="text/css">
+    <script>
+      function changeClass() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("ajaxresult").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "getlist.php?class="+document.getElementById("classes").value, true);
+        xhttp.send();
+      }
+    </script>
 	</head>
   <?php
   $query = 'SELECT DISTINCT class FROM students';
@@ -39,11 +51,12 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
     <?php require 'navworkgroups.php';?>
     <div class="content">
       <h2>Klassenlisten</h2>
-      <form method="post" action="classlist.php">
+      <form method="post">
       	<div  class="flexbox">
           <div>
-            <label for="classes">Bitte eine Klasse auswählen</label>
-            <select id="classes" name="classes">
+            <label for="classes">Klassenauswahl</label><br>
+            <select id="classes" name="classes" onchange="changeClass()">
+              <option value="">Bitte eine Klasse auswählen</option>
               <?php
               foreach ($classes as $class) {
                 echo '<option value="'.$class['class'].'">'.$class['class'].'</option>';
@@ -53,6 +66,10 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
           </div>
         </div>
       </form>
+      <div>
+        <div id="ajaxresult">
+        </div>
+      </div>
     </div>
   </body>
 </html>
