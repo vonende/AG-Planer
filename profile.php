@@ -99,11 +99,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<?php require 'navbar.php'; ?>
 		<div class="content">
 			<h2><?php echo $member=='student'?"Dein":"Ihr"?> Profil:</h2>
+			<div>
 			<?php
 			if ($member=="student") {echo '<p>Du bist als Schüler registriert.</p>';};
 			if ($member=="teacher") {echo '<p>Sie sind als Lehrer registriert.</p>';};
 			if ($member=="other")   {echo '<p>Sie sind als Mitarbeiter registriert.</p>';};
 			 ?>
+		 </div>
       <form method="post" action="profile.php" class="flexbox">
 				<div>
         	<label for="username">Benutzername</label><br>

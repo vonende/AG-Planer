@@ -5,7 +5,11 @@
 }
 
 body {
-  	background-color: #435165;
+  background-color: #435165;
+}
+
+p {
+  margin: 5px 0;
 }
 
 .alert {
@@ -189,7 +193,7 @@ body.loggedin {
 	color: #4a536e;
 }
 
-.flexbox, .content > div, .content > p {
+.flexbox, .content > div {
   display: flex;
   flex-wrap: wrap;
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
@@ -261,23 +265,23 @@ body.loggedin {
   width: 100%;
 }
 
-.content > p table, .content > div table {
+.content > div table {
   border-collapse: collapse;
   width: 100%;
 
 }
 
-.content > p thead tr, .content > div thead tr{
+.content > div thead tr{
   background-color: #d2b4de  ;
 }
 
-.content > p table th, .content > div table th {
+.content > div table th {
   text-align: left;
 	padding: 5px 10px;
   margin: 0;
 }
 
-.content > p table td, .content > div table td {
+.content > div table td {
 	padding: 5px 10px;
   margin: 0;
 }
@@ -287,9 +291,4 @@ body.loggedin {
 }
 .content tbody tr:nth-child(even){
     background-color:  #f5eef8 ;
-}
-
-.content > div p {
-	padding: 5px;
-	margin: 0 0 10px 0;
 }

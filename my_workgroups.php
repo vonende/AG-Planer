@@ -42,8 +42,8 @@ catch (PDOException $e) {
 		<div class="content">
 			<h2>Meine Arbeitsgemeinschaften</h2>
       <div>
-        Klicke auf den Titel einer AG, um die AG-Beschreibung zu sehen.<br><br>
-				Klicke auf das Schuljahresdatum einer AG, um die Liste deiner Teilnahmen zu sehen.
+        <p>Klicke auf den Titel einer AG, um die AG-Beschreibung zu sehen.</p><br>
+				<p>Klicke auf das Schuljahresdatum einer AG, um die Liste deiner Teilnahmen zu sehen.</p>
       </div>
 			<div>
 				<div>

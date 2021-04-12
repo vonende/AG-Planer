@@ -45,7 +45,9 @@ class Account
     private   $id;            // ID des eingeloggten Users
     private   $name;          // Benutzername des eingeloggten Users
     private   $authenticated; // True, wenn sich der Benutzer authentifiziert hat
-    private   $roll;
+    private   $roll;          // admin, editor, viewer oder user
+    private   $isTeacher;     // True, wenn der Benutzer ein Lehrer ist
+
     // Fügt der Datenbank einen neuen Benutzer hinzu.
     public function addAccount(string $name, string $passwd, bool $enabled, string $firstname,
     string $lastname, string $email, string $roll): int
@@ -352,6 +354,22 @@ c        try
              $this->authenticated = TRUE;
              $this->roll = $row['roll'];
              $this->registerLoginSession();
+             $query = 'SELECT * FROM teachers WHERE user_id = :id';
+           	 $values = array(':id' => $this->id);
+           	 try
+           	 {
+            		$res = $pdo->prepare($query);
+            		$res->execute($values);
+           	 }
+           	 catch (PDOException $e)
+           	 {
+           	   throw new Exception("Datenbankfehler beim Login <br>".$e->getMessage());
+               exit;
+             }
+
+             $row = $res->fetch(PDO::FETCH_ASSOC);
+             $this->isTeacher = is_array($row)?true:false;
+
              return TRUE;
          }
       }
@@ -428,6 +446,21 @@ c        try
     			$this->name = $row['username'];
     			$this->authenticated = TRUE;
           $this->roll = $row['roll'];
+          $query = 'SELECT * FROM teachers WHERE user_id = :id';
+          $values = array(':id' => $this->id);
+          try
+          {
+             $res = $pdo->prepare($query);
+             $res->execute($values);
+          }
+          catch (PDOException $e)
+          {
+            throw new Exception("Datenbankfehler beim Login <br>".$e->getMessage());
+            exit;
+          }
+
+          $row = $res->fetch(PDO::FETCH_ASSOC);
+          $this->isTeacher = is_array($row)?true:false;
     			return TRUE;
     		}
     	}
@@ -524,6 +557,10 @@ c        try
       return $this->roll;
     }
 
+    public function isTeacher(): bool
+    {
+      return $this->isTeacher;
+    }
 
 
 // getIdFromName gibt die ID des Accounts zurück oder NULL, falls dieser nicht existiert

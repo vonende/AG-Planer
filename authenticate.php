@@ -4,14 +4,13 @@ require 'account_class.php';
 if ( isset($_POST['user'], $_POST['pwd']) ) {
   try {
   	$ok = $account->login($_POST["user"], $_POST["pwd"]);
-    if ($ok)
-    {
+    if ($ok) {
       header("Location: home.php");
       exit;
     }
   }
   catch (Exception $e) {
-    echo $e->getMessage();
+    $error = $e->getMessage();
   }
 }
 ?>
@@ -28,7 +27,7 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
          ?>
          <div class="alert">
          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-         <strong>Loginfehler</strong>
+         <strong>Loginfehler! <?php echo $error ?></strong>
          </div>
          <?php
        }
@@ -36,7 +35,6 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
 
        <div class="login">
        <h1>AG-Manager (Anmeldung) </h1>
-
        <form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" >
          <label for="username">Benutzername</label>
          <input type="text" name="user" id="username" placeholder="Benutzername" required>
@@ -47,6 +45,5 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
          <input type="submit" value="anmelden">
        </form>
      </div>
-
    </body>
  </html>

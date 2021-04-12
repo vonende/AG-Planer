@@ -20,9 +20,8 @@ require 'try_sessionlogin.php';
 		<div class="content">
 			<h2>Alle Arbeitsgemeinschaften auf einen Blick</h2>
       <div>
-        Ein Klick auf einen AG-Titel öffnet das zugehörige Infofeld. Ein Klick auf das geöffnete Infofeld schließt dieses wieder.
-      <br>
-        Diese Tabelle ist rein informativ. Es können keine Plätze reserviert werden. Nähere Infos zur Teilnahme erhält man vom jeweiligen AG-Leiter.
+        <p>Ein Klick auf einen AG-Titel öffnet das zugehörige Infofeld. Ein Klick auf das geöffnete Infofeld schließt dieses wieder.</p><br/>
+        <p>Diese Tabelle ist rein informativ. Es können keine Plätze reserviert werden. Nähere Infos zur Teilnahme erhält man vom jeweiligen AG-Leiter.</p>
       </div>
       <div>
 
