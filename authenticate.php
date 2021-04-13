@@ -14,9 +14,6 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
     $error = $e->getMessage();
   }
 }
-if (isset($_GET['error'])) {
-  $error = htmlspecialchars($_GET['error']);
-}
 ?>
 <!DOCTYPE html>
 <html>

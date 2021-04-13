@@ -29,10 +29,10 @@ $cl = sanitize($_GET['class']);
 
 $query = "SELECT u.firstname, u.lastname, w.title, w.wg_id AS id, COUNT(e.event_id) AS eventcount
           FROM students AS s, users AS u, wgs AS w, present AS p, events AS e
-          WHERE s.class=:cl AND w.schoolyear=:sy AND u.user_id=s.user_id AND s.user_id=p.user_id AND p.event_id=e.event_id AND e.wg_id=w.wg_id
+          WHERE s.class=:cl AND e.date>=:da AND u.user_id=s.user_id AND s.user_id=p.user_id AND p.event_id=e.event_id AND e.wg_id=w.wg_id
           GROUP BY u.user_id, w.wg_id
           ORDER BY lastname,firstname,title ASC";
-$values = array(':cl'=>$cl, ':sy'=>$schoolyear);
+$values = array(':cl'=>$cl, ':da'=>$firstSchoolday);
 
 try {
   $res = $pdo->prepare($query);
