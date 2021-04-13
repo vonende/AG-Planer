@@ -1,0 +1,30 @@
+DES> /listing teilnehmer 
+teilnehmer(1,'+49 159 0416361',w,'Gruenauer Strasse 60 12353 Berlin','+49 30 271166','Claudia','Nadel','').
+teilnehmer(2,'+49 117 9933864',w,'Kurfuerstenstraße 77 12353 Berlin','+49 30 278966','Lisa','Vogel','Veganerin').
+teilnehmer(3,'+49 174 0281630',w,'Fugger Strasse 23 12353 Berlin ','+49 30 270356','Maria','Roth','Pollenallergie, Notfallspray beim Lehrer').
+teilnehmer(4,'+49 174 5192538',w,'Eichendorffstr. 69 12353 Berlin','+49 30 454566','Jennifer','Werner','').
+teilnehmer(5,'+49 159 0484162',w,'An Der Urania 32 12353 Berlin ','+49 30 343666','Diana','Wannemaker','').
+teilnehmer(6,'+49 171 0374239',w,'Pappelallee 89 12353 Berlin','+49 30 234536','Michelle','Reinhardt','Vegetarierin').
+teilnehmer(7,'+49 159 0875182',m,'Neuer Jungfernstieg 43 12336 Berlin','+49 30 223456','Maximilian','Gersten','Rollstuhlfahrer mit Begleiter').
+teilnehmer(8,'+49 171 0762998',m,'Hedemannstasse 52 12338 Berlin','+49 30 267876','Markus','Koehler','').
+teilnehmer(9,'+49 159 0821816',w,'Albrechtstrasse 43 12359 Berlin ','+49 30 293466','Angelika','Fuhrmann','').
+teilnehmer(10,'+49 159 0923336',w,'Fontenay 31 12354 Berlin','+49 30 345329','Simone','Probst','').
+teilnehmer(11,'+49 159 0353321',m,'Lietzensee-Ufer 85 12357 Berlin','+49 30 234236','René','Fleischer','').
+teilnehmer(12,'+49 171 0885129',m,'Marseiller Strasse 47 12358 Berlin','+49 30 456456','Kevin','Weiss','').
+teilnehmer(13,'+49 171 0643914',w,'Hollander Strasse 21 12358 Berlin','+49 30 937476','Jana','Köhler','').
+teilnehmer(14,'+49 175 0333192',w,'Landhausstraße 50 12351 Berlin','+49 30 239836','Christina','Eichelberger','Vegetarier').
+teilnehmer(15,'+49 175 0454244',w,'Hans-Grade-Allee 27 12338 Berlin','+49 30 234566','Christine','Vogel','').
+teilnehmer(16,'+49 171 0206077',w,'Amsinckstrasse 22 12353 Berlin','+49 30 983666','Stefanie','Hoffmann','Nussallergie').
+teilnehmer(17,'+49 159 0622410',m,'Hermannstrasse 39 12353 Berlin','+49 30 278966','Mohammed','Bauer','Kein Schweinefleisch').
+teilnehmer(18,'+49 177 0334434',m,'Landhausstraße 25 12353 Berlin','+49 30 438566','Swen','Faust','').
+teilnehmer(19,'+49 152 0952112',m,'Luebecker Strasse 93 12352 Berlin','+49 30 948466','Frank','Maurer','').
+teilnehmer(20,'+49 171 0337448',m,'Schmarjestrasse 26 12350 Berlin','+49 30 949466','Wolfgang','Koertig','').
+teilnehmer(21,'+49 171 0554363',m,'Leipziger Straße 12 12353 Berlin','+49 30 119966','Maximilian','Ackermann','').
+teilnehmer(22,'+49 152 0850775',w,'Ziegelstr. 21 12353 Berlin','+49 30 223366','Paul','Gersten','').
+teilnehmer(23,'+49 171 0540433',m,'Meinekestraße 11 10559 Berlin','+49 30 293666','Tom','Egger','Administrative officer').
+teilnehmer(24,'+49 152 0730363',m,'Sömmeringstr. 44 10829 Berlin','+49 30 293666','Marco','Schulz','Vegetarier').
+teilnehmer(25,'+49 171 0704544',w,'Brandenburgische Str. 56 10787 Berlin','+49 30 947666','Markus','Bar','').
+teilnehmer(26,'+49 152 0950368',w,'Luebecker Strasse 35 10115 Berlin','+49 30 145666','Lisa','Eichmann','').
+teilnehmer(27,'+49 171 0655612',m,'Rudower Strasse 48 14553 Berlin','+49 30 098766','Jörg','Schiffer','').
+teilnehmer(28,'+49 152 0421566',m,'Grolmanstraße 60 14482 Potdamm','+49 331 200066','Max','Möller','Begleiter vom Rollstuhlfahrer').
+

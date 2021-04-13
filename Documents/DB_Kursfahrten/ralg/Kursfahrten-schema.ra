@@ -1,0 +1,13 @@
+% Kursfahrten-Schema
+%
+
+fahrtenkonto (IBAN string, BIC string, inhaber string, bank string);
+fahrt (fahrtnr integer, fahrtname string, ziel string, von string, bis string, IBAN string);
+teilnehmer (teilnnr integer, mobilnr string, geschlecht string, adresse string, notfallnr string, vname string, nname string, besonderes string);
+begleiter (teilnrr integer, stand string);
+schueler (teilnnr integer, erziehungsberechtigte string, gebdatum string);
+faehrtmit (teilnnr integer, fahrtnr integer);
+unternehmung (unr integer, titel string, kosten float, veranstalter string, ubesonderes string, udatum string, uhrzeit string, fahrtnr integer); 
+bezahlt  (unr integer, IBAN string, bdatum string, bar string);
+ueberwiesen (teilnnr integer, fahrtnr integer, fkbetrag float, fkdatum string);
+

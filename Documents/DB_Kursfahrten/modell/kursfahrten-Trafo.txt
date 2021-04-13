@@ -1,0 +1,18 @@
+*** Transformation des ER-Modells in das Relationenmodell ***
+
+Insgesamt wurden 9 Entitäten bzw. Beziehungen zu Relationen transformiert und 4 Beziehungen aufgelöst.
+
+Die 6 Entitäten Fahrt, Teilnehmer, Begleiter, Schüler, Fahrtenkonto und Unternehmung wurden zunächst vollständig
+in Relationen überführt.
+
+Aufgrund der n:m-Kardinalitäten wurden die Beziehungen "fährt mit" und "überwiesen" ebenfalls in Relationen überführt,
+jeweils mit Angabe der Schlüssel der verbundenen Entitäten als Fremdschlüssel. 
+Diese Fremdschlüssel bilden zusammengesetzt den Primärschlüssel der Relationen.
+
+Wegen der zugehörigen Attribute wurde für die Übersichtlichkeit auch die 1:n-Beziehung "bezahlt" in eine Relation überführt, 
+jeweils mit Angabe der Schlüssel der verbundenen Entitäten als Fremdschlüssel.
+Diese Fremdschlüssel bilden zusammengesetzt den Primärschlüssel der Relation.
+
+Die 1:n-Beziehungen ohne Attribute "is a" (2x), "hat" und "macht" wurden aufgelöst, 
+wofür in die Relationen der n-Seite der Schlüssel der verbundenen Entität als Fremdschlüssel eingefügt wurde.
+

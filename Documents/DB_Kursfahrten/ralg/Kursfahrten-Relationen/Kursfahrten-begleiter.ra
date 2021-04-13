@@ -1,0 +1,9 @@
+DES> /listing begleiter 
+begleiter(21,'Elternteil').
+begleiter(22,'Lehrer').
+begleiter(23,'Elternteil').
+begleiter(24,'Lehrer').
+begleiter(25,'Begleiter').
+begleiter(26,'Elternteil').
+begleiter(27,'Elternteil').
+begleiter(28,'Begleiter').

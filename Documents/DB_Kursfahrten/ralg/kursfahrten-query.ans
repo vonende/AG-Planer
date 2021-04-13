@@ -1,0 +1,130 @@
+%Anfrage 1:
+%Gesucht sind alle bereits erfolgten Überweisungen für die Fahrt nach Dresden(Fahrtnr=201702).
+DES> select fahrtnr=201702(ueberwiesen); 
+Info: RA expression compiled to:
+answer(A,201702,B,C) :-
+  ueberwiesen(A,201702,B,C).
+answer(ueberwiesen.teilnnr:int,ueberwiesen.fahrtnr:int,ueberwiesen.fkbetrag:float,ueberwiesen.fkdatum:string) ->
+{
+  answer(6,201702,600.0,'2017-01-17'),
+  answer(8,201702,600.0,'2017-01-17'),
+  answer(9,201702,600.0,'2017-01-17'),
+  answer(10,201702,600.0,'2017-01-17'),
+  answer(12,201702,600.0,'2017-01-17'),
+  answer(16,201702,600.0,'2016-11-30'),
+  answer(17,201702,600.0,'2016-12-23'),
+  answer(18,201702,600.0,'2016-12-12'),
+  answer(22,201702,600.0,'2017-01-14'),
+  answer(26,201702,600.0,'2017-01-18'),
+  answer(27,201702,600.0,'2017-01-12')
+}
+Info: 11 tuples computed
+
+%Anfrage 2:
+%Gesucht sind alle weiblichen Teilnehmerinnen (Vor- und Nachname).
+DES> project vname,nname(select geschlecht='w'(teilnehmer)); 
+Info: RA expression compiled to:
+answer(A,B) :-
+  teilnehmer(_C,_D,w,_E,_F,A,B,_G).
+answer(teilnehmer.vname:string,teilnehmer.nname:string) ->
+{
+  answer('Angelika','Fuhrmann'),
+  answer('Christina','Eichelberger'),
+  answer('Christine','Vogel'),
+  answer('Claudia','Nadel'),
+  answer('Diana','Wannemaker'),
+  answer('Jana','Köhler'),
+  answer('Jennifer','Werner'),
+  answer('Lisa','Eichmann'),
+  answer('Lisa','Vogel'),
+  answer('Maria','Roth'),
+  answer('Markus','Bar'),
+  answer('Michelle','Reinhardt'),
+  answer('Paul','Gersten'),
+  answer('Simone','Probst'),
+  answer('Stefanie','Hoffmann')
+}
+Info: 15 tuples computed.  
+
+%Anfrage 3:
+%Gesucht sind alle Unternehmungen (Titel, Kosten, Datum und Uhrzeit) auf der Fahrt nach London (Fahrtnummer: 201703).
+DES> project titel,kosten,udatum,uhrzeit (select fahrtnr=201703(unternehmung)); 
+Info: RA expression compiled to:
+answer(A,B,C,D) :-
+  unternehmung(_E,A,B,_F,_G,C,D,201703).
+answer(unternehmung.titel:string,unternehmung.kosten:float,unternehmung.udatum:string,unternehmung.uhrzeit:string) ->
+{
+  answer('4 uebernachtungen',4200.0,'2017-06-08','8:00:00'),
+  answer('Abendessen',0.0,'2017-06-10','18:00:00'),
+  answer('Abendessen',0.0,'2017-06-11','18:00:00'),
+  answer('Abendessen',70.0,'2017-06-09','18:00:00'),
+  answer('Abendessen',300.0,'2017-06-08','18:00:00'),
+  answer('Abreise Bus',0.0,'2017-06-12','8:00:00'),
+  answer('Anreise Bus',1400.0,'2017-06-07','18:00:00'),
+  answer('Billy Elliot',320.0,'2017-06-11','20:00:00'),
+  answer('Bootsfahrt auf der Themse',70.0,'2017-06-09','10:00:00'),
+  answer('Fruehstueck',0.0,'2017-06-09','8:00:00'),
+  answer('Fruehstueck',0.0,'2017-06-10','8:00:00'),
+  answer('Fruehstueck',0.0,'2017-06-11','8:00:00'),
+  answer('Fuehrung durch London',75.0,'2017-06-08','12:00:00'),
+  answer('Fuehrung mit Promis',70.0,'2017-06-10','10:00:00'),
+  answer('London Eye',85.0,'2017-06-11','12:00:00'),
+  answer('Mittagessen',0.0,'2017-06-08','12:00:00'),
+  answer('Schwimmen',30.0,'2017-06-10','15:00:00'),
+  answer('Shakespeare Workshop',150.0,'2017-06-09','16:00:00'),
+  answer('St. Paul Cathedral',170.0,'2017-06-11','14:00:00'),
+  answer('The Tower of London',70.0,'2017-06-11','10:00:00')
+}
+Info: 20 tuples computed. 
+
+%Anfrage 4:
+%Welche Unternehmungen sind teurer als 100 €?
+DES> select kosten>100.00(unternehmung); 
+Info: RA expression compiled to:
+answer(A,B,C,D,E,F,G,H) :-
+  unternehmung(A,B,C,D,E,F,G,H),
+  C>100.0.
+answer(unternehmung.unr:int,unternehmung.titel:string,unternehmung.kosten:float,unternehmung.Veranstalter:string,unternehmung.ubesonderes:string,unternehmung.udatum:string,unternehmung.uhrzeit:string,unternehmung.fahrtnr:int) ->
+{
+  answer(1,'Anreise Bus',1400.0,'Bussard-Travel','10 Std. Nachtfahrt','2017-06-07','18:00:00',201703),
+  answer(5,'Abendessen',300.0,'Hangmans Soup Corner','','2017-06-08','18:00:00',201703),
+  answer(8,'Shakespeare Workshop',150.0,'Globe Theater','','2017-06-09','16:00:00',201703),
+  answer(17,'St. Paul Cathedral',170.0,'Monastry of the cross','','2017-06-11','14:00:00',201703),
+  answer(19,'Billy Elliot',320.0,'Theater of the Stars','','2017-06-11','20:00:00',201703),
+  answer(20,'4 uebernachtungen',4200.0,'Queen Hostel','Nur 4-Bett Zimmer','2017-06-08','8:00:00',201703),
+  answer(21,'Anreise Flug',2500.0,'Try&Fly','"Zwischenlandung Rejkjavijk, USA-Visum erforderlich"','2017-05-25','8:00:00',201701),
+  answer(24,'Gemeinsames Abendessen',320.0,'Burger Palast','','2017-05-26','18:00:00',201701),
+  answer(26,'Eimal Astronaut sein',420.0,'Kennedy Space Center','','2017-05-27','14:00:00',201701),
+  answer(30,'Abreise Flug',12500.0,'Fluege deluxe,nonstop','','2017-05-30','08:00:00',201701),
+  answer(31,'Anreise Bahn',2156.0,'Bahn','6 Std. Fahrt','2017-06-05','08:00:00',201702),
+  answer(32,'5 uebernachtungen',3200.0,'DJH Dresden','','2017-06-05','13:00:00',201702),
+  answer(35,'Faust',320.0,'Junge Barde','','2017-06-06','18:00:00',201702),
+  answer(38,'Gemäldegalerie',200.0,'Kunstmuseum Schirn','','2017-06-07','14:00:00',201702),
+  answer(42,'Bowling mit Abendessen',120.0,'Bowlingcenter nix hier','','2017-06-08','17:00:00',201702),
+  answer(44,'Ausflug ins Elbsandstein-Gebirge',420.0,'Return Tours','','2017-06-09','10:00:00',201702)
+}
+Info: 16 tuples computed.
+
+%Anfrage 5:
+%Gesucht sind alle Teilnehmer (Vor-, Nachname) der Fahrt nach Orlando.
+DES> project vname,nname(select ziel='Orlando' (fahrt) njoin faehrtmit njoin teilnehmer); 
+Info: RA expression compiled to:
+answer(A,B) :-
+  fahrt(C,_D,'Orlando',_E,_F,_G),
+  faehrtmit(H,C),
+  teilnehmer(H,_I,_J,_K,_L,A,B,_M).
+answer(vname:string,nname:string) ->
+{
+  answer('Christina','Eichelberger'),
+  answer('Christine','Vogel'),
+  answer('Claudia','Nadel'),
+  answer('Diana','Wannemaker'),
+  answer('Lisa','Vogel'),
+  answer('Marco','Schulz'),
+  answer('Markus','Bar'),
+  answer('Maximilian','Ackermann'),
+  answer('René','Fleischer')
+}
+Info: 9 tuples computed. 
+
+

@@ -1,0 +1,21 @@
+DES> /listing schueler 
+schueler(1,'Anette Nadel','1999-09-24').
+schueler(2,'Mark Vogel','2003-17-12').
+schueler(3,'Felix Roth','2002-02-01').
+schueler(4,'Andreas Werner','2002-12-04').
+schueler(5,'Cecilia Wannemaker','2002-08-08').
+schueler(6,'Claudia Reinhardt','2002-05-01').
+schueler(7,'Anette Gersten','2002-07-06').
+schueler(8,'Axel Koehler','2002-09-26').
+schueler(9,'Sonja Fuhrmann','2004-12-01').
+schueler(10,'Frederike Probst','2001-12-08').
+schueler(11,'Albrecht Fleischer','1999-12-01').
+schueler(12,'Anja Weiss','1999-07-11').
+schueler(13,'Ludwig Köhler','2002-01-01').
+schueler(14,'Hans Eichelberger','2002-04-17').
+schueler(15,'Conrad Vogel','2002-02-11').
+schueler(16,'Justin Hoffmann','2004-01-16').
+schueler(17,'Alexandra Bauer','1999-01-18').
+schueler(18,'Elfriede Faust','2002-04-09').
+schueler(19,'Gunter Maurer','2002-11-11').
+schueler(20,'Frieda Koertig','2002-08-18').

@@ -1,15 +1,25 @@
 <?php
+/*
+getlist.php gibt eine Tabelle mit Schülernamen und AG-Teilnahmen aus,
+welche z.B. vom Klassenlehrer für Zeugnisvermerke verwendet werden kann.
+Die Klasse wird mittels GET übertragen. Bsp.:
+getlist.php?class=7a
+
+getlist.php wird von classlist.php aus mittels AJAX-Request aufgerufen.
+*/
 session_start();
 require 'account_class.php';
 
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
+// Nur Lehrer und Viewer dürfen die Teilnahmelisten aller Schüler einer Klasse sehen.
 if (!$account->isTeacher() && $account->getRoll()!='viewer') {
   echo "Fehlende Berechtigung!";
   exit;
 }
 
+// Die Klasse muss mittels GET übergeben werden, andernfalls gibt es eine Fehlermeldung.
 if (!isset($_GET['class'])) {
   echo "Es wurde keine Klasse ausgewählt.";
   exit;
@@ -37,6 +47,8 @@ catch (PDOException $e) {
 if (empty($list)) {
   echo "Keine AG-Teilnehmer gefunden.";
 }
+
+// Nun folgt die Ausgabe der Tabelle:
 ?>
 <table>
   <thead>
@@ -57,7 +69,6 @@ foreach ($list as $row) {
   echo '<td>'.$row['eventcount'].'</td>';
   echo "</tr>";
 }
-
 ?>
 </tbody>
 </table>

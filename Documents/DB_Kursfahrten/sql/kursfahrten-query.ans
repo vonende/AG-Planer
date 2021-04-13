@@ -1,0 +1,448 @@
+*** Ergebnisse der SQL-Anfragen ***
+
+1. Zeige alle Fahrten.
+
+ fahrtnr |       fahrtname       |  ziel   |    von     |    bis     |          iban          
+---------+-----------------------+---------+------------+------------+------------------------
+  201701 | Englisch_Kose         | Orlando | 2017-05-25 | 2017-05-30 | DE19200456783417345678
+  201702 | Geschichte_Aktmann    | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201703 | Informatik_Schachmann | London  | 2017-06-07 | 2017-06-12 | DE19183417341534123414
+(3 Zeilen)
+
+
+2. Zeige alle teilnehmenden Personen.
+
+ teilnnr |     mobilnr     | geschlecht |                adresse                |   notfallnr    |   vname    |    nname     |                besonderes                
+---------+-----------------+------------+---------------------------------------+----------------+------------+--------------+------------------------------------------
+       1 | +49 159 0416361 | w          | Gruenauer Strasse 60 12353 Berlin     | +49 30 271166  | Claudia    | Nadel        | 
+       2 | +49 117 9933864 | w          | Kurfuerstenstraße 77 12353 Berlin     | +49 30 278966  | Lisa       | Vogel        | Veganerin
+       3 | +49 174 0281630 | w          | Fugger Strasse 23 12353 Berlin        | +49 30 270356  | Maria      | Roth         | Pollenallergie, Notfallspray beim Lehrer
+       4 | +49 174 5192538 | w          | Eichendorffstr. 69 12353 Berlin       | +49 30 454566  | Jennifer   | Werner       | 
+       5 | +49 159 0484162 | w          | An Der Urania 32 12353 Berlin         | +49 30 343666  | Diana      | Wannemaker   | 
+       6 | +49 171 0374239 | w          | Pappelallee 89 12353 Berlin           | +49 30 234536  | Michelle   | Reinhardt    | Vegetarierin
+       7 | +49 159 0875182 | m          | Neuer Jungfernstieg 43 12336 Berlin   | +49 30 223456  | Maximilian | Gersten      | Rollstuhlfahrer mit Begleiter
+       8 | +49 171 0762998 | m          | Hedemannstasse 52 12338 Berlin        | +49 30 267876  | Markus     | Koehler      | 
+       9 | +49 159 0821816 | w          | Albrechtstrasse 43 12359 Berlin       | +49 30 293466  | Angelika   | Fuhrmann     | 
+      10 | +49 159 0923336 | w          | Fontenay 31 12354 Berlin              | +49 30 345329  | Simone     | Probst       | 
+      11 | +49 159 0353321 | m          | Lietzensee-Ufer 85 12357 Berlin       | +49 30 234236  | René       | Fleischer    | 
+      12 | +49 171 0885129 | m          | Marseiller Strasse 47 12358 Berlin    | +49 30 456456  | Kevin      | Weiss        | 
+      13 | +49 171 0643914 | w          | Hollander Strasse 21 12358 Berlin     | +49 30 937476  | Jana       | Köhler       | 
+      14 | +49 175 0333192 | w          | Landhausstraße 50 12351 Berlin        | +49 30 239836  | Christina  | Eichelberger | Vegetarier
+      15 | +49 175 0454244 | w          | Hans-Grade-Allee 27 12338 Berlin      | +49 30 234566  | Christine  | Vogel        | 
+      16 | +49 171 0206077 | w          | Amsinckstrasse 22 12353 Berlin        | +49 30 983666  | Stefanie   | Hoffmann     | Nussallergie
+      17 | +49 159 0622410 | m          | Hermannstrasse 39 12353 Berlin        | +49 30 278966  | Mohammed   | Bauer        | Kein Schweinefleisch
+      18 | +49 177 0334434 | m          | Landhausstraße 25 12353 Berlin        | +49 30 438566  | Swen       | Faust        | 
+      19 | +49 152 0952112 | m          | Luebecker Strasse 93 12352 Berlin     | +49 30 948466  | Frank      | Maurer       | 
+      20 | +49 171 0337448 | m          | Schmarjestrasse 26 12350 Berlin       | +49 30 949466  | Wolfgang   | Koertig      | 
+      21 | +49 171 0554363 | m          | Leipziger Straße 12 12353 Berlin      | +49 30 119966  | Maximilian | Ackermann    | 
+      22 | +49 152 0850775 | m          | Ziegelstr. 21 12353 Berlin            | +49 30 223366  | Paul       | Gersten      | 
+      23 | +49 171 0540433 | m          | Meinekestraße 11 10559 Berlin         | +49 30 293666  | Tom        | Egger        | Administrative officer
+      24 | +49 152 0730363 | m          | Sömmeringstr. 44 10829 Berlin         | +49 30 293666  | Marco      | Schulz       | Vegetarier
+      25 | +49 171 0704544 | m          | Brandenburgische Str. 56 10787 Berlin | +49 30 947666  | Markus     | Bar          | 
+      26 | +49 152 0950368 | w          | Luebecker Strasse 35 10115 Berlin     | +49 30 145666  | Lisa       | Eichmann     | 
+      27 | +49 171 0655612 | m          | Rudower Strasse 48 14553 Berlin       | +49 30 098766  | Jörg       | Schiffer     | 
+      28 | +49 152 0421566 | m          | Grolmanstraße 60 14482 Potdamm        | +49 331 200066 | Max        | Möller       | Begleiter vom Rollstuhlfahrer
+(28 Zeilen)
+
+
+3. Zeige alle Ziele der Fahrten.
+
+  ziel   
+---------
+ Orlando
+ Dresden
+ London
+(3 Zeilen)
+
+
+4. Zeige die Nachnamen der Teilnehmer mit den entsprechenden Notfallnummern.
+
+    nname     |   notfallnr    
+--------------+----------------
+ Nadel        | +49 30 271166
+ Vogel        | +49 30 278966
+ Roth         | +49 30 270356
+ Werner       | +49 30 454566
+ Wannemaker   | +49 30 343666
+ Reinhardt    | +49 30 234536
+ Gersten      | +49 30 223456
+ Koehler      | +49 30 267876
+ Fuhrmann     | +49 30 293466
+ Probst       | +49 30 345329
+ Fleischer    | +49 30 234236
+ Weiss        | +49 30 456456
+ Köhler       | +49 30 937476
+ Eichelberger | +49 30 239836
+ Vogel        | +49 30 234566
+ Hoffmann     | +49 30 983666
+ Bauer        | +49 30 278966
+ Faust        | +49 30 438566
+ Maurer       | +49 30 948466
+ Koertig      | +49 30 949466
+ Ackermann    | +49 30 119966
+ Gersten      | +49 30 223366
+ Egger        | +49 30 293666
+ Schulz       | +49 30 293666
+ Bar          | +49 30 947666
+ Eichmann     | +49 30 145666
+ Schiffer     | +49 30 098766
+ Möller       | +49 331 200066
+(28 Zeilen)
+
+
+5. Zeige den vollständigen Namen aller weiblichen Teilnehmer.
+
+    nname     |   vname   
+--------------+-----------
+ Nadel        | Claudia
+ Vogel        | Lisa
+ Roth         | Maria
+ Werner       | Jennifer
+ Wannemaker   | Diana
+ Reinhardt    | Michelle
+ Fuhrmann     | Angelika
+ Probst       | Simone
+ Köhler       | Jana
+ Eichelberger | Christina
+ Vogel        | Christine
+ Hoffmann     | Stefanie
+ Eichmann     | Lisa
+(13 Zeilen)
+
+
+6. Zeige alle Teilnehmer mit dem Nachnamen Vogel.
+
+ teilnnr |     mobilnr     | geschlecht |              adresse              |   notfallnr   |   vname   | nname | besonderes 
+---------+-----------------+------------+-----------------------------------+---------------+-----------+-------+------------
+       2 | +49 117 9933864 | w          | Kurfuerstenstraße 77 12353 Berlin | +49 30 278966 | Lisa      | Vogel | Veganerin
+      15 | +49 175 0454244 | w          | Hans-Grade-Allee 27 12338 Berlin  | +49 30 234566 | Christine | Vogel | 
+(2 Zeilen)
+
+
+7. Zeige alle Unternehmungen, die teuerer als 100 € sind.
+
+ unr |              titel               | kosten |      veranstalter      |                     ubesonderes                      |   udatum   | uhrzeit  | fahrtnr 
+-----+----------------------------------+--------+------------------------+------------------------------------------------------+------------+----------+---------
+   1 | Anreise Bus                      |   1400 | Bussard-Travel         | 10 Std. Nachtfahrt                                   | 2017-06-07 | 18:00:00 |  201703
+   5 | Abendessen                       |    300 | Hangmans Soup Corner   |                                                      | 2017-06-08 | 18:00:00 |  201703
+   8 | Shakespeare Workshop             |    150 | Globe Theater          |                                                      | 2017-06-09 | 16:00:00 |  201703
+  17 | St. Paul Cathedral               |    170 | Monastry of the cross  |                                                      | 2017-06-11 | 14:00:00 |  201703
+  19 | Billy Elliot                     |    320 | Theater of the Stars   |                                                      | 2017-06-11 | 20:00:00 |  201703
+  20 | 4 uebernachtungen                |   4200 | Queen Hostel           | Nur 4-Bett Zimmer                                    | 2017-06-08 | 08:00:00 |  201703
+  21 | Anreise Flug                     |   2500 | Try&Fly                | "Zwischenlandung Rejkjavijk, USA-Visum erforderlich" | 2017-05-25 | 08:00:00 |  201701
+  24 | Gemeinsames Abendessen           |    320 | Burger Palast          |                                                      | 2017-05-26 | 18:00:00 |  201701
+  26 | Eimal Astronaut sein             |    420 | Kennedy Space Center   |                                                      | 2017-05-27 | 14:00:00 |  201701
+  30 | Abreise Flug                     |  12500 | Fluege deluxe,nonstop  |                                                      | 2017-05-30 | 08:00:00 |  201701
+  31 | Anreise Bahn                     |   2156 | Bahn                   | 6 Std. Fahrt                                         | 2017-06-05 | 08:00:00 |  201702
+  32 | 5 uebernachtungen                |   3200 | DJH Dresden            |                                                      | 2017-06-05 | 13:00:00 |  201702
+  35 | Faust                            |    320 | Junge Barde            |                                                      | 2017-06-06 | 18:00:00 |  201702
+  38 | Gemäldegalerie                   |    200 | Kunstmuseum Schirn     |                                                      | 2017-06-07 | 14:00:00 |  201702
+  42 | Bowling mit Abendessen           |    120 | Bowlingcenter nix hier |                                                      | 2017-06-08 | 17:00:00 |  201702
+  44 | Ausflug ins Elbsandstein-Gebirge |    420 | Return Tours           |                                                      | 2017-06-09 | 10:00:00 |  201702
+(16 Zeilen)
+
+
+8. Zeige alle Unternehmungen der Fahrt Nr. 201701, die teuerer als 100 € sind.
+
+ unr |         titel          | kosten |     veranstalter      |                     ubesonderes                      |   udatum   | uhrzeit  | fahrtnr 
+-----+------------------------+--------+-----------------------+------------------------------------------------------+------------+----------+---------
+  21 | Anreise Flug           |   2500 | Try&Fly               | "Zwischenlandung Rejkjavijk, USA-Visum erforderlich" | 2017-05-25 | 08:00:00 |  201701
+  24 | Gemeinsames Abendessen |    320 | Burger Palast         |                                                      | 2017-05-26 | 18:00:00 |  201701
+  26 | Eimal Astronaut sein   |    420 | Kennedy Space Center  |                                                      | 2017-05-27 | 14:00:00 |  201701
+  30 | Abreise Flug           |  12500 | Fluege deluxe,nonstop |                                                      | 2017-05-30 | 08:00:00 |  201701
+(4 Zeilen)
+
+
+9. Gib die nach dem Nachnamen sortierte Liste aller Teilnehmer aus.
+
+ teilnnr |     mobilnr     | geschlecht |                adresse                |   notfallnr    |   vname    |    nname     |                besonderes                
+---------+-----------------+------------+---------------------------------------+----------------+------------+--------------+------------------------------------------
+      21 | +49 171 0554363 | m          | Leipziger Straße 12 12353 Berlin      | +49 30 119966  | Maximilian | Ackermann    | 
+      25 | +49 171 0704544 | m          | Brandenburgische Str. 56 10787 Berlin | +49 30 947666  | Markus     | Bar          | 
+      17 | +49 159 0622410 | m          | Hermannstrasse 39 12353 Berlin        | +49 30 278966  | Mohammed   | Bauer        | Kein Schweinefleisch
+      23 | +49 171 0540433 | m          | Meinekestraße 11 10559 Berlin         | +49 30 293666  | Tom        | Egger        | Administrative officer
+      14 | +49 175 0333192 | w          | Landhausstraße 50 12351 Berlin        | +49 30 239836  | Christina  | Eichelberger | Vegetarier
+      26 | +49 152 0950368 | w          | Luebecker Strasse 35 10115 Berlin     | +49 30 145666  | Lisa       | Eichmann     | 
+      18 | +49 177 0334434 | m          | Landhausstraße 25 12353 Berlin        | +49 30 438566  | Swen       | Faust        | 
+      11 | +49 159 0353321 | m          | Lietzensee-Ufer 85 12357 Berlin       | +49 30 234236  | René       | Fleischer    | 
+       9 | +49 159 0821816 | w          | Albrechtstrasse 43 12359 Berlin       | +49 30 293466  | Angelika   | Fuhrmann     | 
+       7 | +49 159 0875182 | m          | Neuer Jungfernstieg 43 12336 Berlin   | +49 30 223456  | Maximilian | Gersten      | Rollstuhlfahrer mit Begleiter
+      22 | +49 152 0850775 | m          | Ziegelstr. 21 12353 Berlin            | +49 30 223366  | Paul       | Gersten      | 
+      16 | +49 171 0206077 | w          | Amsinckstrasse 22 12353 Berlin        | +49 30 983666  | Stefanie   | Hoffmann     | Nussallergie
+       8 | +49 171 0762998 | m          | Hedemannstasse 52 12338 Berlin        | +49 30 267876  | Markus     | Koehler      | 
+      20 | +49 171 0337448 | m          | Schmarjestrasse 26 12350 Berlin       | +49 30 949466  | Wolfgang   | Koertig      | 
+      13 | +49 171 0643914 | w          | Hollander Strasse 21 12358 Berlin     | +49 30 937476  | Jana       | Köhler       | 
+      19 | +49 152 0952112 | m          | Luebecker Strasse 93 12352 Berlin     | +49 30 948466  | Frank      | Maurer       | 
+      28 | +49 152 0421566 | m          | Grolmanstraße 60 14482 Potdamm        | +49 331 200066 | Max        | Möller       | Begleiter vom Rollstuhlfahrer
+       1 | +49 159 0416361 | w          | Gruenauer Strasse 60 12353 Berlin     | +49 30 271166  | Claudia    | Nadel        | 
+      10 | +49 159 0923336 | w          | Fontenay 31 12354 Berlin              | +49 30 345329  | Simone     | Probst       | 
+       6 | +49 171 0374239 | w          | Pappelallee 89 12353 Berlin           | +49 30 234536  | Michelle   | Reinhardt    | Vegetarierin
+       3 | +49 174 0281630 | w          | Fugger Strasse 23 12353 Berlin        | +49 30 270356  | Maria      | Roth         | Pollenallergie, Notfallspray beim Lehrer
+      27 | +49 171 0655612 | m          | Rudower Strasse 48 14553 Berlin       | +49 30 098766  | Jörg       | Schiffer     | 
+      24 | +49 152 0730363 | m          | Sömmeringstr. 44 10829 Berlin         | +49 30 293666  | Marco      | Schulz       | Vegetarier
+       2 | +49 117 9933864 | w          | Kurfuerstenstraße 77 12353 Berlin     | +49 30 278966  | Lisa       | Vogel        | Veganerin
+      15 | +49 175 0454244 | w          | Hans-Grade-Allee 27 12338 Berlin      | +49 30 234566  | Christine  | Vogel        | 
+       5 | +49 159 0484162 | w          | An Der Urania 32 12353 Berlin         | +49 30 343666  | Diana      | Wannemaker   | 
+      12 | +49 171 0885129 | m          | Marseiller Strasse 47 12358 Berlin    | +49 30 456456  | Kevin      | Weiss        | 
+       4 | +49 174 5192538 | w          | Eichendorffstr. 69 12353 Berlin       | +49 30 454566  | Jennifer   | Werner       | 
+(28 Zeilen)
+
+
+10. Gib die nach Kosten absteigend sortierte Liste der Unternehmungen aus.
+
+ unr |              titel               | kosten |      veranstalter      |                     ubesonderes                      |   udatum   | uhrzeit  | fahrtnr 
+-----+----------------------------------+--------+------------------------+------------------------------------------------------+------------+----------+---------
+  30 | Abreise Flug                     |  12500 | Fluege deluxe,nonstop  |                                                      | 2017-05-30 | 08:00:00 |  201701
+  20 | 4 uebernachtungen                |   4200 | Queen Hostel           | Nur 4-Bett Zimmer                                    | 2017-06-08 | 08:00:00 |  201703
+  32 | 5 uebernachtungen                |   3200 | DJH Dresden            |                                                      | 2017-06-05 | 13:00:00 |  201702
+  21 | Anreise Flug                     |   2500 | Try&Fly                | "Zwischenlandung Rejkjavijk, USA-Visum erforderlich" | 2017-05-25 | 08:00:00 |  201701
+  31 | Anreise Bahn                     |   2156 | Bahn                   | 6 Std. Fahrt                                         | 2017-06-05 | 08:00:00 |  201702
+   1 | Anreise Bus                      |   1400 | Bussard-Travel         | 10 Std. Nachtfahrt                                   | 2017-06-07 | 18:00:00 |  201703
+  26 | Eimal Astronaut sein             |    420 | Kennedy Space Center   |                                                      | 2017-05-27 | 14:00:00 |  201701
+  44 | Ausflug ins Elbsandstein-Gebirge |    420 | Return Tours           |                                                      | 2017-06-09 | 10:00:00 |  201702
+  24 | Gemeinsames Abendessen           |    320 | Burger Palast          |                                                      | 2017-05-26 | 18:00:00 |  201701
+  19 | Billy Elliot                     |    320 | Theater of the Stars   |                                                      | 2017-06-11 | 20:00:00 |  201703
+  35 | Faust                            |    320 | Junge Barde            |                                                      | 2017-06-06 | 18:00:00 |  201702
+   5 | Abendessen                       |    300 | Hangmans Soup Corner   |                                                      | 2017-06-08 | 18:00:00 |  201703
+  38 | Gemäldegalerie                   |    200 | Kunstmuseum Schirn     |                                                      | 2017-06-07 | 14:00:00 |  201702
+  17 | St. Paul Cathedral               |    170 | Monastry of the cross  |                                                      | 2017-06-11 | 14:00:00 |  201703
+   8 | Shakespeare Workshop             |    150 | Globe Theater          |                                                      | 2017-06-09 | 16:00:00 |  201703
+  42 | Bowling mit Abendessen           |    120 | Bowlingcenter nix hier |                                                      | 2017-06-08 | 17:00:00 |  201702
+  16 | London Eye                       |     85 | Spass und Spiel        |                                                      | 2017-06-11 | 12:00:00 |  201703
+  25 | Schwimmen                        |     80 | Stadtbad               | Badekappen einpacken                                 | 2017-05-27 | 09:00:00 |  201701
+   4 | Fuehrung durch London            |     75 | Guides International   |                                                      | 2017-06-08 | 12:00:00 |  201703
+   7 | Bootsfahrt auf der Themse        |     70 | Titanic Services       |                                                      | 2017-06-09 | 10:00:00 |  201703
+  15 | The Tower of London              |     70 | Knastis und Co. KG     |                                                      | 2017-06-11 | 10:00:00 |  201703
+   9 | Abendessen                       |     70 | Globe Theater          |                                                      | 2017-06-09 | 18:00:00 |  201703
+  11 | Fuehrung mit Promis              |     70 | Madame Tussauds        |                                                      | 2017-06-10 | 10:00:00 |  201703
+  50 | Schwimmen                        |     30 | Freibad am See         | Schwimmerlaubnis erforderlich                        | 2017-06-06 | 12:00:00 |  201702
+  12 | Schwimmen                        |     30 | Stadtbad               |                                                      | 2017-06-10 | 15:00:00 |  201703
+  36 | Fruehstueck                      |      0 | DJH Dresden            |                                                      | 2017-06-07 | 08:00:00 |  201702
+  37 | Mittagessen                      |      0 | DJH Dresden            |                                                      | 2017-06-07 | 12:00:00 |  201702
+   3 | Mittagessen                      |      0 | Queen Hostel           |                                                      | 2017-06-08 | 12:00:00 |  201703
+  39 | Abendessen                       |      0 | DJH Dresden            |                                                      | 2017-06-07 | 18:00:00 |  201702
+  40 | Fruehstueck                      |      0 | DJH Dresden            |                                                      | 2017-06-08 | 08:00:00 |  201702
+  41 | Stadtfuehrung                    |      0 | Fuehrer von heute      |                                                      | 2017-06-08 | 08:00:00 |  201702
+  43 | Fruehstueck                      |      0 | DJH Dresden            |                                                      | 2017-06-09 | 08:00:00 |  201702
+   2 | Abreise Bus                      |      0 | Bussard-Travel         | Abreisekosten incl.                                  | 2017-06-12 | 08:00:00 |  201703
+  45 | Abendessen                       |      0 | DJH Dresden            |                                                      | 2017-06-09 | 18:00:00 |  201702
+  46 | Fruehstueck                      |      0 | DJH Dresden            |                                                      | 2017-06-10 | 08:00:00 |  201702
+  47 | Abreise Bahn                     |      0 | Bahn24                 | Abreisekosten incl.                                  | 2017-06-10 | 08:00:00 |  201702
+  48 | Abendessen                       |      0 | DJH Dresden            |                                                      | 2017-06-05 | 18:00:00 |  201702
+  49 | Fruehstueck                      |      0 | DJH Dresden            |                                                      | 2017-06-06 | 08:00:00 |  201702
+   6 | Fruehstueck                      |      0 | Queen Hostel           |                                                      | 2017-06-09 | 08:00:00 |  201703
+  18 | Abendessen                       |      0 | Queen Hostel           |                                                      | 2017-06-11 | 18:00:00 |  201703
+  13 | Abendessen                       |      0 | Queen Hostel           |                                                      | 2017-06-10 | 18:00:00 |  201703
+  22 | Verteilen auf die Gastfamilien   |      0 | Hosting Today          |                                                      | 2017-05-25 | 14:00:00 |  201701
+  23 | Schulbesuch                      |      0 | Higher Highschool      |                                                      | 2017-05-26 | 09:00:00 |  201701
+  10 | Fruehstueck                      |      0 | Queen Hostel           |                                                      | 2017-06-10 | 08:00:00 |  201703
+  27 | Tag mit den Gasteltern           |      0 | Hosting Today          |                                                      | 2017-05-28 | 08:00:00 |  201701
+  28 | Schulbesuch                      |      0 | Higher Highschool      |                                                      | 2017-05-29 | 08:00:00 |  201701
+  29 | Abschlussparty                   |      0 | Higher Highschool      |                                                      | 2017-05-29 | 20:00:00 |  201701
+  14 | Fruehstueck                      |      0 | Queen Hostel           |                                                      | 2017-06-11 | 08:00:00 |  201703
+  33 | Mittagessen                      |      0 | DJH Dresden            |                                                      | 2017-06-06 | 12:00:00 |  201702
+  34 | Abendessen                       |      0 | DJH Dresden            |                                                      | 2017-06-06 | 18:00:00 |  201702
+(50 Zeilen)
+
+
+11. Zeige nur die teuerste Unternehmung.
+
+ unr |    titel     | kosten |     veranstalter      | ubesonderes |   udatum   | uhrzeit  | fahrtnr 
+-----+--------------+--------+-----------------------+-------------+------------+----------+---------
+  30 | Abreise Flug |  12500 | Fluege deluxe,nonstop |             | 2017-05-30 | 08:00:00 |  201701
+(1 Zeile)
+
+
+12. Zeige alle Teilnehmer, die nach Dresden fahren.
+
+ fahrtnr | teilnnr |     fahrtname      |  ziel   |    von     |    bis     |          iban          
+---------+---------+--------------------+---------+------------+------------+------------------------
+  201702 |       6 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |       8 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |       9 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      10 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      12 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      16 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      17 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      18 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      22 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      26 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+  201702 |      27 | Geschichte_Aktmann | Dresden | 2017-06-05 | 2017-06-10 | DE19167944520905876021
+(11 Zeilen)
+
+
+13. Zeige die Nachnamen aller begleitenden Lehrer.
+
+  nname  
+---------
+ Gersten
+ Schulz
+(2 Zeilen)
+
+
+14. Zeige alle Besonderheiten der Unternehmungen auf der Fahrt nach Orlando.
+
+    titel     |                     ubesonderes                      
+--------------+------------------------------------------------------
+ Anreise Flug | "Zwischenlandung Rejkjavijk, USA-Visum erforderlich"
+ Schwimmen    | Badekappen einpacken
+(2 Zeilen)
+
+
+15. Zeige alle Besonderheiten der teilnehmenden Schüler mit Vor- und Nachnamen der Schüler.
+
+   vname    |    nname     |                besonderes                
+------------+--------------+------------------------------------------
+ Claudia    | Nadel        | 
+ Lisa       | Vogel        | Veganerin
+ Maria      | Roth         | Pollenallergie, Notfallspray beim Lehrer
+ Jennifer   | Werner       | 
+ Diana      | Wannemaker   | 
+ Michelle   | Reinhardt    | Vegetarierin
+ Maximilian | Gersten      | Rollstuhlfahrer mit Begleiter
+ Markus     | Koehler      | 
+ Angelika   | Fuhrmann     | 
+ Simone     | Probst       | 
+ René       | Fleischer    | 
+ Kevin      | Weiss        | 
+ Jana       | Köhler       | 
+ Christina  | Eichelberger | Vegetarier
+ Christine  | Vogel        | 
+ Stefanie   | Hoffmann     | Nussallergie
+ Mohammed   | Bauer        | Kein Schweinefleisch
+ Swen       | Faust        | 
+ Frank      | Maurer       | 
+ Wolfgang   | Koertig      | 
+(20 Zeilen)
+
+
+16. Zeige nur Schüler (mit Vor- und Nachnamen) und ihre Besonderheiten, wenn sie welche haben.
+
+   vname    |    nname     |                besonderes                
+------------+--------------+------------------------------------------
+ Lisa       | Vogel        | Veganerin
+ Maria      | Roth         | Pollenallergie, Notfallspray beim Lehrer
+ Michelle   | Reinhardt    | Vegetarierin
+ Maximilian | Gersten      | Rollstuhlfahrer mit Begleiter
+ Christina  | Eichelberger | Vegetarier
+ Stefanie   | Hoffmann     | Nussallergie
+ Mohammed   | Bauer        | Kein Schweinefleisch
+(7 Zeilen)
+
+
+17. Zeige eine sortierte Liste aller Unternehmungen (Titel), die nicht bei der Fahrt nach Orlando stattfinden.
+
+              titel               
+----------------------------------
+ 4 uebernachtungen
+ 5 uebernachtungen
+ Abendessen
+ Abendessen
+ Abendessen
+ Abendessen
+ Abendessen
+ Abendessen
+ Abendessen
+ Abendessen
+ Abreise Bahn
+ Abreise Bus
+ Anreise Bahn
+ Anreise Bus
+ Ausflug ins Elbsandstein-Gebirge
+ Billy Elliot
+ Bootsfahrt auf der Themse
+ Bowling mit Abendessen
+ Faust
+ Fruehstueck
+ Fruehstueck
+ Fruehstueck
+ Fruehstueck
+ Fruehstueck
+ Fruehstueck
+ Fruehstueck
+ Fruehstueck
+ Fuehrung durch London
+ Fuehrung mit Promis
+ Gemäldegalerie
+ London Eye
+ Mittagessen
+ Mittagessen
+ Mittagessen
+ Schwimmen
+ Schwimmen
+ Shakespeare Workshop
+ Stadtfuehrung
+ St. Paul Cathedral
+ The Tower of London
+(40 Zeilen)
+
+
+18. Zeige alle Teilnehmernummern und vollständigen Namen der Teilnehmer, die nach Dresden fahren.
+
+ teilnnr |  vname   |   nname   
+---------+----------+-----------
+       6 | Michelle | Reinhardt
+       8 | Markus   | Koehler
+       9 | Angelika | Fuhrmann
+      10 | Simone   | Probst
+      12 | Kevin    | Weiss
+      16 | Stefanie | Hoffmann
+      17 | Mohammed | Bauer
+      18 | Swen     | Faust
+      22 | Paul     | Gersten
+      26 | Lisa     | Eichmann
+      27 | Jörg     | Schiffer
+(11 Zeilen)
+
+
+
+19. Zeige alle Schüler (mit vollständigem Namen), die nach London fahren.
+
+   vname    |   nname    
+------------+------------
+ Claudia    | Nadel
+ Maria      | Roth
+ Jennifer   | Werner
+ Diana      | Wannemaker
+ Maximilian | Gersten
+ Jana       | Köhler
+ Frank      | Maurer
+ Wolfgang   | Koertig
+(8 Zeilen)
+
+
+
+20. Zeige, welche Aktivitäten bei der Kursfahrt in die USA (nach Datum sortiert) stattfinden.
+
+             titel              |   udatum   
+--------------------------------+------------
+ Anreise Flug                   | 2017-05-25
+ Verteilen auf die Gastfamilien | 2017-05-25
+ Gemeinsames Abendessen         | 2017-05-26
+ Schulbesuch                    | 2017-05-26
+ Eimal Astronaut sein           | 2017-05-27
+ Schwimmen                      | 2017-05-27
+ Tag mit den Gasteltern         | 2017-05-28
+ Abschlussparty                 | 2017-05-29
+ Schulbesuch                    | 2017-05-29
+ Abreise Flug                   | 2017-05-30
+(10 Zeilen)
+
+
+21. Zeige die Teilnehmernummern und den Nachnamen der Schüler, die an mehreren Fahrten teilnehmen.
+
+ teilnnr |   nname    
+---------+------------
+       1 | Nadel
+       5 | Wannemaker
+(2 Zeilen)
+
+
+
+22. Zeige die Summe der Kosten der Unternehmungen der Londonfahrt (Fahrtnr=201703).
+
+ Kosten insgesamt: 
+-------------------
+              7010
+(1 Zeile)
+

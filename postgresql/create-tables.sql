@@ -70,8 +70,8 @@ logintime  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 CREATE TABLE IF NOT EXISTS wgs (
   wg_id SERIAL PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
-  day weekday,
-  time TIME,
+  day weekday NOT NULL,
+  time TIME NOT NULL,
   duration INTEGER DEFAULT 45 CHECK(duration>=0),
   max_num INTEGER DEFAULT 0 CHECK (max_num>=0),
   multiple BOOLEAN DEFAULT TRUE,

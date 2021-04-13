@@ -1,0 +1,57 @@
+%Relationenalgebra
+
+
+%Anfrage 1
+
+%Gesucht sind alle bereits erfolgten Überweisungen für die Fahrt nach Dresden(Fahrtnr=201702).
+
+%Relationenalgebra: σ fahrtnr=201702 (Bezahlt)
+
+%Relationenalgebra in DES:
+
+select fahrtnr=201702(Bezahlt);
+
+
+%Anfrage 2
+
+%Gesucht sind alle weiblichen Teilnehmerinnen (Vor- und Nachname).
+
+%Relationenalgebra: π vname,nname (σ geschlecht=′w′ (Teilnehmer))
+
+%Relationenalgebra in DES:
+
+project vname, nname(select geschlecht=‘w‘(Teilnehmer));
+
+
+%Anfrage 3
+
+%Gesucht sind alle Unternehmungen (Titel, Kosten, Datum und Uhrzeit) auf der Fahrt nach London (Fahrtnummer: 201703).
+
+%Relationenalgebra: π titel,kosten,udatum,uhrzeit (σ fahrtnr=201703 (Unternehmung))
+
+%Relationenalgebra in DES:
+
+project titel,kosten,udatum,uhrzeit (select fahrtnr=201703(Unternehmung));
+
+
+%Anfrage 4
+
+%Welche Unternehmungen sind teurer als 100 €?
+
+%Relationenalgebra: σ kosten>100.00 (Unternehmung)
+
+%Relationenalgebra in DES:
+
+select kosten>100.00(Unternehmung);
+
+
+%Anfrage 5
+
+%Gesucht sind alle Teilnehmer (Vor-, Nachname) der Fahrt nach Orlando.
+
+%Relationenalgebra: π vname,nname (σ ziel=‘Orlando‘ (Fahrt)⋊ Fährtmit⋊ Teilnehmer)
+
+%Relationenalgebra in DES:
+
+project vname,nname(select ziel=‘Orlando‘ (Fahrt) njoin Fährtmit njoin Teilnehmer);
+

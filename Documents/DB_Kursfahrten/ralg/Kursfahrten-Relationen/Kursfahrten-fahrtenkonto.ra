@@ -1,0 +1,4 @@
+DES> /listing fahrtenkonto 
+fahrtenkonto('DE19167944520905876021','COBADEFF','Daniela Altmann','Norisbank').
+fahrtenkonto('DE19183417341534123414','DEUTDEFF','Conrad Weiland','Deutsche Bank').
+fahrtenkonto('DE19200456783417345678','DEUTDEFF','Matthias Lang','Deutsche Bank').

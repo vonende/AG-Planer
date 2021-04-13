@@ -1,0 +1,6 @@
+﻿*** erweiterte Möglichkeiten des Views ***
+
+Schwieriger ist die Eingabe von Daten in die Datenbank, da hier Vorprüfungen erfolgen müssen. 
+Des Weiteren lässt sich der View dadurch erweitern, dass mehrere Anfragen und Eingaben möglich sind, 
+die vom Nutzer per Klick ausgewählt werden. Siehe Aufgabe 3 des beigefügten Arbeitsauftrages.
+

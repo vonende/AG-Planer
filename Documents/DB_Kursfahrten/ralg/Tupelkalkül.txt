@@ -1,0 +1,65 @@
+%Tupelkalkül:
+
+
+%Anfrage 1
+
+%Gesucht sind alle bereits erfolgten Überweisungen für die Fahrt nach Dresden(Fahrtnr=201702).
+
+%Relationenalgebra: σ fahrtnr=201702 (Überwiesen)
+
+%TRC: {x|(Überwiesen(x) ∧ x[fahrtnr]=201702)}
+
+%TRC in DES:
+
+t1 := {X|(Überwiesen(X) and X[fahrtnr]=201702)};
+
+
+%Anfrage 2
+
+%Gesucht sind alle Teilnehmer der Fahrt nach Orlando (fahrtnr=201701)
+
+%TRC:{x|Fährtmit(x) ∧ x[fahrtnr]= 201701}
+
+%TRC in DES:
+
+t2 := {X | Fährtmit(X) and X.fahrtnr= 201701};
+
+
+%Anfrage 3
+
+%Gesucht sind alle Unternehmungen (Titel, Kosten, Datum, Uhrzeit und Fahrtnummer) auf der Fahrt nach London (Fahrtnummer: 201703).
+
+%Relationenalgebra: π titel,kosten,udatum,uhrzeit,fahrtnr (σ fahrtnr=201703 (Unternehmung))
+
+%TRC: {x|(Unternehmung(x) ∧ x[fahrtnr]=201703)}
+
+%TRC in DES:
+
+t3 := {X.titel,X.kosten,X.udatum,X.uhrzeit,X.fahrtnr|(Unternehmung(X) and X.fahrtnr.=201703)};
+
+
+%Anfrage 4
+
+%Welche Unternehmungen der Fahrt nach Dresden (Fahrtnr=201702) sind teuerer als 150€?
+
+%Relationenalgebra: σ fahrtnr=201702∧kosten>150.00 (Unternehmung)
+
+%TRC:{x|Unternehmung(x) ∧ x[fahrtnr]=201702 ∧ x[kosten]>150.00}
+
+%TRC in DES:
+
+t4 := {X|Unternehmung(X) and X.fahrtnr=201702 and X.kosten>150.00};
+
+
+%Anfrage 5
+
+%Gesucht sind alle bar bezahlten Unternehmungen.
+
+%Relationenalgebra: σ bar=‘True‘ (Bezahlt)
+
+%TRC:{x|(Bezahlt(x) ∧ x[bar]=‘True‘)}
+
+%TRC in DES:
+
+t5 := {X|Bezahlt(X) and X.bar=‘True‘};
+

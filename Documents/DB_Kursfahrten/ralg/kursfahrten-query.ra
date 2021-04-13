@@ -1,0 +1,105 @@
+%Relationenalgebra
+
+%Anfrage 1
+%Gesucht sind alle bereits erfolgten Überweisungen für die Fahrt nach Dresden(Fahrtnr=201702).
+%Relationenalgebra: σ fahrtnr=201702(ueberwiesen)
+%Relationenalgebra in DES:
+select fahrtnr=201702(ueberwiesen);
+
+%Anfrage 2
+%Gesucht sind alle weiblichen Teilnehmerinnen (Vor- und Nachname).
+%Relationenalgebra: π vname,nname(σ geschlecht=′w′(teilnehmer))
+%Relationenalgebra in DES:
+project vname,nname(select geschlecht='w'(teilnehmer));
+
+%Anfrage 3
+%Gesucht sind alle Unternehmungen (Titel, Kosten, Datum und Uhrzeit) auf der Fahrt nach London (Fahrtnummer: 201703).
+%Relationenalgebra: π titel,kosten,udatum,uhrzeit(σ fahrtnr=201703(unternehmung))
+%Relationenalgebra in DES:
+project titel,kosten,udatum,uhrzeit (select fahrtnr=201703(unternehmung));
+
+%Anfrage 4
+%Welche Unternehmungen sind teurer als 100 €?
+%Relationenalgebra: σ kosten>100.00(unternehmung)
+%Relationenalgebra in DES:
+select kosten>100.00(unternehmung);
+
+%Anfrage 5
+%Gesucht sind alle Teilnehmer (Vor-, Nachname) der Fahrt nach Orlando.
+%Relationenalgebra: π vname,nname(σ ziel=‘Orlando‘(fahrt)⋊ faehrtmit⋊ teilnehmer)
+%Relationenalgebra in DES:
+project vname,nname(select ziel='Orlando' (fahrt) njoin faehrtmit njoin teilnehmer);
+
+%Tupelkalkül:
+
+%Anfrage t1
+%Gesucht sind alle bereits erfolgten Überweisungen für die Fahrt nach Dresden(Fahrtnr=201702).
+%Relationenalgebra: σ fahrtnr=201702(ueberwiesen)
+%TRC: {x|(ueberwiesen(x) ∧ x[fahrtnr]=201702)}
+%TRC in DES:
+t1 := {X|(ueberwiesen(X) and X.fahrtnr=201702)};
+
+%Anfrage t2
+%Gesucht sind alle Teilnehmer der Fahrt nach Orlando (fahrtnr=201701)
+%TRC:{x|faehrtmit(x) ∧ x[fahrtnr]= 201701}
+%TRC in DES:
+t2 := {X | faehrtmit(X) and X.fahrtnr= 201701};
+
+%Anfrage t3
+%Gesucht sind alle Unternehmungen (Titel, Kosten, Datum, Uhrzeit und Fahrtnummer) auf der Fahrt nach London (Fahrtnummer: 201703).
+%Relationenalgebra:  π titel,kosten,udatum,uhrzeit,fahrtnr(σ fahrtnr=201703(Unternehmung))
+%TRC: {x|(unternehmung(x) ∧ x[fahrtnr]=201703)}
+%TRC in DES:
+t3 := {X.titel,X.kosten,X.udatum,X.uhrzeit,X.fahrtnr|(unternehmung(X) and X.fahrtnr=201703)};
+
+%Anfrage t4
+%Welche Unternehmungen der Fahrt nach Dresden (Fahrtnr=201702) sind teuerer als 150€?
+%Relationenalgebra:  σ fahrtnr=201702∧kosten>150.00(Unternehmung)
+%TRC:{x|unternehmung(x) ∧ x[fahrtnr]=201702 ∧ x[kosten]>150.00}
+%TRC in DES:
+t4 := {X|unternehmung(X) and X.fahrtnr=201702 and X.kosten>150.00};
+
+%Anfrage t5
+%Gesucht sind alle bar bezahlten Unternehmungen.
+%Relationenalgebra: σ bar=‘True‘(Bezahlt)
+%TRC:{x|(bezahlt(x) ∧ x[bar]=‘True‘)}
+%TRC in DES:
+t5 := {X|bezahlt(X) and X.bar=‘True‘};
+
+%Domänenkalkül:
+
+%Anfrage d1
+%Gesucht sind alle bereits erfolgten Überweisungen für die Fahrt nach Dresden(Fahrtnr=201702).
+%Relationenalgebra: σ fahrtnr=201702(ueberwiesen)
+%DRC: {teilnnr,fkbetrag,fkdatum|(∃ fahrtnr)(ueberwiesen(teilnnr,fahrtnr,fkbetrag,fkdatum) ∧ fahrtnr=201702)}
+%DRC in DES:
+d1 := {teilnnr,fkbetrag,fkdatum|(exists fahrtnr)(ueberwiesen(teilnnr,fahrtnr,fkbetrag,fkdatum) and fahrtnr=201702)};
+
+%Anfrage d2
+%Gesucht sind alle weiblichen Teilnehmerinnen (Vor- und Nachname).
+%Relationenalgebra: π vname,nname(σ geschlecht=′w′(teilnehmer))
+%DRC: {vname,nname|(∃teilnnr)(∃mobilnr)(∃geschlecht)(∃adresse)(∃notfallnr)(∃besonderes)(teilnehmer(teilnnr,mobilnr,geschlecht,adresse,notfallnr,vname,nname,besonderes) ∧geschlecht=‘w‘)}
+%DRC in DES:
+d2 := {vname, nname|(exists  teilnnr,mobilnr,geschlecht,adresse,notfallnr,besonderes)(teilnehmer(teilnnr,mobilnr,geschlecht,adresse,notfallnr,vname,nname,besonderes) and geschlecht='w')};
+
+%Anfrage d3
+%Gesucht sind alle Unternehmungen (Titel, Kosten, Datum und Uhrzeit) auf der Fahrt nach London (Fahrtnummer: 201703).
+%Relationenalgebra:  π titel,kosten,udatum,uhrzeit(σ fahrtnr=201703(unternehmung))
+%DRC: {titel,kosten,udatum,uhrzeit|(∃unr)(∃veranstalter)(∃ubesonderes)(∃fahrtnr)(unternehmung(unr,titel,kosten,veranstalter,ubesonderes,udatum,uhrzeit,fahrtnr) ∧fahrtnr=201703)}
+%DRC in DES:
+d3 := {titel,kosten,udatum,uhrzeit| (exists unr,veranstalter,ubesonderes,fahrtnr)(unternehmung(unr,titel,kosten,veranstalter,ubesonderes,udatum,uhrzeit,fahrtnr) and fahrtnr=201703)};
+
+%Anfrage d4
+%Welche dieser Unternehmungen (Ergebnis der Anfrage d3) sind teurer als 100 €?
+%Relationenalgebra: σ kosten>100.00(d3)
+%DRC: {titel,kosten,udatum,uhrzeit|(d3(titel,kosten,udatum,uhrzeit)∧kosten>100.00)}
+%DRC in DES:
+d3 := {titel,kosten,udatum,uhrzeit| (exists unr,veranstalter,ubesonderes,fahrtnr)(unternehmung(unr,titel,kosten,veranstalter,ubesonderes,udatum,uhrzeit,fahrtnr) and fahrtnr=201703)};
+d4 := {titel,kosten,udatum,uhrzeit|(d3(titel,kosten,udatum,uhrzeit) and kosten>100.00)};
+
+%Anfrage d5
+%Gesucht sind alle Teilnehmer (Vor-, Nachname) der Fahrt nach Orlando.
+%Relationenalgebra: π vname,nname(σ ziel=‘Orlando‘(Fahrt)⋊ Fährtmit⋊ Teilnehmer)
+%DRC: {vname,nname|(∃teilnnr)(∃mobilnr)(∃geschlecht)(∃adresse)(∃notfallnr)(∃besonderes)(∃fahrtnr)(∃fahrtname)(∃ziel)(∃von)(∃bis)(∃iban)(fahrt(fahrtnr,fahrtname,ziel,von,bis,iban) ∧ ziel=‘Orlando‘ ∧ faehrtmit(teilnnr,fahrtnr) ∧ teilnehmer(teilnnr,mobilnr,geschlecht,adresse,notfallnr,vname,nname,besonderes))}
+%DRC in DES:
+d5 := {vname,nname|(exists  teilnnr,mobilnr,geschlecht,adresse,notfallnr,besonderes,fahrtnr,fahrtname,ziel,von,bis,iban)(fahrt(fahrtnr,fahrtname,ziel,von,bis,iban) and ziel = ‘Orlando‘ and faehrtmit(teilnnr,fahrtnr) and teilnehmer(teilnnr,mobilnr,geschlecht,adresse,notfallnr,vname,nname,besonderes))};

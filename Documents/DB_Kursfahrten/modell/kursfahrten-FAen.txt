@@ -1,0 +1,11 @@
+*** Funktionale Abhängigkeiten ***
+
+Im Modell existieren folgende nicht-triviale Funktionale Abhängigkeiten:
+
+In der Relation "Fahrtenkonto" sind die Attribute "BIC" und "Bank" gegenseitig voneinander abhängig (da sie im Prinzip das Gleiche bezeichnen).
+Es wäre auch denkbar, lediglich eines der Attribute einzufügen (z. B. BIC), jedoch ist die gegebene Form benutzerfreundlicher.
+
+Ebenso sind in der Relation "Teilnehmer" die Attribute Vor- und Nachname (zusammen genommen) und Mobilnummer gegenseitig voneinander abhängig, 
+zumindest, wenn wir davon ausgehen, dass jeder Teilnehmer nur eine Nummer hat.
+
+

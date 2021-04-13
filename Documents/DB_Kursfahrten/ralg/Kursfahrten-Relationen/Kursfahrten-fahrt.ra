@@ -1,0 +1,5 @@
+DES> /listing fahrt 
+fahrt(201701,'Englisch_Kose','Orlando','2017-05-25','2017-05-30','DE19200456783417345678').
+fahrt(201702,'Geschichte_Aktmann','Dresden','2017-06-05','2017-06-10','DE19167944520905876021').
+fahrt(201703,'Informatik_Schachmann','London','2017-06-07','2017-06-12','DE19183417341534123414').
+

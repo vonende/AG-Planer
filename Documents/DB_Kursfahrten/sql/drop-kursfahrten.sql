@@ -1,0 +1,9 @@
+DROP TABLE Ueberwiesen;
+DROP TABLE Bezahlt;
+DROP TABLE Unternehmung;
+DROP TABLE Faehrtmit;
+DROP TABLE Schueler;
+DROP TABLE Begleiter;
+DROP TABLE Teilnehmer;
+DROP TABLE Fahrt;
+DROP TABLE Fahrtenkonto;

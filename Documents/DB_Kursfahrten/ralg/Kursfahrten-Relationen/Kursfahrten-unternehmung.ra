@@ -1,0 +1,51 @@
+DES> /listing unternehmung 
+unternehmung(1,'Anreise Bus',1400.0,'Bussard-Travel','10 Std. Nachtfahrt','2017-06-07','18:00:00',201703).
+unternehmung(2,'Abreise Bus',0.0,'Bussard-Travel','Abreisekosten incl.','2017-06-12','8:00:00',201703).
+unternehmung(3,'Mittagessen',0.0,'Queen Hostel','','2017-06-08','12:00:00',201703).
+unternehmung(4,'Fuehrung durch London',75.0,'Guides International','','2017-06-08','12:00:00',201703).
+unternehmung(5,'Abendessen',300.0,'Hangmans Soup Corner','','2017-06-08','18:00:00',201703).
+unternehmung(6,'Fruehstueck',0.0,'Queen Hostel','','2017-06-09','8:00:00',201703).
+unternehmung(7,'Bootsfahrt auf der Themse',70.0,'Titanic Services','','2017-06-09','10:00:00',201703).
+unternehmung(8,'Shakespeare Workshop',150.0,'Globe Theater','','2017-06-09','16:00:00',201703).
+unternehmung(9,'Abendessen',70.0,'Globe Theater','','2017-06-09','18:00:00',201703).
+unternehmung(10,'Fruehstueck',0.0,'Queen Hostel','','2017-06-10','8:00:00',201703).
+unternehmung(11,'Fuehrung mit Promis',70.0,'Madame Tussauds','','2017-06-10','10:00:00',201703).
+unternehmung(12,'Schwimmen',30.0,'Stadtbad','','2017-06-10','15:00:00',201703).
+unternehmung(13,'Abendessen',0.0,'Queen Hostel','','2017-06-10','18:00:00',201703).
+unternehmung(14,'Fruehstueck',0.0,'Queen Hostel','','2017-06-11','8:00:00',201703).
+unternehmung(15,'The Tower of London',70.0,'Knastis und Co. KG','','2017-06-11','10:00:00',201703).
+unternehmung(16,'London Eye',85.0,'Spass und Spiel','','2017-06-11','12:00:00',201703).
+unternehmung(17,'St. Paul Cathedral',170.0,'Monastry of the cross','','2017-06-11','14:00:00',201703).
+unternehmung(18,'Abendessen',0.0,'Queen Hostel','','2017-06-11','18:00:00',201703).
+unternehmung(19,'Billy Elliot',320.0,'Theater of the Stars','','2017-06-11','20:00:00',201703).
+unternehmung(20,'4 uebernachtungen',4200.0,'Queen Hostel','Nur 4-Bett Zimmer','2017-06-08','8:00:00',201703).
+unternehmung(21,'Anreise Flug',2500.0,'Try&Fly','"Zwischenlandung Rejkjavijk, USA-Visum erforderlich"','2017-05-25','8:00:00',201701).
+unternehmung(22,'Verteilen auf die Gastfamilien',0.0,'Hosting Today','','2017-05-25','14:00:00',201701).
+unternehmung(23,'Schulbesuch',0.0,'Higher Highschool','','2017-05-26','9:00:00',201701).
+unternehmung(24,'Gemeinsames Abendessen',320.0,'Burger Palast','','2017-05-26','18:00:00',201701).
+unternehmung(25,'Schwimmen',80.0,'Stadtbad','Badekappen einpacken','2017-05-27','9:00:00',201701).
+unternehmung(26,'Eimal Astronaut sein',420.0,'Kennedy Space Center','','2017-05-27','14:00:00',201701).
+unternehmung(27,'Tag mit den Gasteltern',0.0,'Hosting Today','','2017-05-28','08:00:00',201701).
+unternehmung(28,'Schulbesuch',0.0,'Higher Highschool','','2017-05-29','8:00:00',201701).
+unternehmung(29,'Abschlussparty',0.0,'Higher Highschool','','2017-05-29','20:00:00',201701).
+unternehmung(30,'Abreise Flug',12500.0,'Fluege deluxe,nonstop','','2017-05-30','08:00:00',201701).
+unternehmung(31,'Anreise Bahn',2156.0,'Bahn','6 Std. Fahrt','2017-06-05','08:00:00',201702).
+unternehmung(32,'5 uebernachtungen',3200.0,'DJH Dresden','','2017-06-05','13:00:00',201702).
+unternehmung(33,'Mittagessen',0.0,'DJH Dresden','','2017-06-06','12:00:00',201702).
+unternehmung(34,'Abendessen',0.0,'DJH Dresden','','2017-06-06','18:00:00',201702).
+unternehmung(35,'Faust',320.0,'Junge Barde','','2017-06-06','18:00:00',201702).
+unternehmung(36,'Fruehstueck',0.0,'DJH Dresden','','2017-06-07','8:00:00',201702).
+unternehmung(37,'Mittagessen',0.0,'DJH Dresden','','2017-06-07','12:00:00',201702).
+unternehmung(38,'Gemäldegalerie',200.0,'Kunstmuseum Schirn','','2017-06-07','14:00:00',201702).
+unternehmung(39,'Abendessen',0.0,'DJH Dresden','','2017-06-07','18:00:00',201702).
+unternehmung(40,'Fruehstueck',0.0,'DJH Dresden','','2017-06-08','8:00:00',201702).
+unternehmung(41,'Stadtfuehrung',0.0,'Fuehrer von heute','','2017-06-08','8:00:00',201702).
+unternehmung(42,'Bowling mit Abendessen',120.0,'Bowlingcenter nix hier','','2017-06-08','17:00:00',201702).
+unternehmung(43,'Fruehstueck',0.0,'DJH Dresden','','2017-06-09','8:00:00',201702).
+unternehmung(44,'Ausflug ins Elbsandstein-Gebirge',420.0,'Return Tours','','2017-06-09','10:00:00',201702).
+unternehmung(45,'Abendessen',0.0,'DJH Dresden','','2017-06-09','18:00:00',201702).
+unternehmung(46,'Fruehstueck',0.0,'DJH Dresden','','2017-06-10','08:00:00',201702).
+unternehmung(47,'Abreise Bahn',0.0,'Bahn24','Abreisekosten incl.','2017-06-10','08:00:00',201702).
+unternehmung(48,'Abendessen',0.0,'DJH Dresden','','2017-06-05','18:00:00',201702).
+unternehmung(49,'Fruehstueck',0.0,'DJH Dresden','','2017-06-06','08:00:00',201702).
+unternehmung(50,'Schwimmen',30.0,'Freibad am See','Schwimmerlaubnis erforderlich','2017-06-06','12:00',201702).

@@ -1,0 +1,26 @@
+*** Beschreibung der Miniwelt Kursfahrten ***
+
+Im Zentrum dieser Miniwelt stehen die Fahrten (Klassen-, Kurs-, Jahrgangsfahrt, o. ä.), die mit einem Namen bezeichnet sind, 
+ein Ziel und ein Start- und Enddatum haben.
+
+Bei jeder Fahrt fahren theoretisch unbegrenzt viele Teilnehmer mit. Jeder Teilnehmer kann an mehreren Fahrten mitfahren, 
+solange sich die Fahrten nicht zeitlich über­schneiden. Neben Name und Adresse spielt bei den Teilnehmern z. B. für die 
+Zimmeraufteilung das Geschlecht eine Rolle, ebenso sollten eine Mobilnummer und eine Notfallnummer hinterlegt sein. 
+Auch sollten eventuelle Besonderheiten wie Medikamente, Allergien, Krankheiten o. ä. vermerkt werden.
+
+Die Gruppe der Teilnehmer teilt sich auf in Begleiter, welche Lehrer, Eltern, Erzieher o. ä. sein können, und Schüler, 
+bei denen es eine Rolle spielt, ob sie volljährig sind und wer ggf. erziehungsberechtigt ist. 
+Die Volljährigkeit könnte auch auf der Fahrt erreicht werden, weswegen das Geburtsdatum angegeben wird. 
+An jeder Fahrt muss mind. ein Lehrer teilnehmen.
+
+Jede Fahrt macht eine Reihe von eigenen Unternehmungen, wobei auch Unterkunft, An- und Abreise, gemeinsames Essen usw. 
+als Unternehmung geführt wird. Zu diesen Unternehmungen werden Datum und Uhrzeit, Kosten, Veranstalter und 
+Besonderheiten (Badehose & Surfbrett, Museumsführer, Skiausrüstung, o. ä.) eingetragen.
+
+Jede Fahrt hat ein Fahrtenkonto bei einer Bank mit IBAN, BIC und einem Inhaber. Während jede Fahrt nur ein Konto haben soll, 
+kann aber ein Konto für mehrere Fahrten genutzt werden, z. B. das Konto des Klassenlehrers für die Klassenfahrten 
+in mehreren Jahren.
+
+Auf dieses Fahrtenkonto überweisen die Teilnehmer je einen Betrag zu einem Datum für eine bestimmte Fahrt und von diesem Konto 
+aus werden die Unternehmungen zu einem Datum bezahlt, wobei vermerkt werden soll, ob es sich um eine Barzahlung 
+(z. B. bei einem Essen) handelt. 

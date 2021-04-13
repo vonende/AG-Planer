@@ -1,0 +1,28 @@
+*** Textvorlage: Aufgabe zur Modellierung ***
+
+Szenario:
+
+Die Schule plant die Einführung einer Datenbank zur Vewaltung von Klassen- bzw. Kursfahrten. 
+Zu jeder Fahrt gibt es Teilnehmer, dies können Begleiter oder Schüler_Innen sein. Zu jeder Fahrt 
+gibt es Unternehmungen, diese werden bei Veranstaltern gebucht. Jede Fahrt hat ein eigenes Fahrtenkonto, 
+in welches die Teilnehmer einzahlen und von dem aus die Unternehmungen bezahlt werden. 
+Schüler_Innen können an mehreren Fahrten teilnehmen. 
+
+
+Aufgabe 1) 
+Setzt euch zu dritt zusammen und überlegt euch ein ER Modell und beschriftet die Kardinalitäten.
+
+Aufgabe 2)
+a) Überführt euer Modell in ein Relationenmodell.
+b) Überlegt euch Zusammenhänge, die gesondert geprüft werden müssen und sich nicht aus euren Tabellen ergeben.
+   Kann es zu Überschneidungen oder Widersprüchen kommen?
+
+
+Aufgabe 3)
+Teilt euch auf und trefft euch mit einem_r Schüler_In einer anderen Gruppe und stellt euer Modell vor und 
+vergleicht es mit dem Modell der anderen Gruppen.
+
+
+Aufgabe 4)
+Verbessert euer Modell nach den Erkenntnissen aus Aufgabe 3). 
+

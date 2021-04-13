@@ -1,0 +1,6 @@
+﻿*** Basismöglichkeiten des Views ***
+
+Die einfachste Anwendung ist die Anfrage von Ergebnissen. 
+Hierfür sind in dem beigefügten Arbeitauftrag zwei Aufgaben. 
+Es öffnet sich nur ein Fenster, in denen Anfragen eingegeben und ausgegeben werden.
+

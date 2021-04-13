@@ -213,9 +213,16 @@ body.loggedin {
   width: 100%;
 }
 
-.content input[type="button"], .content input[type="submit"], .content input[type="text"], .content input[list], .content select, .content input[type="password"] {
-  width: 400px;
+.content input, .content select {
   height: 50px;
+}
+
+.content textarea {
+  height: 200px;
+}
+
+.content input, .content textarea, .content select {
+  width: 400px;
   margin-bottom: 20px;
   margin-top: 10px;
 }
@@ -231,6 +238,7 @@ body.loggedin {
   color: white;
   background-color: #00AA00;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .content input[type="submit"]:hover{
@@ -241,6 +249,7 @@ body.loggedin {
   color: white;
   background-color: #CC0000;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .content input[type="button"]:hover{
@@ -252,7 +261,7 @@ body.loggedin {
 }
 
 @media screen and (max-width: 1000px) {
-  .content input {
+  .content input, .content textarea {
     width: 100%;
   }
   .flexbox > div {

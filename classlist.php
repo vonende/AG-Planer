@@ -5,6 +5,7 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
+// Nur Lehrer und Viewer dürfen die Teilnahmen aller Schüler einer Klasse einsehen.
 if (!$account->isTeacher() && $account->getRoll()!='viewer') {
   header('Location: home.php');
   exit;
@@ -18,6 +19,7 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
 		<title>AG-Manager</title>
 		<link href="style.css" rel="stylesheet" type="text/css">
     <script>
+      // Die Funktion changeClass() lädt die Teilnahmentabelle mittels AJAX-Request nach.
       function changeClass() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -31,6 +33,8 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
     </script>
 	</head>
   <?php
+
+  // Eine Liste aller eingetragenen Klassen wird erstellt
   $query = 'SELECT DISTINCT class FROM students';
   try {
     $res = $pdo->prepare($query);
@@ -68,6 +72,7 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
       </form>
       <div>
         <div id="ajaxresult">
+          Es wurde noch keine Klasse ausgewählt.
         </div>
       </div>
     </div>

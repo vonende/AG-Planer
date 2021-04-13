@@ -1,0 +1,10 @@
+﻿*** Beschreibung und Motivation des Views ***
+
+Ein View ermöglicht dem Anwender eine Eingabe, ohne Kenntnisse von SQL zu haben.  
+Die Schüler müssen sich in die Lage eines Anwenders hinein versetzen, 
+um eine möglichst einfache und intuitive Oberfläche zu nutzen. 
+
+Hierzu dient der eigens erstellte Layout-ADT, welcher den Schülern zur Verfügung gestellt wird. 
+Des Weiteren wird ein ADO für die Erstellung von Buttons zur Verfügung gestellt. 
+Die Schüler sollte eine gute Programmiererfahrung haben und die Funktionen eines Grafikpaketes beherrschen. 
+

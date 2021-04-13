@@ -3,7 +3,8 @@
 try {
   $pdo = new PDO ('pgsql:host=localhost; dbname=ag_manager',"ag_admin",'kq9Ba8kf61;6]f');
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
+}
+catch (PDOException $e) {
   echo "Fehler: Verbindung mit der Datenbank schlug fehl.\n";
   echo "Fehlermeldung: " . htmlspecialchars ($e->getMessage ());
   die();
@@ -47,6 +48,7 @@ class Account
     private   $authenticated; // True, wenn sich der Benutzer authentifiziert hat
     private   $roll;          // admin, editor, viewer oder user
     private   $isTeacher;     // True, wenn der Benutzer ein Lehrer ist
+    private   $isStudent;     // True, wenn der Benutzer ein Schüler ist
 
     // Fügt der Datenbank einen neuen Benutzer hinzu.
     public function addAccount(string $name, string $passwd, bool $enabled, string $firstname,
@@ -356,19 +358,29 @@ c        try
              $this->registerLoginSession();
              $query = 'SELECT * FROM teachers WHERE user_id = :id';
            	 $values = array(':id' => $this->id);
-           	 try
-           	 {
+           	 try {
             		$res = $pdo->prepare($query);
             		$res->execute($values);
            	 }
-           	 catch (PDOException $e)
-           	 {
+           	 catch (PDOException $e) {
            	   throw new Exception("Datenbankfehler beim Login <br>".$e->getMessage());
                exit;
              }
-
              $row = $res->fetch(PDO::FETCH_ASSOC);
              $this->isTeacher = is_array($row)?true:false;
+
+             $query = 'SELECT * FROM students WHERE user_id = :id';
+           	 $values = array(':id' => $this->id);
+           	 try {
+            		$res = $pdo->prepare($query);
+            		$res->execute($values);
+           	 }
+           	 catch (PDOException $e) {
+           	   throw new Exception("Datenbankfehler beim Login <br>".$e->getMessage());
+               exit;
+             }
+             $row = $res->fetch(PDO::FETCH_ASSOC);
+             $this->isStudent = is_array($row)?true:false;
 
              return TRUE;
          }
@@ -458,10 +470,24 @@ c        try
             throw new Exception("Datenbankfehler beim Login <br>".$e->getMessage());
             exit;
           }
-
           $row = $res->fetch(PDO::FETCH_ASSOC);
           $this->isTeacher = is_array($row)?true:false;
-    			return TRUE;
+
+          $query = 'SELECT   * FROM students WHERE user_id = :id';
+          $values = array(':id' => $this->id);
+          try
+          {
+             $res = $pdo->prepare($query);
+             $res->execute($values);
+          }
+          catch (PDOException $e)
+          {
+            throw new Exception("Datenbankfehler beim Login <br>".$e->getMessage());
+            exit;
+          }
+          $row = $res->fetch(PDO::FETCH_ASSOC);
+          $this->isStudent = is_array($row)?true:false;
+return TRUE;
     		}
     	}
 
@@ -560,6 +586,11 @@ c        try
     public function isTeacher()
     {
       return $this->isTeacher;
+    }
+
+    public function isStudent()
+    {
+      return $this->isStudent;
     }
 
 

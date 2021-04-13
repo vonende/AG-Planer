@@ -1,0 +1,10 @@
+*** nicht dargestellte semantische Bezüge im ER-Modell ***
+
+Im ER-Modell konnte nicht dargestellt werden, dass bei jeder Fahrt mind. ein Lehrer teilnehmen soll.
+
+Ebenso konnte nicht dargestellt werden, dass Teilnehmer nicht an sich zeitlich überschneidenden Fahrten teilnehmen können.
+
+In der Beziehung "überwiesen" wird als Fremdschlüssel das Attribut "FahrtNr" verwendet. Dieser muss über die 
+Entität "Fahrt" geprüft werden. (z. B. mit CONSTRAINT in SQL)
+
+

@@ -1,0 +1,41 @@
+﻿*** Aufgaben bzgl. des Views ***
+
+
+Aufg. 1
+Szenario:
+Der Schulleiter möchte von seinem Computer aus abfragen können,
+welche Schüler oder Schülerinnen bei einer bestimmten Fahrt mitfahren.
+
+a)
+Entwirf ein Programm, das die Eingabe einer Fahrtennummer erwartet. Die Ausgabe soll Folgendes beinhalten:
+	Vorname, Nachname, Geschlecht, Adresse, Mobilnummer, Notfallnummer, Besonderes 
+	!! Beachte den Sonderfall "Besonderes": soll nur dann erscheinen, wenn etwas eingetragen wurde. !!
+
+b)
+Die Abfrage soll eine eigene Funktion sein und in der Main-Funktion aufgerufen wird. 
+Verwende die Pakete, die als Hilfsmittel angegeben sind.
+
+
+Aufg. 2
+Der Schulleiter möchte auch die Möglichkeit haben, einen bestimmten Schüler zu suchen. Folgendes soll angezeigt werden:
+	a) Wenn der Schüler an einer Fahrt teilnimmt, dann soll die Fahrt mit den Informationen
+     Fahrtnummer, Fahrtname, Ziel, Von, Bis, IBAN angezeigt werden.
+	b) Wenn der Schüler nicht (!) an einer Fahrt teilnimmt, erscheint: „Der Schüler nimmt an keiner Fahrt teil.“  
+
+
+///////// ++++++++ ZUSATZ - AUFGABE +++++++++++///////////
+Aufg. 3
+	a) Erstelle die Möglichkeit, dass der Schulleiter Schüler zu einer bestehenden Fahrt hinzufügen kann.
+	
+	b) Füge die 2 Anfragen und die Eingabe zu einer GUI zusammen.
+
+
+
+
+Hilfsmittel:
+    	- gfx Spezifikation (bekannt)
+    	- SQL Spezifikation (bekannt)
+    	- Formulare Spezifikation (bekannt)
+    	- eckigebutton Spezifikation (siehe Anhang)
+			- Layout Spezifikation (siehe Anhang)
+
