@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'account_class.php';
+$error="";
 if ( isset($_POST['user'], $_POST['pwd']) ) {
   try {
   	$ok = $account->login($_POST["user"], $_POST["pwd"]);
@@ -13,6 +14,9 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
     $error = $e->getMessage();
   }
 }
+if (isset($_GET['error'])) {
+  $error = htmlspecialchars($_GET['error']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,11 +27,11 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
   </head>
    <body>
      <?php
-       if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
+       if ($error!="") {
          ?>
          <div class="alert">
          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-         <strong>Loginfehler! <?php echo $error ?></strong>
+         <strong><?php echo $error ?></strong>
          </div>
          <?php
        }

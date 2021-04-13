@@ -167,38 +167,6 @@ class Account
         catch (PDOException $e) {
           throw new Exception("Datenbankfehler beim Einfügen des Lehrerkürzels.");
         }
-/*
-        $query = 'SELECT user_id FROM teachers WHERE (user_id = :id)';
-        $values = array(':id' => $id);
-        try
-        {
-      	   $res = $pdo->prepare($query);
-      	   $res->execute($values);
-        }
-        catch (PDOException $e)
-        {
-      	   throw new Exception("Datenbankfehler beim Suchen des Lehrerdatensatzes.<br/>".htmlspecialchars($e->getMessage()));
-        }
-        $row = $res->fetch(PDO::FETCH_ASSOC);
-        if (is_array($row))
-        {
-          $query = 'UPDATE teachers SET shorthand = :sh WHERE user_id = :id';
-        } else {
-          $query = 'INSERT INTO teachers (user_id, shorthand) VALUES (:id, :sh)';
-        }
-c        try
-        {
-      	   $res = $pdo->prepare($query);
-      	   $res->execute($values);
-           $query = 'DELETE FROM students WHERE user_id = :id';
-           $values = array(':id' => $id);
-           $res = $pdo->prepare($query);
-      	   $res->execute($values);
-        }
-        catch (PDOException $e)
-        {
-      	   throw new Exception("Datenbankfehler beim Aktualisieren des Lehrerdatensatzes.<br/>".htmlspecialchars($e->getMessage()));
-        }*/
       }
     }
 
@@ -282,8 +250,7 @@ c        try
     }
 
     //deleteAccount löscht einen Benutzer aus der Tabelle users und aus der Tabelle sessions
-    public function deleteAccount(int $id)
-    {
+    public function deleteAccount(int $id) {
     	global $pdo;
     	if (!$this->isIdValid($id))
     	{
@@ -315,8 +282,7 @@ c        try
       */
     }
 
-    public function login(string $name, string $passwd)
-    {
+    public function login(string $name, string $passwd) {
     	global $pdo;
     	$name = sanitize($name);
     	$passwd = sanitize($passwd);
@@ -390,8 +356,7 @@ c        try
 
     // registerLoginSession speichert die SessionID und die userID mit Zeitstempel
     // in der Datenbank.
-    private function registerLoginSession()
-    {
+    private function registerLoginSession() {
     	global $pdo;
 
     	if (session_status() == PHP_SESSION_ACTIVE)
@@ -432,20 +397,18 @@ c        try
     			The query also make sure the Session is not older than 7 days
     		*/
 
-    		$query =
-    		'SELECT users.user_id, username, roll, enabled FROM sessions, users WHERE (sessions.session_id = :sid) '.
-    		'AND (sessions.logintime >= (now() - INTERVAL \'7 days\')) AND (sessions.user_id = users.user_id)';
-    		$values = array(':sid' => session_id());
-
-        try
-    		{
+    		$query = "SELECT users.user_id, username, roll, enabled
+                  FROM sessions, users
+                  WHERE (sessions.session_id = :sid)
+    		          AND (sessions.logintime >= (now() - INTERVAL '7 days'))
+                  AND (sessions.user_id = users.user_id)";
+        try	{
     			$res = $pdo->prepare($query);
-    			$res->execute($values);
+          $res->bindValue(':sid',session_id(),PDO::PARAM_STR);
+    			$res->execute();
     		}
-    		catch (PDOException $e)
-    		{
-    		   echo "Datenbankfehler beim Sessionlogin: ".$e->getMessage();
-           exit;
+    		catch (PDOException $e)	{
+    		   throw new Exception("Datenbankfehler beim Sessionlogin: ".$e->getMessage());
     		}
 
     		$row = $res->fetch(PDO::FETCH_ASSOC);
