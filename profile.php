@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</div>
 
 				<div class="fullwidth">
-        	<input class="onebutton" type="submit" value="Speichern">
+        	<input class="greenbutton" type="submit" value="Speichern">
 				</div>
       </form>
 		</div>

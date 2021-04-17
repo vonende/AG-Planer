@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<li>ein beliebiges Zeichen: _ </li>
 				</ul>
 			</div>
-      <form method="post" action="administration.php" class="flexbox">
+      <form method="post" class="flexbox">
 				<div>
 					<label for="usersearch">Benutzer</label><br>
 					<input type="text" name="usersearch" id="usersearch" placeholder="Suchstring" value=<?php echo $un ?>>
@@ -70,14 +70,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</div>
 				<div>
 					<br>
-					<input type="submit" value="suchen">
+					<input class="greenbutton" type="submit" value="suchen">
 				</div>
 			</form>
 
 <?php
 			if ($_SERVER["REQUEST_METHOD"] == "POST") { ?>
-			<div>
-				<div>
+			<div class="flexbox">
 					<table>
 					  <thead>
 					  <tr>
@@ -99,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					  $aktiv = $row['enabled']?'ja':'nein';
 					  echo <<<EOF
 					  <tr>
-					  <td style="cursor: pointer; font-weight: bold;"> <a href="edit_account.php?id={$row['user_id']}">{$row['user_id']} </a></td>
+					  <td style="cursor: pointer; font-weight: bold;"> <a href="user_edit.php?id={$row['user_id']}">{$row['user_id']} </a></td>
 					  <td> {$row['username']} </td>
 					  <td> {$row['firstname']} </td>
 					  <td> {$row['lastname']} </td>
@@ -115,7 +114,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					 ?>
 					</tbody>
 					</table>
-				</div>
 			</div>
 <?php } ?>
     </div>

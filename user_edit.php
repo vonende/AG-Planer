@@ -75,7 +75,7 @@ catch (Exception $e) {
     <div class="content">
       <h2>Benutzerdaten editieren</h2>
 
-			<form method="post" action="edit_account.php">
+			<form method="post">
         <div  class="flexbox">
         <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
       	<div>
@@ -126,10 +126,10 @@ catch (Exception $e) {
       </div>
       <div  class="flexbox">
         <div>
-        	<input type="submit" value="Speichern">
+        	<input class="greenbutton" type="submit" value="Speichern">
         </div>
         <div>
-          <input type="button" value="Zurück" onclick="window.location.href='administration.php'">
+          <input class="redbutton" type="button" value="Zurück" onclick="window.location.href='user_search.php'">
         </div>
       </div>
       </form>

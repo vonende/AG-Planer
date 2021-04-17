@@ -54,8 +54,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     <?php require 'navbar.php'; require 'navadministration.php';?>
     <div class="content">
       <h2>Benutzer hinzufügen</h2>
-
-			<form method="post" action="adduser.php">
+      <div>
+			<form method="post">
       	<div  class="flexbox">
       		<div>
         		<label for="uname">Benutzername</label><br>
@@ -131,11 +131,12 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
       	<div  class="flexbox">
         	<div>
-        		<input type="submit" value="Speichern">
+        		<input class="greenbutton" type="submit" value="Speichern">
         	</div>
       	</div>
 
       </form>
+    </div>
     </div>
   </body>
 </html>

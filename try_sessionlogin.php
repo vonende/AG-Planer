@@ -6,7 +6,7 @@ catch (Exception $e) {
 	$ok = false;
 }
 if (!$ok) {
-	header('Location: authenticate.php'); // Keinerlei Ausgabe vor header() erlaubt!!!
+	header('Location: login.php'); // Keinerlei Ausgabe vor header() erlaubt!!!
 	exit;
 }
 ?>

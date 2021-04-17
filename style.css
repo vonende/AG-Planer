@@ -193,18 +193,12 @@ body.loggedin {
 	color: #4a536e;
 }
 
-.flexbox, .content > div {
-  display: flex;
-  flex-wrap: wrap;
+.content > div, .content > form, .content > p {
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
 	margin: 25px 0;
-	padding: 25px;
+	padding: 30px;
 	background-color: #fff;
-}
-
-.flexbox > div {
-  margin-left:  30px;
-  margin-right: 30px;
+  width: 100%;
 }
 
 .fullwidth {
@@ -218,7 +212,7 @@ body.loggedin {
 }
 
 .content textarea {
-  height: 200px;
+  height: 100px;
 }
 
 .content input, .content textarea, .content select {
@@ -241,30 +235,70 @@ body.loggedin {
   margin-top: 10px;
 }
 
-.content input[type="submit"]{
+.greenbutton, .redbutton {
   color: white;
-  background-color: #00AA00;
   cursor: pointer;
   font-weight: bold;
 }
 
-.content input[type="submit"]:hover{
+.greenbutton{
+  background-color: #00AA00;
+}
+
+.greenbutton:hover{
   background-color: #008800;
 }
 
-.content input[type="button"]{
-  color: white;
+.redbutton{
   background-color: #CC0000;
-  cursor: pointer;
-  font-weight: bold;
 }
 
-.content input[type="button"]:hover{
+.redbutton:hover{
   background-color: #AA0000;
 }
 
 .content ul > li, .content ol > li {
   padding: 5px 0;
+}
+
+.flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x:auto;
+  width: 100%;
+}
+
+.flexbox > div {
+  margin-left:  30px;
+  margin-right: 30px;
+}
+
+.flexbox table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.flexbox thead tr{
+  background-color: #d2b4de  ;
+}
+
+.flexbox table th {
+  text-align: left;
+	padding: 10px;
+  margin: 0;
+}
+
+.flexbox table td {
+	padding: 10px;
+  margin: 0;
+}
+
+.flexbox tbody tr:nth-child(odd){
+    background-color:  #ebdef0 ;
+}
+
+.flexbox tbody tr:nth-child(even){
+    background-color:  #f5eef8 ;
 }
 
 @media screen and (max-width: 1000px) {
@@ -274,37 +308,4 @@ body.loggedin {
   .flexbox > div {
     width: 100%;
   }
-}
-
-.content > div div {
-  overflow-x:auto;
-  width: 100%;
-}
-
-.content > div table {
-  border-collapse: collapse;
-  width: 100%;
-
-}
-
-.content > div thead tr{
-  background-color: #d2b4de  ;
-}
-
-.content > div table th {
-  text-align: left;
-	padding: 5px 10px;
-  margin: 0;
-}
-
-.content > div table td {
-	padding: 5px 10px;
-  margin: 0;
-}
-
-.content tbody tr:nth-child(odd){
-    background-color:  #ebdef0 ;
-}
-.content tbody tr:nth-child(even){
-    background-color:  #f5eef8 ;
 }

@@ -23,7 +23,7 @@ require 'try_sessionlogin.php';
         <p>Ein Klick auf einen AG-Titel öffnet das zugehörige Infofeld. Ein Klick auf das geöffnete Infofeld schließt dieses wieder.</p><br/>
         <p>Diese Tabelle ist rein informativ. Es können keine Plätze reserviert werden. Nähere Infos zur Teilnahme erhält man vom jeweiligen AG-Leiter.</p>
       </div>
-      <div>
+      <div class="flexbox">
 
 <?php
 $query = 'SELECT * FROM wgs WHERE schoolyear = :sy ORDER BY day, time, title ASC';
@@ -41,7 +41,6 @@ catch (PDOException $e)
 }
 
 ?>
-<div>
 <table>
   <thead>
   <tr>
@@ -80,7 +79,6 @@ $count++;
  ?>
 </tbody>
 </table>
-</div>
 			</div>
 		</div>
 	</body>

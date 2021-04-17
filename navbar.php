@@ -1,10 +1,10 @@
 <nav class="navtop">
   <h1><a href="home.php">AG-Manager</a></h1>
-  <a href="workgroups.php">AGs</a>
+  <a href="wg_list.php">AGs</a>
   <?php
     if ($account->getRoll() == 'admin') {
       ?>
-      <a href="administration.php">Verwaltung</a>
+      <a href="user_search.php">Verwaltung</a>
       <?php
     }
    ?>

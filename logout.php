@@ -33,9 +33,9 @@ catch (Exception $e) {
   <?php
 }
 ?>
-<div class="flexbox">
+<div class="content">
   <div>
-    <a href="authenticate.php">Zur Loginseite wechseln...</a>
+    <a href="login.php">Zur Loginseite wechseln...</a>
   </div>
 </div>
 </body>

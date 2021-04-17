@@ -27,7 +27,7 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
             document.getElementById("ajaxresult").innerHTML = this.responseText;
           }
         };
-        xhttp.open("GET", "getlist.php?class="+document.getElementById("classes").value, true);
+        xhttp.open("GET", "classlist_ajax.php?class="+document.getElementById("classes").value, true);
         xhttp.send();
       }
     </script>
@@ -55,9 +55,7 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
     <?php require 'navworkgroups.php';?>
     <div class="content">
       <h2>Klassenlisten</h2>
-      <form method="post">
-      	<div  class="flexbox">
-          <div>
+        <form method="post">
             <label for="classes">Klassenauswahl</label><br>
             <select id="classes" name="classes" onchange="changeClass()">
               <option value="">Bitte eine Klasse auswählen</option>
@@ -67,14 +65,10 @@ if (!$account->isTeacher() && $account->getRoll()!='viewer') {
               }
             ?>
             </select>
-          </div>
-        </div>
-      </form>
-      <div>
-        <div id="ajaxresult">
+        </form>
+        <div class="flexbox" id="ajaxresult">
           Es wurde noch keine Klasse ausgewählt.
         </div>
-      </div>
     </div>
   </body>
 </html>

@@ -45,22 +45,21 @@ catch (PDOException $e) {
         <p>Klicke auf den Titel einer AG, um die AG-Beschreibung zu sehen.</p><br>
 				<p>Klicke auf das Schuljahresdatum einer AG, um die Liste deiner Teilnahmen zu sehen.</p>
       </div>
-			<div>
-				<div>
+			<div class="flexbox">
 				<table>
 				  <thead>
-				  <tr>
-						<th>Schuljahr</th>
-				    <th>Titel</th>
-						<th>Leiter</th>
-				    <th>Wochentag</th>
-				    <th>Uhrzeit</th>
-				    <th>Dauer</th>
-				    <th>Maximum</th>
-				    <th>fortsetzbar</th>
-				  </tr>
-				</thead>
-				<tbody>
+				  	<tr>
+							<th>Schuljahr</th>
+				    	<th>Titel</th>
+							<th>Leiter</th>
+				    	<th>Wochentag</th>
+				    	<th>Uhrzeit</th>
+				    	<th>Dauer</th>
+				    	<th>Maximum</th>
+				    	<th>fortsetzbar</th>
+				  	</tr>
+					</thead>
+					<tbody>
 					<?php
 					$count = 0;
 					foreach ($ags as $row) {
@@ -86,7 +85,8 @@ EOF;
 					}
 
 					?>
-				</tbody>
+					</tbody>
+				</table>
 			</div>
     </div>
   </body>

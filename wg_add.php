@@ -7,7 +7,7 @@ require 'try_sessionlogin.php';
 
 // Schüler dürfen keine AG anlegen.
 if ($account->isStudent()) {
-  header('Location: home.php');
+  header('Location: wg_list.php');
   exit;
 }
 
@@ -152,8 +152,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
             <label for="description">Beschreibung</label><br>
             <textarea name="description" id="description"><?php echo $desc; ?></textarea>
           </div>
-          <div class="fullwidth">
-            <input type="submit" value="speichern">
+          <div>
+            <input class="greenbutton" type="submit" value="speichern">
           </div>
         </div>
       </form>

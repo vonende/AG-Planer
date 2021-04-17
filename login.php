@@ -36,7 +36,7 @@ if ( isset($_POST['user'], $_POST['pwd']) ) {
 
        <div class="login">
        <h1>AG-Manager (Anmeldung) </h1>
-       <form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" >
+       <form method="post">
          <label for="username">Benutzername</label>
          <input type="text" name="user" id="username" placeholder="Benutzername" required>
 
