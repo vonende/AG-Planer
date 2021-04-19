@@ -77,7 +77,7 @@ if (isset($_GET['error'])) {
   <?php require 'navworkgroups.php' ?>
 	<body class="loggedin">
     <div class="content">
-      <h2>Eigene AGs bearbeiten</h2>
+      <h2>Eigene AGs bearbeiten, Teilnehmer eintragen (&#9997;) und Anwesenheit notieren (&#10004;)</h2>
       <div class="flexbox" id="edit_div">
         Bitte eine AG zum Bearbeiten auswählen...
       </div>
