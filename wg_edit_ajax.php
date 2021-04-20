@@ -74,6 +74,7 @@ catch (PDOException $e){
       </div>
       <div class="fullwidth">
         <input class="greenbutton" type="submit" value="speichern">
+        <input class="redbutton" type="button" value="abbrechen" onclick="window.location.href='wg_edit.php'">
       </div>
     </div>
 </form>

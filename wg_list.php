@@ -20,10 +20,11 @@ require 'try_sessionlogin.php';
 		<div class="content">
 			<h2>Alle Arbeitsgemeinschaften auf einen Blick</h2>
       <div>
-        <p>Ein Klick auf einen AG-Titel öffnet das zugehörige Infofeld. Ein Klick auf das geöffnete Infofeld schließt dieses wieder.</p><br/>
+        <p>Ein Klick auf einen AG-Titel öffnet das zugehörige Infofeld. Ein Klick auf das geöffnete Infofeld schließt dieses wieder.</p>
         <p>Diese Tabelle ist rein informativ. Es können keine Plätze reserviert werden. Nähere Infos zur Teilnahme erhält man vom jeweiligen AG-Leiter.</p>
       </div>
       <div class="flexbox">
+				<div class="flexbox">
 
 <?php
 $query = 'SELECT * FROM wgs WHERE schoolyear = :sy ORDER BY day, time, title ASC';
@@ -79,6 +80,7 @@ $count++;
  ?>
 </tbody>
 </table>
+</div>
 			</div>
 		</div>
 	</body>

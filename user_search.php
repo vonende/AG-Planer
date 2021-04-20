@@ -76,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php
 			if ($_SERVER["REQUEST_METHOD"] == "POST") { ?>
+        <div class="flexbox">
 			<div class="flexbox">
 					<table>
 					  <thead>
@@ -115,6 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					</tbody>
 					</table>
 			</div>
+    </div>
 <?php } ?>
     </div>
   </body>
