@@ -1,5 +1,8 @@
 # AG-Manager
 
+## Datenexport
+Das PHP-Script sql_insert_data.php liest die Datenbank aus und stellt deren Inhalte mittels INSERT-Anweisungen auf dem Bildschirm dar.
+
 ## Was muss die App können?
 ### Für alle
 - Login und Logout

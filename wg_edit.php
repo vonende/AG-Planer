@@ -59,7 +59,7 @@ if ($account->getRoll()=="viewer") {
 try {
   $query = "SELECT title, day, time, schoolyear,wgs.wg_id FROM wgs, lead
             WHERE lead.user_id = :uid AND wgs.wg_id = lead.wg_id
-            ORDER BY title ASC, schoolyear DESC, day ASC, time ASC";
+            ORDER BY schoolyear DESC, title ASC, day ASC, time ASC";
   $res = $pdo->prepare($query);
   $res->bindValue(':uid',$account->getId(),PDO::PARAM_INT);
   $res->execute();
