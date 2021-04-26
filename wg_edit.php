@@ -9,6 +9,7 @@ if ($account->isStudent()) {
   header('Location: wg_list.php');
   exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +76,10 @@ catch (PDOException $e) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['del_user'])) {
+    if (!checkOwner($account->getId(),$_POST['wg_id'])) {
+      echo 'Sie leiten diese AG nicht.';
+      exit;
+    }
     try {
       $query = "DELETE FROM participate WHERE user_id=:uid AND wg_id=:wid AND schoolyear=:sy";
       $res = $pdo->prepare($query);
@@ -93,11 +98,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     ?>
     <script>
-      request('wg_participate.php?id=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
+      request('wg_participate.php?wid=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
     </script><?php
   }
 
   if (isset($_POST['add_event'])) {
+    if (!checkOwner($account->getId(),$_POST['wg_id'])) {
+      echo 'Sie leiten diese AG nicht.';
+      exit;
+    }
     try {
       $pdo->beginTransaction();
       $query = "INSERT INTO events (time, date, duration, annotation, wg_id)
@@ -147,11 +156,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     ?>
     <script>
-      request('wg_presence.php?id=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
+      request('wg_presence_new.php?id=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
+    </script><?php
+  }
+
+  if (isset($_POST['edit_event'])) {
+    if (!checkOwner($account->getId(),$_POST['wg_id'])) {
+      echo 'Sie leiten diese AG nicht.';
+      exit;
+    }
+    try {
+      $pdo->beginTransaction();
+      $query = "UPDATE events SET time = :ti, date = :da, duration = :du, annotation = :an WHERE event_id = :eid";
+      $res = $pdo->prepare($query);
+      $res->bindValue(':du',$_POST['duration'],PDO::PARAM_INT);
+      $res->bindValue(':ti',$_POST['time'],PDO::PARAM_STR);
+      $res->bindValue(':da',$_POST['date'],PDO::PARAM_STR);
+      $res->bindValue(':an',$_POST['annotation'],PDO::PARAM_STR);
+      $res->bindValue(':eid',$_POST['event_id'],PDO::PARAM_INT);
+      $res->execute();
+
+      $query = "DELETE FROM present WHERE event_id = :eid";
+      $res = $pdo->prepare($query);
+      $res->bindValue(':eid',$_POST['event_id'],PDO::PARAM_INT);
+      $res->execute();
+
+      $query = "INSERT INTO present (user_id, event_id)
+                VALUES ";
+      $s="";
+      if (isset($_POST['userlist'])) {
+        foreach ($_POST['userlist'] as $uid) {
+          $uid = intval($uid); // Nur zur Sicherheit gegen SQL-Injection
+          if (strlen($s)>0) {
+            $s = $s.",";
+          }
+          $s = $s.'('.$uid.','.$_POST['event_id'].')';
+        }
+        $query=$query.$s;
+        $res=$pdo->prepare($query);
+        $res->execute();
+        $pdo->commit();
+        ?>
+        <div class="confirm">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>Der Termin wurde erfolgreich geändert.</strong>
+        </div>
+      <?php
+      } else {
+        $pdo->rollBack();
+        ?>
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>Fehler beim Hinzufügen des Termins: Sie müssen wenigstens eine Person auswählen.<br/></strong>
+        </div>
+      <?php
+      }
+    }
+    catch (PDOException $e) {
+      $pdo->rollBack();
+      ?>
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Fehler beim Hinzufügen des Termins: <br/> <?php echo $e->getMessage();?></strong>
+      </div>
+      <?php
+    }
+    ?>
+    <script>
+      request('wg_presence_new.php?wid=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
     </script><?php
   }
 
   if (isset($_POST['add_user'])){
+    if (!checkOwner($account->getId(),$_POST['wg_id'])) {
+      echo 'Sie leiten diese AG nicht.';
+      exit;
+    }
     $_POST['free']=$_POST['free'] ?? 0;
     if ($_POST['free']>0) {
     try {
@@ -182,7 +262,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   ?>
   <script>
-    request('wg_participate.php?id=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
+    request('wg_participate.php?wid=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
   </script><?php
   }
 }
@@ -234,12 +314,12 @@ if (isset($_GET['error'])) {
                 <?php
                 foreach ($rows as $row) {?>
                       <tr>
-                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_edit_ajax.php?id='.$row['wg_id'].'")';?>'><strong><?php echo htmlspecialchars($row['title'])?></strong></td>
+                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_edit_ajax.php?wid='.$row['wg_id'].'")';?>'><strong><?php echo htmlspecialchars($row['title'])?></strong></td>
                         <td><?php echo $row['day'];       ?></td>
                         <td><?php echo $row['time'];      ?></td>
                         <td><?php echo $row['schoolyear'];?></td>
-                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_participate.php?id='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong>&nbsp;&#9997;&nbsp;</strong></td>
-                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_presence.php?id='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong>&nbsp;&#10004;&nbsp;</strong></td>
+                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_participate.php?wid='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong>&nbsp;&#9997;&nbsp;</strong></td>
+                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_presence_new.php?wid='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong>&nbsp;&#10004;&nbsp;</strong></td>
                       </tr>
             <?php
                 }

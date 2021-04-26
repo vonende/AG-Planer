@@ -8,11 +8,12 @@ require 'try_sessionlogin.php';
 $query = 'SELECT date, time, duration, annotation FROM events AS e, present AS p
           WHERE e.wg_id = :wid AND p.user_id = :uid AND e.event_id = p.event_id
 					ORDER BY e.date DESC, e.time DESC';
-$values = array(':uid' => $account->getId(), ':wid' => $_GET['id']);
 $takeparts = array();
 try {
 	$res = $pdo->prepare($query);
-	$res->execute($values);
+  $res->bindValue(':uid', $account->getId(), PDO::PARAM_INT);
+  $res->bindValue(':wid', $_GET['id'], PDO::PARAM_INT);
+	$res->execute();
 	$takeparts = $res->fetchAll(PDO::FETCH_ASSOC);
 }
 catch (PDOException $e) {

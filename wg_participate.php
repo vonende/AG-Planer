@@ -5,7 +5,7 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['wid'])) {
   echo 'Es wurde keine Id angegeben.';
   exit;
 }
@@ -17,19 +17,24 @@ if (!isset($_GET['title'])) {
   $_GET['title'] = htmlspecialchars($_GET['title']);
 }
 
+if (!checkOwner($account->getId(),$_GET['wid'])) {
+  echo 'Sie leiten diese AG nicht.';
+  exit;
+}
+
 // Eine Liste aller noch nicht eingeschriebenen Benutzer erstellen
 $query = "SELECT * FROM
            (SELECT user_id, firstname, lastname
             FROM users
             EXCEPT
            (SELECT u.user_id, firstname, lastname
-            FROM users u, participate p WHERE p.wg_id = :id AND u.user_id=p.user_id)) AS noparticipator
+            FROM users u, participate p WHERE p.wg_id = :wid AND u.user_id=p.user_id)) AS noparticipator
           NATURAL LEFT JOIN (SELECT user_id, class FROM students) AS s
           NATURAL LEFT JOIN (SELECT user_id, shorthand FROM teachers) AS t
           ORDER BY lastname, firstname, class, shorthand";
 try {
   $res = $pdo->prepare($query);
-  $res->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
+  $res->bindValue(':wid',$_GET['wid'],PDO::PARAM_INT);
   $res->execute();
   $users = $res->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -40,13 +45,13 @@ catch (PDOException $e){
 
 // Eine Liste aller AG-Teilnehmer ermitteln
 $query = "SELECT * FROM (SELECT user_id, firstname, lastname
-          FROM users NATURAL JOIN participate p WHERE p.wg_id = :id AND p.schoolyear='$schoolyear') AS r
+          FROM users NATURAL JOIN participate p WHERE p.wg_id = :wid AND p.schoolyear='$schoolyear') AS r
           NATURAL LEFT JOIN students
           NATURAL LEFT JOIN teachers
           ORDER BY lastname, firstname, class, shorthand";
 try {
   $res = $pdo->prepare($query);
-  $res->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
+  $res->bindValue(':wid',$_GET['wid'],PDO::PARAM_INT);
   $res->execute();
   $participants = $res->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -58,11 +63,11 @@ catch (PDOException $e){
 // Die Anzahl der bereits eingeschriebenen Teilnehmer ermitteln
 $query = "SELECT count(user_id) AS num
           FROM participate
-          WHERE wg_id = :id AND schoolyear = :sy";
+          WHERE wg_id = :wid AND schoolyear = :sy";
 
 try {
   $res = $pdo->prepare($query);
-  $res->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
+  $res->bindValue(':wid',$_GET['wid'],PDO::PARAM_INT);
   $res->bindValue(':sy',$schoolyear,PDO::PARAM_STR);
   $res->execute();
   $num = $res->fetch(PDO::FETCH_ASSOC)['num'] ?? 0;
@@ -73,11 +78,11 @@ catch (PDOException $e){
 }
 
 // Die maximal zulässige Anzahl an Teilnehmern der AG ermitteln
-$query = "SELECT max_num, schoolyear FROM wgs WHERE wg_id = :id";
+$query = "SELECT max_num, schoolyear FROM wgs WHERE wg_id = :wid";
 
 try {
   $res = $pdo->prepare($query);
-  $res->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
+  $res->bindValue(':wid',$_GET['wid'],PDO::PARAM_INT);
   $res->execute();
   $wg =  $res->fetch(PDO::FETCH_ASSOC);
   $max_num = $wg['max_num'] ?? 0;
@@ -105,7 +110,7 @@ if ($max_num==0) {
 ?>
 <form method="post" action="wg_edit.php" class="flexbox">
   <input type="hidden" name="free" value="<?php echo $free;?>">
-  <input type="hidden" name="wg_id" value="<?php echo $_GET['id'] ?>">
+  <input type="hidden" name="wg_id" value="<?php echo $_GET['wid'] ?>">
   <input type="hidden" name="title" value="<?php echo $_GET['title'] ?>">
   <div>
     <label for="add_user">Klassenauswahl</label><br>
@@ -150,7 +155,7 @@ if ($max_num==0) {
         <td><?php echo $p['lastname'];?></td>
         <td><?php echo $p['firstname'];?></td>
         <td><?php echo $p['class'].$p['shorthand'];?></td>
-        <td style="cursor: pointer" onclick="post('wg_edit.php', {del_user: <?php echo $p['user_id'];?>, wg_id: <?php echo $_GET['id'];?>, title: '<?php echo $_GET['title'];?>'})"><strong>&nbsp;&#10005;&nbsp;</strong></td>
+        <td style="cursor: pointer" onclick="post('wg_edit.php', {del_user: <?php echo $p['user_id'];?>, wg_id: <?php echo $_GET['wid'];?>, title: '<?php echo $_GET['title'];?>'})"><strong>&nbsp;&#10005;&nbsp;</strong></td>
       </tr><?php
     }
      ?>

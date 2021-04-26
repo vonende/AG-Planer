@@ -25,7 +25,7 @@ if (!isset($_GET['class'])) {
   exit;
 }
 
-$cl = sanitize($_GET['class']);
+$cl = htmlspecialchars($_GET['class']);
 
 $query = "SELECT u.firstname, u.lastname, w.title, w.wg_id AS id, COUNT(e.event_id) AS eventcount
           FROM students AS s, users AS u, wgs AS w, present AS p, events AS e
