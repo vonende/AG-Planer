@@ -44,8 +44,10 @@ catch (PDOException $e){
 }
 
 // Eine Liste aller AG-Teilnehmer ermitteln
-$query = "SELECT * FROM (SELECT user_id, firstname, lastname
-          FROM users NATURAL JOIN participate p WHERE p.wg_id = :wid AND p.schoolyear='$schoolyear') AS r
+$query = "SELECT * FROM (
+            SELECT user_id, firstname, lastname
+            FROM users NATURAL JOIN participate p
+            WHERE p.wg_id = :wid AND p.schoolyear='$schoolyear') AS one
           NATURAL LEFT JOIN students
           NATURAL LEFT JOIN teachers
           ORDER BY lastname, firstname, class, shorthand";
@@ -95,43 +97,43 @@ catch (PDOException $e){
 echo "<p style='width: 100%'><strong>".$_GET['title']." - Teilnehmer einschreiben und entfernen</strong></p>";
 
 if ($wg['schoolyear'] == $schoolyear) {
-$free = 1;
-if ($max_num==0) {
-  echo "<p class='fullwidth'>Es können noch beliebig viele Teilnehmer hinzugefügt werden.<br><br></p>";
-} else if ($max_num==$num){
-  echo "<p class='fullwidth'>Die AG ist bereits voll belegt.<br/><br/></p>";
-  $free=0;
-} else if ($max_num-$num == 1) {
-  echo "<p class='fullwidth'>Es kann noch ein Teilnehmer hinzugefügt werden.<br/><br/></p>";
-} else {
-  echo "<p class='fullwidth'>Es können noch ".(string)((int)$max_num-(int)$num)." Teilnehmer hinzugefügt werden.<br/><br/></p>";
-}
+  $free = 1;
+  if ($max_num==0) {
+    echo "<p class='fullwidth'>Es können noch beliebig viele Teilnehmer hinzugefügt werden.<br><br></p>";
+  } else if ($max_num==$num){
+    echo "<p class='fullwidth'>Die AG ist bereits voll belegt.<br/><br/></p>";
+    $free=0;
+  } else if ($max_num-$num == 1) {
+    echo "<p class='fullwidth'>Es kann noch ein Teilnehmer hinzugefügt werden.<br/><br/></p>";
+  } else {
+    echo "<p class='fullwidth'>Es können noch ".(string)((int)$max_num-(int)$num)." Teilnehmer hinzugefügt werden.<br/><br/></p>";
+  }
 
-?>
-<form method="post" action="wg_edit.php" class="flexbox">
-  <input type="hidden" name="free" value="<?php echo $free;?>">
-  <input type="hidden" name="wg_id" value="<?php echo $_GET['wid'] ?>">
-  <input type="hidden" name="title" value="<?php echo $_GET['title'] ?>">
-  <div>
-    <label for="add_user">Klassenauswahl</label><br>
-    <select id="add_user" name="add_user">
-      <option value="">neuen Teilnehmer auswählen</option>
-      <?php
-      foreach ($users as $user) {
-        echo '<option value="'.$user['user_id'].'">'.$user['lastname'].', '.$user['firstname'],' ('.$user['class'].$user['shorthand'].')'.'</option>';
-      }
-    ?>
-    </select>
-  </div>
-  <div>
-    <br>
-    <input class="greenbutton" type="submit" value="Zur AG hinzufügen">
-  </div>
-  <div>
-    <br>
-    <input class="redbutton" type="button" value="abbrechen" onclick="window.location.href='wg_edit.php'">
-  </div>
-</form>
+  ?>
+  <form method="post" action="wg_edit.php" class="flexbox">
+    <input type="hidden" name="free" value="<?php echo $free;?>">
+    <input type="hidden" name="wg_id" value="<?php echo $_GET['wid'] ?>">
+    <input type="hidden" name="title" value="<?php echo $_GET['title'] ?>">
+    <div>
+      <label for="add_user">Teilnehmerauswahl</label><br>
+      <select id="add_user" name="add_user">
+        <option value="">neuen Teilnehmer auswählen</option>
+        <?php
+        foreach ($users as $user) {
+          echo '<option value="'.$user['user_id'].'">'.$user['lastname'].', '.$user['firstname'],' ('.$user['class'].$user['shorthand'].')'.'</option>';
+        }
+      ?>
+      </select>
+    </div>
+    <div>
+      <br>
+      <input class="greenbutton" type="submit" value="Zur AG hinzufügen">
+    </div>
+    <div>
+      <br>
+      <input class="redbutton" type="button" value="abbrechen" onclick="window.location.href='wg_edit.php'">
+    </div>
+  </form>
 <?php
 }
  ?>

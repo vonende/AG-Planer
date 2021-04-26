@@ -5,8 +5,8 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
-if ($account->isStudent()) {
-  header('Location: wg_list.php');
+if ($account->isStudent() || $account->getRoll()=="viewer") {
+  echo "Sie haben nicht die erforderliche Berechtigung zum Editieren der AG-Daten.";
   exit;
 }
 

@@ -5,7 +5,7 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
-if ($account->isStudent()) {
+if ($account->isStudent() || $account->getRoll()=="viewer") {
   header('Location: wg_list.php');
   exit;
 }

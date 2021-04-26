@@ -5,7 +5,7 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
-if ($account->isStudent()) {
+if ($account->getRoll()=="viewer") {
   header('Location: wg_list.php');
   exit;
 }
@@ -75,6 +75,33 @@ catch (PDOException $e) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['del_leader'])) {
+    if (!checkOwner($account->getId(),$_POST['wg_id'])) {
+      echo 'Sie leiten diese AG nicht.';
+      exit;
+    }
+    try {
+      $query = "DELETE FROM lead WHERE user_id=:uid AND wg_id=:wid";
+      $res = $pdo->prepare($query);
+      $res->bindValue(':uid',$_POST['del_leader'],PDO::PARAM_INT);
+      $res->bindValue(':wid',$_POST['wg_id'],PDO::PARAM_INT);
+      $res->execute();
+    }
+    catch (PDOException $e) {
+      ?>
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Fehler beim Löschen des AG-Leiters: <br/> <?php echo $e->getMessage();?></strong>
+      </div>
+      <?php
+    }
+    ?>
+    <script>
+      request('wg_leaders.php?wid=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
+    </script><?php
+  }
+
+
   if (isset($_POST['del_user'])) {
     if (!checkOwner($account->getId(),$_POST['wg_id'])) {
       echo 'Sie leiten diese AG nicht.';
@@ -156,7 +183,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     ?>
     <script>
-      request('wg_presence_new.php?id=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
+      request('wg_presence_new.php?wid=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
     </script><?php
   }
 
@@ -227,6 +254,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script><?php
   }
 
+  if (isset($_POST['add_leader'])){
+    if (!checkOwner($account->getId(),$_POST['wg_id'])) {
+      echo 'Sie leiten diese AG nicht.';
+      exit;
+    }
+    try {
+      $query = "INSERT INTO lead (user_id, wg_id)
+                VALUES (:uid, :wid)";
+      $res = $pdo->prepare($query);
+      $res->bindValue(':uid',$_POST['add_leader'],PDO::PARAM_INT);
+      $res->bindValue(':wid',$_POST['wg_id'],PDO::PARAM_INT);
+      $res->execute();
+    }
+    catch (PDOException $e) {
+      ?>
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Fehler beim Festlegen des AG-Leiters: <br/> <?php echo $e->getMessage();?></strong>
+      </div>
+      <?php
+    }
+  ?>
+  <script>
+    request('wg_leaders.php?wid=<?php echo $_POST['wg_id'];?>&title=<?php echo $_POST['title'];?>');
+  </script><?php
+  }
+
+
   if (isset($_POST['add_user'])){
     if (!checkOwner($account->getId(),$_POST['wg_id'])) {
       echo 'Sie leiten diese AG nicht.';
@@ -291,10 +346,10 @@ if (isset($_GET['error'])) {
   <?php require 'navworkgroups.php' ?>
 	<body class="loggedin">
     <div class="content">
-      <h2>Eigene AGs bearbeiten</h2>
+      <h2>Eigene AGs verwalten</h2>
       <div id="edit_div" class="flexbox">
         <p>Bitte eine AG zum Bearbeiten auswählen.</p>
-        <p>Sie können Teilnehmer ein- und austragen (&#9997;) und die Anwesenheit notieren (&#10004;).</p>
+        <p>Sie können Teilnehmer ein- und austragen (<strong style="font-size: x-large">&#9997;</strong>), die Anwesenheit notieren (&#9989;) und weitere AG-Leiter festlegen (<strong style="font-size: x-large">&#129504;</strong>).</p>
       </div>
 
       <div class="flexbox">
@@ -308,6 +363,7 @@ if (isset($_GET['error'])) {
               <th>Schuljahr</th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -318,8 +374,9 @@ if (isset($_GET['error'])) {
                         <td><?php echo $row['day'];       ?></td>
                         <td><?php echo $row['time'];      ?></td>
                         <td><?php echo $row['schoolyear'];?></td>
-                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_participate.php?wid='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong>&nbsp;&#9997;&nbsp;</strong></td>
-                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_presence_new.php?wid='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong>&nbsp;&#10004;&nbsp;</strong></td>
+                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_participate.php?wid='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong style="font-size: xx-large">&nbsp;&#9997;&nbsp;</strong></td>
+                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_presence_new.php?wid='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong style="font-size: x-large">&nbsp;&#9989;&nbsp;</strong></td>
+                        <td style="cursor: pointer" onclick='request(<?php echo '"wg_leaders.php?wid='.$row['wg_id'].'&title='.htmlspecialchars($row['title']).'")';?>'><strong style="font-size: xx-large">&#129504;</strong></td>
                       </tr>
             <?php
                 }

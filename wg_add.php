@@ -6,7 +6,7 @@ require 'account_class.php';
 require 'try_sessionlogin.php';
 
 // Schüler dürfen keine AG anlegen.
-if ($account->isStudent()) {
+if ($account->isStudent() || $account->getRoll()=="viewer") {
   header('Location: wg_list.php');
   exit;
 }
