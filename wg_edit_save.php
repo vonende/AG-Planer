@@ -5,17 +5,22 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
-if ($account->isStudent()) {
+if ($account->isStudent() || $account->getRoll()=="viewer") {
   header('Location: wg_list.php');
   exit;
 }
 
+if (!checkOwner($account->getId(),$_POST['wg_id'])) {
+  echo 'Sie leiten diese AG nicht.';
+  exit;
+}
+
 $query = "UPDATE wgs SET title=:title, day=:day, time=:time, duration=:dur, max_num=:max, multiple=:mul, schoolyear=:year, description=:des
-          WHERE wg_id=:id";
+          WHERE wg_id=:wid";
 // bindValue(), da es sonst beim Einfügen von Bools Probleme mit dem PDO gibt.
 try{
   $res = $pdo->prepare($query);
-  $res->bindValue(':id', $_POST['wg_id'], PDO::PARAM_INT);
+  $res->bindValue(':wid', $_POST['wg_id'], PDO::PARAM_INT);
   $res->bindValue(':title', $_POST['title'], PDO::PARAM_STR);
   $res->bindValue(':day', $_POST['day'], PDO::PARAM_STR);
   $res->bindValue(':time', $_POST['time'], PDO::PARAM_STR);

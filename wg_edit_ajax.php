@@ -5,20 +5,25 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
-if ($account->isStudent()) {
-  header('Location: wg_list.php');
+if ($account->isStudent() || $account->getRoll()=="viewer") {
+  echo "Sie haben nicht die erforderliche Berechtigung zum Editieren der AG-Daten.";
   exit;
 }
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['wid'])) {
   echo 'Es wurde keine Id angegeben.';
   exit;
 }
 
-$query = "SELECT * FROM wgs WHERE wg_id=:id";
+if (!checkOwner($account->getId(),$_GET['wid'])) {
+  echo 'Sie leiten diese AG nicht.';
+  exit;
+}
+
+$query = "SELECT * FROM wgs WHERE wg_id=:wid";
 try {
   $res = $pdo->prepare($query);
-  $res->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
+  $res->bindValue(':wid',$_GET['wid'],PDO::PARAM_INT);
   $res->execute();
   $row = $res->fetch(PDO::FETCH_ASSOC);
 }
@@ -30,7 +35,7 @@ catch (PDOException $e){
 
 <form action="wg_edit_save.php" method="post">
   <div  class="flexbox">
-    <input type="hidden" name="wg_id" value="<?php echo $_GET['id']; ?>">
+    <input type="hidden" name="wg_id" value="<?php echo $_GET['wid']; ?>">
     <div>
       <label for="title">Titel</label><br>
       <input type="text" name="title" value="<?php echo $row['title']; ?>" required>

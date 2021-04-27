@@ -12,11 +12,21 @@ catch (PDOException $e) {
 
 require 'config.php';
 
-function sanitize($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+function checkOwner(int $uid,int $wid):bool {
+  global $pdo;
+  try {
+    $query = "SELECT count(user_id) FROM lead WHERE user_id = :uid AND wg_id = :wid";
+    $res = $pdo->prepare($query);
+    $res->bindValue(":wid",$wid,PDO::PARAM_INT);
+    $res->bindValue(":uid",$uid,PDO::PARAM_INT);
+    $res->execute();
+    $ct = $res->fetch(PDO::FETCH_ASSOC);
+    if ($ct['count']>0) { return true; }
+  }
+  catch (PDOException $e) {
+    throw new Exception("Datenbankfehler bei Überprüfung der AG-Leitung: <br/>".$e->getMessage());
+  }
+  return false;
 }
 
 function getLeaders(int $id) {
@@ -56,9 +66,9 @@ class Account
     {
       global $pdo;  // Objekt für Datenbankanbindung
 
-      $name   = sanitize($name);
-	    $passwd = sanitize($passwd);
-      $email = sanitize($email);
+      $name   = stripslashes(htmlspecialchars($name));
+	    $passwd = stripslashes(htmlspecialchars($passwd));
+      $email = stripslashes(htmlspecialchars($email));
       $firstname = stripslashes(htmlspecialchars($firstname));
       $lastname = stripslashes(htmlspecialchars($lastname));
 
@@ -110,9 +120,9 @@ class Account
     string $lastname, string $email, string $roll)
     {
     	global $pdo;
-    	$name = sanitize($name);
-    	$passwd = sanitize($passwd);
-      $email = sanitize($email);
+    	$name = stripslashes(htmlspecialchars($name));
+    	$passwd = stripslashes(htmlspecialchars($passwd));
+      $email = stripslashes(htmlspecialchars($email));
       $firstname = stripslashes(htmlspecialchars($firstname));
       $lastname = stripslashes(htmlspecialchars($lastname));
 
@@ -157,7 +167,7 @@ class Account
     public function setTeacher(int $id, string $shorthand){
       global $pdo;
       if ($this->authenticated) {
-        $shorthand = sanitize($shorthand);
+        $shorthand = stripslashes(htmlspecialchars($shorthand));
         $query = 'INSERT INTO teachers (user_id, shorthand) VALUES (:id, :sh)';
         $values = array(':id' => $id, ':sh' => $shorthand);
         try {
@@ -173,8 +183,8 @@ class Account
     public function setStudent(int $id, string $class, string $number){
       global $pdo;
       if ($this->authenticated) {
-        $class  = sanitize($class);
-        $number = sanitize($number);
+        $class  = stripslashes(htmlspecialchars($class));
+        $number = stripslashes(htmlspecialchars($number));
         $query = 'INSERT INTO students (user_id, class, studentnumber) VALUES (:id, :cl, :sn)';
         $values = array(':id' => $id, ':cl' => $class, ':sn' => $number);
         try {
@@ -284,8 +294,8 @@ class Account
 
     public function login(string $name, string $passwd) {
     	global $pdo;
-    	$name = sanitize($name);
-    	$passwd = sanitize($passwd);
+    	$name = stripslashes(htmlspecialchars($name));
+    	$passwd = stripslashes(htmlspecialchars($passwd));
     	if (!$this->isNameValid($name))
     	{
     		return FALSE;

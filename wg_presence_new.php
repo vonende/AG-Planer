@@ -5,7 +5,7 @@ require 'account_class.php';
 // Wer nicht eingeloggt ist, wird auf die Loginseite verwiesen.
 require 'try_sessionlogin.php';
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['wid'])) {
   echo 'Es wurde keine Id angegeben.';
   exit;
 }
@@ -17,14 +17,20 @@ if (!isset($_GET['title'])) {
   $_GET['title'] = htmlspecialchars($_GET['title']);
 }
 
+if (!checkOwner($account->getId(),$_GET['wid'])) {
+  echo 'Sie leiten diese AG nicht.';
+  exit;
+}
+
+// Abfrage der eingeschriebenen Schüler der AG für die Teilnahme-Checkboxen
 $query = "SELECT * FROM (SELECT user_id, firstname, lastname FROM participate p NATURAL JOIN users
-          WHERE p.wg_id=:id AND p.schoolyear=:sy) AS one
+          WHERE p.wg_id=:wid AND p.schoolyear=:sy) AS one
           NATURAL LEFT JOIN (SELECT students.user_id, class FROM students) AS s
           NATURAL LEFT JOIN teachers
           ORDER BY lastname, firstname, class";
 try {
   $res = $pdo->prepare($query);
-  $res->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
+  $res->bindValue(':wid',$_GET['wid'],PDO::PARAM_INT);
   $res->bindValue(':sy',$schoolyear,PDO::PARAM_STR);
   $res->execute();
   $rows = $res->fetchAll(PDO::FETCH_ASSOC);
@@ -34,10 +40,11 @@ catch (PDOException $e){
   exit;
 }
 
+// Abfrage der Standardzeit und -dauer, damit die entsprechenden Felder bereits ausgefüllt werden können
 $query = "SELECT time, duration FROM wgs WHERE wg_id=:wid";
 try {
   $res = $pdo->prepare($query);
-  $res->bindValue(':wid',$_GET['id'],PDO::PARAM_INT);
+  $res->bindValue(':wid',$_GET['wid'],PDO::PARAM_INT);
   $res->execute();
   $wg = $res->fetch(PDO::FETCH_ASSOC);
 }
@@ -51,7 +58,7 @@ catch (PDOException $e){
   <p><strong><?php echo $_GET['title'];?> - einen neuen AG-Termin anlegen</strong><br><br></p>
   <input type="hidden" name="add_event" value="add_event">
   <input type="hidden" name="title" value="<?php echo $_GET['title']?>">
-  <input type="hidden" name="wg_id" value="<?php echo $_GET['id']?>">
+  <input type="hidden" name="wg_id" value="<?php echo $_GET['wid']?>">
   <div>
     <label for="date">Datum</label><br>
     <input type="date" name="date" id="date" value="<?php echo date('Y-m-d');?>" required>
@@ -86,6 +93,21 @@ foreach ($rows as $row) {
 }
 ?>
 </div>
+
+<?php
+$events = array();
+try {
+  $query = "SELECT * FROM events WHERE wg_id = :wid ORDER BY date DESC, time ASC";
+  $res = $pdo->prepare($query);
+  $res->bindValue(':wid', $_GET['wid'],PDO::PARAM_INT);
+  $res->execute();
+  $events = $res->fetchAll(PDO::FETCH_ASSOC);
+}
+catch (PDOException $e) {
+  echo "Konnte die Terminliste nicht abrufen: <br/>".$e->getMessage();
+}
+ ?>
+
 <div>
   <br>
   <input class="greenbutton" type="submit" value="speichern">
@@ -97,3 +119,31 @@ foreach ($rows as $row) {
 </div>
 
 </form>
+
+<div class="flexbox">
+  <table>
+    <thead>
+      <tr>
+        <th colspan="4">Bisherige Termine:</th>
+      </tr>
+      <tr>
+        <th>Datum</th>
+        <th>Uhrzeit</th>
+        <th>Dauer</th>
+        <th>Anmerkung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      foreach ($events as $event) {?>
+        <tr>
+          <td style="cursor: pointer" onclick='request("<?php echo 'wg_presence_edit.php?eid='.$event['event_id'].'&wid='.$_GET['wid'].'&title='.$_GET['title']?>")'> <strong><?php echo $event['date']; ?></strong></td>
+          <td> <?php echo $event['time']; ?></td>
+          <td> <?php echo $event['duration']; ?></td>
+          <td> <?php echo $event['annotation']; ?></td>
+        </tr>
+      <?php
+      } ?>
+    </tbody>
+  </table>
+</div>
