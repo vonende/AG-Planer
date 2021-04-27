@@ -4,7 +4,12 @@ INSERT INTO users (username,password,firstname,lastname,enabled,roll) VALUES
 ('sonnenschein'  ,'$2y$10$sQYHCXBpamR9d.p//7j6Fe9a9mtJpsp4tB66ftr1drr9jhxxk8jA.','Edwin' ,'Edison',True,'editor'),
 ('herbstnebel'   ,'$2y$10$dD2.3nwlnewnqX/MgpczjOJgMka2k7y6ijKMQoBNvUOqyBw4JG/XO','Viki'  ,'Vigor', True,'viewer'),
 ('frühlingsblume','$2y$10$CjCqCHAmXn4Ymlc0VaA11eBkeOMS8qwuLtc089BKSoTmrv6nPGqhW','Uschi' ,'Usus',  True,'user'),
-('schneeflocke',  '$2y$10$frQYeAqITH5WFMIyswS/x.MHb/7uf87WMikkQI5wX5PhCa97pI7Va','Nina' ,'Nadel',  True,'user');
+('marlo152'		 ,'$2y$10$5W3NCjIey0wzx6H4rWmVV.ioq4v.1W1YtdLs5ijd6W/nHkpRAmYjq','Lena'	 ,'Krause',True,'user'),
+('tom140'		 ,'$2y$10$v3s.RjTpMUqO8j0XKtfoiu1ujq3mLEpmztQCUKQEJSfRs9wsl9AAS','Tom'	 ,'Schwab',True,'user'),
+('philipp101'	 ,'$2y$10$EDGeHTIzdjeh4/N//70i9e29xuj7ESOEjmUNz4RonljPbBDtOxHVa','Philipp','Kortig',True,'user'),
+('celine96'		 ,'$2y$10$O3sJ8b0jAyR/biPzL.EYhuQxR8V4QbOMypMGXoO/S23ikdOco7742','Celine','Fisher',True,'user'),
+('laura451'		 ,'$2y$10$2iHm2JJSRvczOg3zzSudkOQVxlvQrytDJR0OOAJJeyHqu/L29Ho/O','Laura' ,'Mauer',True,'user'),
+('schneeflocke'	 ,'$2y$10$frQYeAqITH5WFMIyswS/x.MHb/7uf87WMikkQI5wX5PhCa97pI7Va','Nina'  ,'Nadel',  True,'user');
 
 
 INSERT INTO teachers (shorthand,user_id) VALUES
