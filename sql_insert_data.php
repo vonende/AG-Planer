@@ -17,7 +17,7 @@ $res=$pdo->prepare($query);
 $res->execute();
 $rows = $res->fetchAll(PDO::FETCH_ASSOC);
 ?>
-INSERT INTO users (username,password,firstname,lastname,enabled,roll) <br/>
+INSERT INTO users (username,password,firstname,lastname,enabled,roll,email) <br/>
 VALUES
 <?php
 $first = true;
@@ -25,7 +25,7 @@ foreach ($rows as $r) {
   if ($first) {$first=false;} else {echo ",<br/>"; }
   if ($r['enabled']==1) {$en="TRUE";} else {$en="FALSE";}
   echo "('".$r['username']."','".$r['password']."','".$r['firstname']."','".$r['lastname']."',".$en;
-  echo ",'".$r['roll']."')";
+  echo ",'".$r['roll']."','".$r['email']."')";
 }
 echo ";<br/><br/>";
 

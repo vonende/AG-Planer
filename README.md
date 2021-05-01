@@ -37,6 +37,15 @@ Das PHP-Script sql_insert_data.php liest die Datenbank aus und stellt deren Inha
 
 ## Diskussion
 
+### Man könnte noch constraints wie "ein Schüler kann nicht an zwei AG's die zur selben Zeit stattfinden/sich überschneiden teilnehmen" hinzufügen und
+AG-Termine können nur für den Wochentag angelegt werden, an dem die AG auch stattfindet und nur ab dem Tag rückwirkend, nicht im Vorhinein.
+
+### wäre es sinnvoll eine maxAnzahl für besuchte AGs pro Schüler einzuführen?
+
+### Beim editieren kann man aktuell Klasse und Schülernummer nicht ändern - Absicht?
+
+### Sortieren von Tabellen nach verschiedenen Attributen ist nicht notwendig, wäre aber vllt. nett
+
 ### Das Attribut email bei users könnte auch unique, sein, oder?
 Ja, durchaus. Wenn aber Eltern eine Mailadresse für mehrere Kinder verwenden wollen, ist das doof. Das passiert ständig bei unserer HPI-Schulcloud.
 
