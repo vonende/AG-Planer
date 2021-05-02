@@ -1,4 +1,8 @@
 <?php
+/*
+classlist.php liefert zu einer ausgewählten Schulklasse eine Liste aller AG-Teilnahmen
+der Schüler. Diese kann z.B. vom Klassenlehrer für Zeugnisvermerke genutzt werden.
+*/
 session_start();
 require 'account_class.php';
 

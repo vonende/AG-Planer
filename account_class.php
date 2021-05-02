@@ -1,5 +1,7 @@
 <?php
 // Quelle: https://alexwebdevelop.com/user-authentication/
+
+// Verbindung mit der Datenbank "ag_manager" herstellen
 try {
   $pdo = new PDO ('pgsql:host=localhost; dbname=ag_manager',"ag_admin",'kq9Ba8kf61;6]f');
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -12,6 +14,7 @@ catch (PDOException $e) {
 
 require 'config.php';
 
+// checkOwner(u,w) prüft, ob der user u die AG w leitet
 function checkOwner(int $uid,int $wid):bool {
   global $pdo;
   try {
@@ -29,16 +32,16 @@ function checkOwner(int $uid,int $wid):bool {
   return false;
 }
 
-function getLeaders(int $id) {
+// getLeaders(w) liefert zur AG w eine kommagetrennte Liste aller Nachnamen der AG-Leiter als String
+function getLeaders(int $wid):string {
   global $pdo;
-  $query = 'SELECT users.lastname FROM lead, users WHERE lead.wg_id = :id AND lead.user_id = users.user_id ORDER BY lastname ASC';
-  $values = array(':id' => $id);
-  $leaders = array();
+  $query = 'SELECT lastname FROM lead l, users u WHERE l.wg_id = :wid AND l.user_id = u.user_id ORDER BY lastname ASC';
   $return = '';
   try
   {
     $res = $pdo->prepare($query);
-    $res->execute($values);
+    $res->bindValue(':wid',$wid,PDO::PARAM_INT);
+    $res->execute();
   	$leaders = $res->fetchAll(PDO::FETCH_ASSOC);
   }
   catch (PDOException $e)
@@ -51,6 +54,8 @@ function getLeaders(int $id) {
   return $return;
 }
 
+// Klasse zur Accountverwaltung. Wird von jedem PHP-Script benötigt, um die Rechtmäßigkeit des
+// Zugriffs sicherzustellen.
 class Account
 {
     private   $id;            // ID des eingeloggten Users
@@ -126,10 +131,6 @@ class Account
       $firstname = stripslashes(htmlspecialchars($firstname));
       $lastname = stripslashes(htmlspecialchars($lastname));
 
-    	if (!$this->isIdValid($id)) {
-    		throw new Exception('Ungültige Benutzer-ID');
-    	}
-
     	if (!$this->isNameValid($name)) {
     		throw new Exception('Ungültiger Benutzername');
     	}
@@ -164,6 +165,10 @@ class Account
     	}
     }
 
+    // Legt einen Benutzer als Lehrer fest und setzt das Lehrerkürzel (shorthand)
+    // Es wird nicht geprüft, ob die Person bereits als Lehrer oder Schüler
+    // registriert ist. Die Funktion darf daher nur beim Erstellen eines
+    // Lehreraccounts einmalig aufgerufen werden.
     public function setTeacher(int $id, string $shorthand){
       global $pdo;
       if ($this->authenticated) {
@@ -180,6 +185,11 @@ class Account
       }
     }
 
+    // Legt einen Benutzer als Schüler fest und setzt die Klasse und die
+    // Schülernummer.
+    // Es wird nicht geprüft, ob die Person bereits als Lehrer oder Schüler
+    // registriert ist. Die Funktion darf daher nur beim Erstellen eines
+    // Schüleraccounts einmalig aufgerufen werden.
     public function setStudent(int $id, string $class, string $number){
       global $pdo;
       if ($this->authenticated) {
@@ -197,6 +207,21 @@ class Account
       }
     }
 
+    // getAccountData(u) liefert zum Benutzer u ein Array seine Daten zurück.
+    // getAccountData(u)['member'] = 'other', 'student' oder 'teacher'
+    // getAccountData(u)['shorthand'] enthält das Lehrerkürzel, falls es ein Lehrer ist
+    // getAccountData(u)['class'] enthält die Klasse, falls es ein Schüler ist
+    // getAccountData(u)['studentnumber'] enthält die Schülernummer, falls es ein Schüler ist
+    // getAccountData(u)['user_id'] enthält die ID des Benutzers
+    // getAccountData(u)['lastname'] enthält den Nachnamen des Benutzers
+    // getAccountData(u)['firstname'] enthält den Vornamen des Benutzers
+    // getAccountData(u)['username'] enthält den Loginnamen des Benutzers
+    // getAccountData(u)['password'] enthält den Hashwert des Benutzerpassworts
+    // getAccountData(u)['enabled'] enthält den Wahrheitswert, ob das Konto aktiv ist
+    // getAccountData(u)['email'] enthält die E-Mailadresse des Benutzers
+    // getAccountData(u)['roll'] enthält die Benutzersrolle (user, viewer, editor oder admin)
+    // getAccountData(u)['registrationtime'] enthält das Registrierungsdatum des Benutzers
+    // getAccountData(u)['last_update'] enthält das Datum der letzten Aktualisierung der Benutzerdaten
     public function getAccountData(int $id) {
       global $pdo;
       if ($this->authenticated) {
@@ -259,13 +284,11 @@ class Account
       return $row;
     }
 
-    //deleteAccount löscht einen Benutzer aus der Tabelle users und aus der Tabelle sessions
+    // deleteAccount(u) löscht einen Benutzer u aus der Tabelle "users"
+    // Da weitere Tabellen durch ON DELETE CASCADE mit der Tabelle "users" verbunden sind,
+    // werden auch dort alle Einträge mit der entsprechenden user_id bereinigt.
     public function deleteAccount(int $id) {
     	global $pdo;
-    	if (!$this->isIdValid($id))
-    	{
-    		throw new Exception('Unbekannte Benutzer-ID');
-    	}
     	$query = 'DELETE FROM users WHERE user_id = :id';
     	$values = array(':id' => $id);
     	try
@@ -277,22 +300,13 @@ class Account
     	{
     	   throw new Exception('Datenbankfehler beim Löschen des Benutzers');
     	}
-      /* Unnötig, da Fremdschlüssel in Datenbank mittels ON DELETE CASCADE definiert wurde
-    	$query = 'DELETE FROM sessions WHERE (user_id = :id)';
-    	$values = array(':id' => $id);
-    	try
-    	{
-    		$res = $pdo->prepare($query);
-    		$res->execute($values);
-    	}
-    	catch (PDOException $e)
-    	{
-    	   throw new Exception('Datenbankfehler beim Löschen des gespeicherten Sessions.');
-    	}
-      */
     }
 
-    public function login(string $name, string $passwd) {
+    // login(n,p) prüft, ob der Benutzer u existiert und das Passwort p korrekt ist.
+    // Falls ja, wird die Session in der Datenbank registriert, die privaten
+    // Variablen der Klasse Account gesetzt und True zurückgegeben.
+    // Andernfalls wird ein False retourniert.
+    public function login(string $name, string $passwd):bool {
     	global $pdo;
     	$name = stripslashes(htmlspecialchars($name));
     	$passwd = stripslashes(htmlspecialchars($passwd));
@@ -300,12 +314,10 @@ class Account
     	{
     		return FALSE;
     	}
-      /*
     	if (!$this->isPasswdValid($passwd))
     	{
     		return FALSE;
     	}
-      */
     	$query = 'SELECT user_id, username, password, roll, enabled FROM users WHERE (username = :name)';
     	$values = array(':name' => $name);
     	try
@@ -468,6 +480,8 @@ return TRUE;
     	return FALSE;
     }
 
+    // logout() meldet den aktuellen Benutzer ab, indem die Session aus der Datenbank
+    // entfernt und anschließend gelöscht wird.
     public function logout()
     {
     	global $pdo;
@@ -496,6 +510,8 @@ return TRUE;
     	}
     }
 
+    // closeOtherSessions() beendet alle Sessions des Benutzers, falls dieser über
+    // mehrere Browser oder Geräte gerade eingeloggt ist.
     public function closeOtherSessions()
     {
     	global $pdo;
@@ -529,7 +545,7 @@ return TRUE;
     // Ggf. Sonderzeichen ausschließen?
     public function isNameValid(string $name)
     {
-      $valid = TRUE;
+      $valid = TRUE; // aktuell keine Einschränkungen hinsichtlich des Nutzernamens
       return $valid;
     }
 
@@ -545,30 +561,34 @@ return TRUE;
        return $valid;
     }
 
-
-    public function getId()
+    // getId() liefert "user_id" des aktuellen Benutzers
+    public function getId():int
     {
       return $this->id;
     }
 
-    public function getRoll()
+    // getRoll() liefert Rolle des aktuellen Benutzers (user, viewer, editor oder admin)
+    public function getRoll():string
     {
       return $this->roll;
     }
 
-    public function isTeacher()
+    // isTeacher() liefert True, falls der aktuelle Benutzer ein Lehrer ist, sonst False
+    public function isTeacher():bool
     {
       return $this->isTeacher;
     }
 
-    public function isStudent()
+    // isStudent() liefert True, falls der aktuelle Benutzer ein Schüler ist, sonst False
+    public function isStudent():bool
     {
       return $this->isStudent;
     }
 
 
-// getIdFromName gibt die ID des Accounts zurück oder NULL, falls dieser nicht existiert
-    public function getIdFromName(string $name)
+    // getIdFromName(un) gibt die ID des Accounts zum Nutzernamen un zurück oder NULL,
+    // falls dieser nicht existiert
+    public function getIdFromName(string $name):?int
     {
        global $pdo;
        if (!$this->isNameValid($name))
@@ -593,13 +613,6 @@ return TRUE;
          $id = intval($row['user_id'], 10);
        }
        return $id;
-    }
-
-    // isIdValid prüft die formale Gültigkeit der ID
-    public function isIdValid(int $id)
-    {
-      $valid = TRUE;
-      return $valid;
     }
 
     // __construct ist der Konstruktor des PHP Daten Objektes

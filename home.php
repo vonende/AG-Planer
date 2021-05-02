@@ -1,4 +1,7 @@
 <?php
+/*
+Startseite nach erfolgreichem Login. Enthält Begrüßung und Infos.
+*/
 session_start();
 require 'account_class.php';
 

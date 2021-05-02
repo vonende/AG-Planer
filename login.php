@@ -1,4 +1,7 @@
 <?php
+/*
+Wenn ein Benutzer nicht angemeldet ist, wird er auf diese Seite zwecks Login umgeleitet.
+*/
 session_start();
 require 'account_class.php';
 $error="";

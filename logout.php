@@ -1,4 +1,7 @@
 <?php
+/*
+Diese Seite meldet den Benutzer ab.
+*/
 session_start();
 require 'account_class.php';
 
