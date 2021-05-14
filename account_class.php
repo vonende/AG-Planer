@@ -180,7 +180,7 @@ class Account
           $res->execute($values);
         }
         catch (PDOException $e) {
-          throw new Exception("Datenbankfehler beim Einfügen des Lehrerkürzels.");
+          throw new Exception("Datenbankfehler beim Einfügen des Lehrerkürzels.\n".$e);
         }
       }
     }

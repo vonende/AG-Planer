@@ -31,7 +31,7 @@ $query = "SELECT u.firstname, u.lastname, w.title, w.wg_id, COUNT(e.event_id) AS
           FROM students AS s, users AS u, wgs AS w, present AS p, events AS e
           WHERE s.class=:cl AND e.date>=:da AND u.user_id=s.user_id AND s.user_id=p.user_id AND p.event_id=e.event_id AND e.wg_id=w.wg_id
           GROUP BY u.user_id, w.wg_id
-          ORDER BY lastname,firstname,title ASC";
+          ORDER BY lastname ASC,firstname ASC,title ASC";
 
 try {
   $res = $pdo->prepare($query);

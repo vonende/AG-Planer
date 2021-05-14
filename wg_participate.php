@@ -29,8 +29,8 @@ $query = "SELECT * FROM
             EXCEPT
            (SELECT u.user_id, firstname, lastname
             FROM users u, participate p WHERE p.wg_id = :wid AND u.user_id=p.user_id)) AS noparticipator
-          NATURAL LEFT JOIN (SELECT user_id, class FROM students) AS s
-          NATURAL LEFT JOIN (SELECT user_id, shorthand FROM teachers) AS t
+          NATURAL LEFT JOIN students
+          NATURAL LEFT JOIN teachers
           ORDER BY lastname, firstname, class, shorthand";
 try {
   $res = $pdo->prepare($query);
