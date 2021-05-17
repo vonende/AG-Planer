@@ -1,0 +1,34 @@
+%--******************************************************************
+%--Daten auswählen
+%--******************************************************************
+%--Gesucht ist jeweils eine Tabelle aller ...
+
+%--Arbeitsgemeinschaften:
+/listing wgs
+
+%--Benutzerdaten (Benutzername, Vorname, Nachname):
+project username, firstname, lastname (users);
+
+%--AGs (Titel, Wochentag) dieses Schuljahres:
+project title, day (select (schoolyear='2020/21') (wgs));
+
+%--Benutzer (Vorname, Nachname, Benutzername) mit Vorname "Nina":
+project firstname, lastname, username (select firstname='Nina' (users));
+
+
+%--User (Id, Vorname, Nachname) die sich innerhalb des letzten Jahres keine Session hatten:
+project user_id, firstname,lastname, logintime (sessions njoin users);
+
+%--******************************************************************
+%--Daten mit SELECT auswählen unter Verwendung von Joins:
+%--******************************************************************
+%--Gesucht ist jeweils eine Tabelle aller ...
+
+%--Lehrer (Vorname, Nachname, Kürzel):
+project firstname, lastname, shorthand (select users.user_id = teachers.user_id (users product teachers));
+
+%--Schüler (Vorname, Nachname, Klasse, Schülernummer):
+project firstname, lastname, class, studentnumber (users njoin students);
+
+%--Schüler (Vorname, Nachname) mit Tag und Zeit der AGs an denen sie teilnehmen:
+project firstname, lastname, wgs.day, wgs.time (users NJOIN students NJOIN participate NJOIN wgs);
