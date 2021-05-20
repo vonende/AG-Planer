@@ -45,7 +45,7 @@ catch (PDOException $e){
 
 // Eine Liste aller AG-Teilnehmer ermitteln
 $query = "SELECT * FROM (
-            SELECT user_id, firstname, lastname
+            SELECT user_id, firstname, lastname, email
             FROM users NATURAL JOIN participate p
             WHERE p.wg_id = :wid AND p.schoolyear='$schoolyear') AS one
           NATURAL LEFT JOIN students
@@ -141,12 +141,13 @@ if ($wg['schoolyear'] == $schoolyear) {
 <table>
   <thead>
     <tr>
-      <th colspan="4">Eingeschriebene Personen:</th>
+      <th colspan="5">Eingeschriebene Personen:</th>
     </tr>
     <tr>
       <th>Nachname</th>
       <th>Vorname</th>
       <th>Klasse/Kürzel</th>
+      <th>E-Mail</th>
       <th>entfernen</th>
     </tr>
   </thead>
@@ -157,6 +158,7 @@ if ($wg['schoolyear'] == $schoolyear) {
         <td><?php echo $p['lastname'];?></td>
         <td><?php echo $p['firstname'];?></td>
         <td><?php echo $p['class'].$p['shorthand'];?></td>
+        <td><?php echo $p['email'];?></td>
         <td style="cursor: pointer" onclick="post('wg_edit.php', {del_user: <?php echo $p['user_id'];?>, wg_id: <?php echo $_GET['wid'];?>, title: '<?php echo $_GET['title'];?>'})"><strong>&nbsp;&#10005;&nbsp;</strong></td>
       </tr><?php
     }

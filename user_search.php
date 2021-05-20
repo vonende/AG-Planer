@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$un = $_POST['usersearch'];
 	$fn = $_POST['firstnamesearch'];
 	$ln = $_POST['lastnamesearch'];
-	$query = 'SELECT * FROM users WHERE username LIKE :user AND firstname LIKE :fn AND lastname LIKE :ln ORDER BY lastname, firstname, username ASC';
+	$query = 'SELECT * FROM users WHERE username LIKE :user AND firstname LIKE :fn AND lastname LIKE :ln ORDER BY lastname ASC, firstname ASC, username ASC';
 	$values = array(':user'=>$un, ':fn'=>$fn, ':ln'=>$ln);
 	$userlist = array();
 	try{
