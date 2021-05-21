@@ -1,0 +1,37 @@
+Integritätsbedingungen
+
+Statische
+
+Domain- bzw. Attributbedingungen:
+    • AGs müssen eine positive Dauer haben
+    • Die Teilnehmerzahl von AGs muss positiv sein
+    • Termine müssen eine positive Dauer haben
+    • Schuljahre müssen in der Form XXXX/YY angegeben werden
+    • Benutzer können nur die Rollen admin, viewer, editor oder user haben
+
+Relationenbedingungen:
+    • Schlüsselbedingungen:
+        ◦ in Benutzer, Lehrer und Schüler: Benutzer_ID
+        ◦ in AGs: AG_ID
+        ◦ in Termine: Termin_ID
+        ◦ in Sessions: Session_ID
+        ◦ in Leiten: AG_ID, Benutzer_ID
+        ◦ in Anwesenheit: Termin_ID, Benutzer_ID
+        ◦ in Teilnahme: AG_ID, Benutzer_ID
+    • Aggregatbedingungen: keine
+    • Rekursive Bedingungen: keine
+
+Referentielle Bedingungen:
+    • Ein Lehrer kann nur angelegt werden, wenn er bereits als Benutzer existiert
+    • Ein Schüler kann nur angelegt werden, wenn er bereits als Benutzer existiert
+    • Nur existierende Nutzer können Sessions haben
+    • Nur existierende AGs können Termine haben
+    • Nur existierende AGs können nur von existierenden Benutzern geleitet werden
+    • Nur existierende Nutzer können nur an existierenden Terminen anwesend sein
+    • Nur existierende Nutzer können nur an existierenden AGs teilnehmen
+
+Dynamische
+
+    • Zu Schuljahresbeginn werden alle Schüler und Lehrer der Schule mit den in der Datenbank vorhandenen abgeglichen. Falls sie noch an der Schule sind, wird das Datum ihrer letzten Aktualisierung neu gesetzt. Auf diese Weise können „Karteileichen“ gefunden und entfernt werden.
+      
+

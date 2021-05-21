@@ -16,7 +16,7 @@ project title, day (select (schoolyear='2020/21') (wgs));
 project firstname, lastname, username (select firstname='Nina' (users));
 
 
-%--User (Id, Vorname, Nachname) die sich innerhalb des letzten Jahres keine Session hatten:
+%--User (Id, Vorname, Nachname) die eine Session haben:
 project user_id, firstname,lastname, logintime (sessions njoin users);
 
 %--******************************************************************
@@ -32,3 +32,4 @@ project firstname, lastname, class, studentnumber (users njoin students);
 
 %--Schüler (Vorname, Nachname) mit Tag und Zeit der AGs an denen sie teilnehmen:
 project firstname, lastname, wgs.day, wgs.time (users NJOIN students NJOIN participate NJOIN wgs);
+

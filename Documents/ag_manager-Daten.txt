@@ -1,4 +1,4 @@
-INSERT INTO users (username,password,firstname,lastname,enabled,roll,email)
+users (username,password,firstname,lastname,enabled,roll,email)
 VALUES ('admin','$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke','Adam','Adler',TRUE,'admin',''),
 ('admin2','$2y$10$WgKWY7Nt.tcMGAY.qHt6COMQQY7tghjEjg4Cn3CxFBtFLdyzHo6.y','Bertha','Bentz',TRUE,'admin','berthabentz@ag-manager.de'),
 ('admin3','$2y$10$Jy3JT9Q1.DVdrxJpSSVife/k0UQPMmhFXLutjehTkkHB/psKgx2Sq','Claus','Clever',TRUE,'admin','clausclever@ag-manager.de'),
@@ -41,7 +41,7 @@ VALUES ('admin','$2y$10$g5rEA6MdkIm.YvigvbrDkucvEytY8bAhUtinpv4Sc.SQ0SG88JHke','
 ('jajab','$2y$10$64r33U1khW/VCzkVplGpcuyd/mRlHrRrEj35X6gSYJrH8S0SFF5Xy','Jakub','Jabłoński',TRUE,'user','jakubjablonski@ag-manager.de'),
 ('wiszc','$2y$10$OjRWYz/iIGq2hCsXuGhGI.pBt.O/mZbinoyrnaFieSCVdLAPVi/XK','Wisia','Szczepańska',TRUE,'user','wisiaszcepanska@ag-manager.de');
 
-INSERT INTO wgs (title, day, time, duration, max_num, multiple, schoolyear, description)
+AGs (title, day, time, duration, max_num, multiple, schoolyear, description)
 VALUES ('Nähen','Montag','15:00:00',90,10,FALSE,'2020/21','Wir nähen alle einen Teddybären.'),
 ('Schach','Montag','15:00:00',90,10,TRUE,'2020/21','Klassisches Schachspiel für jung und alt. Beginn: 29. März 2021'),
 ('Karate','Mittwoch','15:30:00',90,0,TRUE,'2020/21','Shotokan-Karate für die persönliche Entwicklung.'),
@@ -49,7 +49,7 @@ VALUES ('Nähen','Montag','15:00:00',90,10,FALSE,'2020/21','Wir nähen alle eine
 ('Chemie','Dienstag','16:00:00',90,8,TRUE,'2019/20','Experimente, die Puffen und Stinken.'),
 ('Basketball','Mittwoch','16:00:00',90,20,TRUE,'2020/21','Was gibt es da zu erklären?');
 
-INSERT INTO teachers (user_id, shorthand) VALUES
+teachers (user_id, shorthand) VALUES
 (1,'ADL'),
 (2,'EDI'),
 (3,'VIG'),
@@ -62,7 +62,7 @@ INSERT INTO teachers (user_id, shorthand) VALUES
 (40,'XTS'),
 (41,'YOG');
 
-INSERT INTO students (class, studentnumber, user_id) VALUES
+students (class, studentnumber, user_id) VALUES
 ('7a','usus01',4),
 ('7a','lowe01',14),
 ('7a','decker01',15),
@@ -91,7 +91,7 @@ INSERT INTO students (class, studentnumber, user_id) VALUES
 ('8b','abt01',12),
 ('8b','dresdner01',13);
 
-INSERT INTO lead (user_id, wg_id) VALUES
+lead (user_id, wg_id) VALUES
 (4,2),
 (2,3),
 (11,6),
@@ -106,7 +106,7 @@ INSERT INTO lead (user_id, wg_id) VALUES
 (36,2),
 (38,5);
 
-INSERT INTO events (date, time, duration, annotation, wg_id) VALUES
+events (date, time, duration, annotation, wg_id) VALUES
 ('2021-03-22','15:00:00',90,'Gemeinsames Kennenlernen',1),
 ('2021-03-28','15:00:00',90,'Schnittmuster vorbereiten',1),
 ('2021-04-05','15:00:00',60,'Stoff ausschneiden',1),
@@ -122,7 +122,7 @@ INSERT INTO events (date, time, duration, annotation, wg_id) VALUES
 ('2021-04-26','15:00:00',90,' ',2),
 ('2021-04-30','11:00:00',60,'Fand heute früher statt wegen Elternsprechtag',4);
 
-INSERT INTO participate (user_id,wg_id,schoolyear) VALUES
+participate (user_id,wg_id,schoolyear) VALUES
 (4,1,'2020/21'),
 (4,2,'2019/20'),
 (4,6,'2020/21'),
@@ -165,7 +165,7 @@ INSERT INTO participate (user_id,wg_id,schoolyear) VALUES
 (28,3,'2020/21'),
 (25,3,'2020/21');
 
-INSERT INTO present (event_id,user_id) VALUES
+present (event_id,user_id) VALUES
 (1,4),
 (2,4),
 (3,4),
@@ -225,3 +225,4 @@ INSERT INTO present (event_id,user_id) VALUES
 (7,7),
 (6,6),
 (6,5); 
+

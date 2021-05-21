@@ -1,0 +1,36 @@
+Funktionale Abhängigkeiten
+
+Benutzer:
+Benutzer_ID → {Benutzername, Passwort, Vorname, Nachname, E-Mail, Rolle, Registrierdatum, aktiv, letzte_Aktualisierung}
+Benutzername → {Benutzer_ID, Passwort, Vorname, Nachname, E-Mail, Rolle, Registrierdatum, aktiv, letzte_Aktualisierung}
+E-Mail → {Benutzer_ID, Benutzername, Passwort, Vorname, Nachname, E-Mail, Rolle, Registrierdatum, aktiv, letzte_Aktualisierung}
+
+Lehrer:
+Benutzer_ID → Kürzel
+Kürzel → Benutzer_ID
+
+Schüler:
+Benutzer_ID → {Schülernummer, Klasse}
+Schülernummer → {Benutzer_ID, Klasse}
+
+AGs:
+AG_ID → {Titel, Wochentag, Uhrzeit, Dauer, maxTeilnehmer, Mehrfachbelegbarkeit, Schuljahr, Kurzbeschreibung}
+
+Termine:
+Termin_ID → { Zeitstempel, Dauer,  Anmerkung, AG_ID}
+AG_ID → { Termin_ID, Zeitstempel, Dauer,  Anmerkung}
+
+Sessions:
+Session_ID → {Loginzeitstempel, Benutzer_ID}
+Benutzer_ID → {Session_ID, Loginzeitstempel}
+
+Leiten:
+trivial
+
+Anwesenheit:
+trivial
+
+Teilnahme:
+{AG_ID, Benutzer_ID} → Schuljahr
+
+

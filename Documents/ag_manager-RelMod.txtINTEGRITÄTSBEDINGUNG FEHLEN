@@ -1,0 +1,24 @@
+
+Relationenmodell AG-Manager
+
+
+users (user_id, username, password, firstname, lastname, email, roll, registrationtime, enabled, last_update)
+teachers (user_id, shorthand)
+students (user_id, studentnumber, class)
+wgs (wg_id, title, day, time, duration, max_num, multiple, schoolyear, description)
+events (event_id, datetime, duration, annotation, wg_id)
+sessions (session_id, logintime, user_id) 
+lead (wg_id, user_id)
+present (event_id, user_id)
+participate (wg_id, user_id, schoolyear)
+
+deutsche Übersetzung
+Benutzer (Benutzer_ID, Benutzername, Passwort, Vorname, Nachname, E-Mail, Rolle, Registrierdatum, aktiv, letzte_Aktualisierung)
+Lehrer (Benutzer_ID, Kürzel)
+Schüler (Benutzer_ID, Schülernummer, Klasse) 
+AGs (AG_ID, Titel, Wochentag, Uhrzeit, Dauer, maxTeilnehmer, Mehrfachbelegbarkeit, Schuljahr, Kurzbeschreibung)
+Termine (Termin_ID, Zeitstempel, Dauer,  Anmerkung, AG_ID)
+Sessions (Session_ID, Loginzeitstempel, Benutzer_ID)
+Leiten (AG_ID, Benutzer_ID)
+Anwesenheit (Termin ID, Benutzer ID)
+Teilnahme (AG_ID, Benutzer_ID, Schuljahr)

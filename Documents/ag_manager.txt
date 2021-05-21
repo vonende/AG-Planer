@@ -1,0 +1,7 @@
+Weltausschnitt
+
+Leiter bieten AGs an, wählt SuS aus. Leiter können Lehrer, Schüler oder Externe sein.
+Leiter & SuS sind an den Terminen anwesend, an denen die AGs stattfinden. Sie können sich auf dem AG-Portal mit einer Session anmelden.
+Leiter können dort AGs erstellen. Sie tragen die Anwesenheit dort ein.
+SuS können AGs sehen. Sie können auch die Eintragung ihrer Anwesenheit prüfen.
+Klassenlehrer sehen die Anwesenheit und können bei entsprechend häufiger Anwesenheit einen Vermerk auf dem Zeugnis notieren.

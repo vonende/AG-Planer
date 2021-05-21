@@ -1,0 +1,29 @@
+Transformationen 
+
+Transformation der Entitätstypen AGs, Termine, Benutzer, Sessions: 
+1:1 aus ER-Modell übernommen.
+
+Transformation der Subtypenbeziehungen Lehrer, Schueler, Andere: 
+Jeder Subtyp wird zu einem neuen Relationsschema, das alle Attribute des jeweiligen Subtyps als auch den Primärschlüssel des Supertyps als Fremdschlüssel enthält. Der Fremdschlüssel wird zum Primärschlüssel des Subtyps. Da „Andere“ keine eigenen Attribute besitzt, ist die Relation nicht notwendig zu implementieren. Jeder Benutzer, der kein Schüler oder Lehrer ist, ist automatisch ein „Anderer“.
+
+Transformation „besitzt“:
+Die einseitig optionale Beziehung (ein Benutzer muss keine Session haben) wird in den Entitätstyp „Session“ durch Hinzunahme der BenutzerID  integriert.
+Semantikverlust, da Optionalität nicht mehr erkennbar. Integritätsbedingung (eine Session muss einen Benutzer haben) muss hinzugefügt werden.
+
+Transformation „anwesend“:
+Es handelt sich um einen beidseitig optionalen m:n Beziehungstyp. Er wird in eine eigene Relation „Anwesenheit“ transformiert, die die Fremdschlüssel der beteiligten Entitäten (Termine und Benutzer) enthält, die gemeinsam den Primärschlüssel bilden.
+Semantikverlust, da Optionalität nicht mehr erkennbar ist. Integritätsbedingung (ein Benutzer kann nicht an mehreren Terminen gleichzeitig anwesend sein) muss hinzugefügt werden.
+
+Transformation „stattfinden“:
+Der n:1 Beziehungstyp (Termin – AG) wird in den Entitätstyp Termine durch Hinzunahme der AG_ID integriert.
+Semantikverlust, weil einseitige Optionalität (eine AG muss nicht zwangsläufig einen Termin haben) nicht mehr erkennbar. Integritätsbedingung notwendig, weil ein Termin genau einer AG zugeordnet werden muss (NOT NULL REFERENCES wgs(wg_id)). 
+
+Transformation „leiten“:
+Es handelt sich um einen einseitig optionalen m:n Beziehungstyp. Er wird in eine eigene Relation „Leiten“ transformiert, die die Fremdschlüssel der beteiligten Entitätstypen (AGs und Benutzer) enthält, die gemeinsam den Primärschlüssel bilden. 
+Semantikverlust, da Optionalität (nicht jeder Benutzer muss eine AG leiten) nicht mehr erkennbar. Keine Integritätsbedingungen notwendig.
+
+Transformation „teilnehmen“:
+Es handelt sich um einen beidseitig optionalen m:n Beziehungstyp. Er wird in eine eigene Relation „Teilnahme“ transformiert, die die Fremdschlüssel der beteiligten Entitätstypen (AGs und Benutzer) enthält, die gemeinsam den Primärschlüssel bilden. 
+Semantikverlust, da Optionalität (nicht jeder Benutzer muss an einer AG teilnehmen, eine AG muss keine Teilnehmer haben) nicht mehr erkennbar.
+Integritätsbedingung notwendig, um „maxTeilnehmer“ nicht zu überschreiten.
+

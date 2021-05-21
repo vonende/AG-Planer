@@ -1,0 +1,205 @@
+
+%--******************************************************************
+%--Daten auswählen
+%--******************************************************************
+DES> %--Gesucht ist jeweils eine Tabelle aller ...
+
+1.
+DES> %--Arbeitsgemeinschaften:
+DES> /listing wgs
+wgs(1,'Nähen','Montag',time(15,0,0),90,10,'0','2020/21','Wir nähen alle einen Teddybären.').
+wgs(2,'Schach','Montag',time(15,0,0),90,10,'1','2020/21','Klassisches Schachspiel für jung und alt. Beginn: 29. März 2021').
+wgs(3,'Karate','Mittwoch',time(15,30,0),90,0,'1','2020/21','Shotokan-Karate für die persönliche Entwicklung.').
+wgs(4,'Technik','Freitag',time(14,0,0),90,6,'1','2020/21','Auf- und Abbau der Theatertechnik. Betreuung während der Proben und Aufführungen.').
+wgs(5,'Chemie','Dienstag',time(16,0,0),90,8,'1','2019/20','Experimente, die Puffen und Stinken.').
+wgs(6,'Basketball','Mittwoch',time(16,0,0),90,20,'1','2020/21','Was gibt es da zu erklären?').
+
+Info: 6 rules listed.
+
+2.
+%--Benutzerdaten (Benutzername, Vorname, Nachname):
+DES> project username, firstname, lastname (users);
+answer(users.username:varchar(30),users.firstname:varchar(30),users.lastname:varchar(30)) ->
+{
+  answer('Lauda','Laura','Dresdner'),
+  answer(admin,'Adam','Adler'),
+  answer(admin2,'Bertha','Bentz'),
+  answer(admin3,'Claus','Clever'),
+  answer(almey,'Alexander','Meyer'),
+  answer(chutri,'Chu Thành','Tri'),
+  answer(dodec,'Doreen','Decker'),
+  answer(eisenhut,'Fidora','Flanell'),
+  answer(frappa,'Frank','Zappa'),
+  answer(frühlingsblume,'Uschi','Usus'),
+  answer(habarb,'Habudi','Harb'),
+  answer(hamarb,'Hamudi','Harb'),
+  answer(herbstnebel,'Viki','Vigor'),
+  answer(herrbaer,'Herbert','Bähr'),
+  answer(jajab,'Jakub','Jabłoński'),
+  answer(jewex,'Jens','Wexler'),
+  answer(kamue,'Katja','Müller'),
+  answer(kartoffelkraut,'Xaver','Xanthopoulos'),
+  answer(kaulquappe96,'Hannah','Merkur'),
+  answer(laumue,'Laura','Müller'),
+  answer(luftballon,'Gregor','Müller'),
+  answer(moossteinbrech,'Eduard','Möhrike'),
+  answer(nazajac,'Natasza','Zając'),
+  answer(ostseebrise,'Bernd','Brot'),
+  answer(regenhimmel,'Moritz','Macker'),
+  answer(rosskastanie,'Liselotte','Müller'),
+  answer(rotbaum,'Waldemar','Wacker'),
+  answer(sabt,'Stephan','Abt'),
+  answer(schneeflocke,'Nina','Nadel'),
+  answer(selowe,'Sebastian','Lowe'),
+  answer(silberstreif,'Jana','Jensen'),
+  answer(sonnenschein,'Edwin','Edison'),
+  answer(stoppelfeld,'Yannis','Yoghurt'),
+  answer(tonnhi,'Tôn Ngoc','Nhi'),
+  answer(wawis,'Walery','Wiśniewski'),
+  answer(weintraube,'Walter','Dremel'),
+  answer(winterweite,'Elisabeth','Engel'),
+  answer(wischam,'Wisaam Aram','Cham'),
+  answer(wiskwi,'Wisława','Kwiatkowska'),
+  answer(wiszc,'Wisia','Szczepańska'),
+  answer(wolwi,'Wolfgang','Wowereit')
+}
+Info: 41 tuples computed.    
+
+3.
+%--AGs (Titel, Wochentag) dieses Schuljahres:
+project title, day (select (schoolyear='2020/21') (wgs));
+answer(wgs.title:varchar(100),wgs.day:varchar(255)) ->
+{
+  answer('Basketball','Mittwoch'),
+  answer('Karate','Mittwoch'),
+  answer('Nähen','Montag'),
+  answer('Schach','Montag'),
+  answer('Technik','Freitag')
+}
+Info: 5 tuples computed.    
+
+4.
+%--Benutzer (Vorname, Nachname, Benutzername) mit Vorname "Nina":
+project firstname, lastname, username (select firstname='Nina' (users));
+answer(users.firstname:string,users.lastname:varchar(30),users.username:varchar(30)) ->
+{
+  answer('Nina','Nadel',schneeflocke)
+}
+Info: 1 tuple computed.  
+     
+5.
+%--User (Id, Vorname, Nachname) die eine Session haben:
+project user_id, firstname,lastname, logintime (sessions njoin users);
+answer(user_id:int,firstname:varchar(30),lastname:varchar(30),logintime:datetime(datetime)) ->
+{
+  answer(1,'Adam','Adler',timestamp(2021,5,9,17,34,23,685009000)),
+  answer(1,'Adam','Adler',timestamp(2021,5,17,8,59,25,774050000))
+}
+Info: 2 tuples computed.   
+
+
+%--******************************************************************
+%--Daten mit SELECT auswählen unter Verwendung von Joins:
+%--******************************************************************
+%--Gesucht ist jeweils eine Tabelle aller ...
+
+6.
+%--Lehrer (Vorname, Nachname, Kürzel):
+project firstname, lastname, shorthand (select users.user_id = teachers.user_id (users product teachers));
+answer(users.firstname:varchar(30),users.lastname:varchar(30),teachers.shorthand:varchar(10)) ->
+{
+  answer('Adam','Adler','ADL'),
+  answer('Bernd','Brot','JEN'),
+  answer('Bertha','Bentz','EDI'),
+  answer('Chu Thành','Tri','CLR'),
+  answer('Claus','Clever','VIG'),
+  answer('Jakub','Jabłoński','XTS'),
+  answer('Tôn Ngoc','Nhi','MAC'),
+  answer('Viki','Vigor','BRO'),
+  answer('Wisaam Aram','Cham','BNZ'),
+  answer('Wisia','Szczepańska','YOG'),
+  answer('Wolfgang','Wowereit','WCK')
+}
+Info: 11 tuples computed.   
+
+7.
+%--Schüler (Vorname, Nachname, Klasse, Schülernummer):
+project firstname, lastname, class, studentnumber (users njoin students);
+answer(firstname:varchar(30),lastname:varchar(30),class:varchar(10),studentnumber:varchar(20)) ->
+{
+  answer('Alexander','Meyer','7b',wowi01),
+  answer('Doreen','Decker','7a',cham01),
+  answer('Eduard','Möhrike','7b',wadr01),
+  answer('Edwin','Edison','7a',usus01),
+  answer('Elisabeth','Engel','7a',grmü01),
+  answer('Fidora','Flanell','8a',zappa01),
+  answer('Frank','Zappa','7a',zajac01),
+  answer('Gregor','Müller','7a',mueller01),
+  answer('Habudi','Harb','7b',szcz01),
+  answer('Hamudi','Harb','7b',jabl01),
+  answer('Hannah','Merkur','8a',fifl01),
+  answer('Herbert','Bähr','7b',wisn01),
+  answer('Jana','Jensen','8a',limü01),
+  answer('Jens','Wexler','7a',tri01),
+  answer('Katja','Müller','7a',kwiatkowska01),
+  answer('Laura','Dresdner','7a',harb01),
+  answer('Laura','Müller','7a',nhi01),
+  answer('Liselotte','Müller','7a',baehr01),
+  answer('Moritz','Macker','7b',nina01),
+  answer('Nina','Nadel','7a',wexler01),
+  answer('Sebastian','Lowe','7a',harb02),
+  answer('Stephan','Abt','7a',meyer01),
+  answer('Uschi','Usus','7a',decker01),
+  answer('Waldemar','Wacker','8b',abt01),
+  answer('Walter','Dremel','7a',mueller02),
+  answer('Xaver','Xanthopoulos','8b',dresdner01),
+  answer('Yannis','Yoghurt','7a',lowe01)
+}
+Info: 27 tuples computed. 
+      
+8.
+DES> 
+%--Schüler (Vorname, Nachname) mit Tag und Zeit der AGs an denen sie teilnehmen:
+project firstname, lastname, wgs.day, wgs.time (users NJOIN students NJOIN participate NJOIN wgs);
+nswer(firstname:varchar(30),lastname:varchar(30),wgs.day:varchar(255),wgs.time:datetime(time)) ->
+{
+  answer('Alexander','Meyer','Mittwoch','15:30:00'),
+  answer('Doreen','Decker','Freitag','14:00:00'),
+  answer('Eduard','Möhrike','Freitag','14:00:00'),
+  answer('Eduard','Möhrike','Mittwoch','16:00:00'),
+  answer('Edwin','Edison','Freitag','14:00:00'),
+  answer('Edwin','Edison','Mittwoch','16:00:00'),
+  answer('Edwin','Edison','Montag','15:00:00'),
+  answer('Elisabeth','Engel','Mittwoch','16:00:00'),
+  answer('Elisabeth','Engel','Montag','15:00:00'),
+  answer('Fidora','Flanell','Mittwoch','16:00:00'),
+  answer('Fidora','Flanell','Montag','15:00:00'),
+  answer('Frank','Zappa','Mittwoch','15:30:00'),
+  answer('Gregor','Müller','Mittwoch','15:30:00'),
+  answer('Hamudi','Harb','Montag','15:00:00'),
+  answer('Hannah','Merkur','Mittwoch','15:30:00'),
+  answer('Hannah','Merkur','Mittwoch','16:00:00'),
+  answer('Hannah','Merkur','Montag','15:00:00'),
+  answer('Jana','Jensen','Mittwoch','15:30:00'),
+  answer('Jana','Jensen','Mittwoch','16:00:00'),
+  answer('Jens','Wexler','Mittwoch','15:30:00'),
+  answer('Laura','Dresdner','Mittwoch','15:30:00'),
+  answer('Laura','Müller','Mittwoch','16:00:00'),
+  answer('Liselotte','Müller','Freitag','14:00:00'),
+  answer('Liselotte','Müller','Mittwoch','15:30:00'),
+  answer('Moritz','Macker','Mittwoch','15:30:00'),
+  answer('Moritz','Macker','Mittwoch','16:00:00'),
+  answer('Moritz','Macker','Montag','15:00:00'),
+  answer('Sebastian','Lowe','Montag','15:00:00'),
+  answer('Stephan','Abt','Mittwoch','15:30:00'),
+  answer('Uschi','Usus','Freitag','14:00:00'),
+  answer('Uschi','Usus','Mittwoch','15:30:00'),
+  answer('Uschi','Usus','Mittwoch','16:00:00'),
+  answer('Waldemar','Wacker','Freitag','14:00:00'),
+  answer('Waldemar','Wacker','Mittwoch','15:30:00'),
+  answer('Waldemar','Wacker','Mittwoch','16:00:00'),
+  answer('Waldemar','Wacker','Montag','15:00:00'),
+  answer('Xaver','Xanthopoulos','Mittwoch','16:00:00'),
+  answer('Yannis','Yoghurt','Mittwoch','16:00:00')
+}
+Info: 38 tuples computed.        
