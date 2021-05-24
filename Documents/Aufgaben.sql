@@ -20,7 +20,7 @@ WHERE firstname LIKE '%Nina%';
 --in der Beschreibung:
 SELECT wg_id, title 
 FROM wgs
-WHERE description SIMILAR TO '%(T|t)eater%';
+WHERE description SIMILAR TO '%(T|t)heater%';
 
 --6. Klassen aufsteigend sortiert:
 SELECT DISTINCT class FROM students ORDER BY class ASC;
@@ -30,7 +30,7 @@ SELECT event_id, date, annotation FROM events
 WHERE date >= (now() - INTERVAL '7 days')
 ORDER BY date DESC;
 
---8. User (Id, Vorname, Nachname) die sich innerhalb des letzten Jahres keine Session hatten:
+--8. User (Id, Vorname, Nachname) die innerhalb des letzten Jahres keine Session hatten:
 SELECT user_id, firstname, lastname 
 FROM sessions NATURAL JOIN users
 WHERE logintime > now() - INTERVAL '1 year';
@@ -40,60 +40,80 @@ SELECT title, day
 FROM wgs
 WHERE NOT day = 'Mittwoch';
 
+--10. SuS (Nachname,Rolle), die an einer AG teilnehmen:
+SELECT u.lastname, u.roll 
+FROM users u 
+WHERE EXISTS
+	(SELECT 1 
+	 FROM participate p 
+	 WHERE u.user_id=p.user_id) AND roll = 'user';
+
+
 --******************************************************************
 --Daten mit SELECT auswählen unter Verwendung von Joins:
 --******************************************************************
 --Gesucht ist jeweils eine Tabelle aller ...
 
---9. Lehrer (Vorname, Nachname, Kürzel):
+--11. Lehrer (Vorname, Nachname, Kürzel):
 SELECT firstname, lastname, shorthand
 FROM users AS u, teachers AS t
 WHERE u.user_id=t.user_id;
 
---10. Schüler (Vorname, Nachname, Klasse, Schülernummer):
+--12. Schüler (Vorname, Nachname, Klasse, Schülernummer):
 SELECT firstname, lastname, class, studentnumber
 FROM users AS u, students AS s
 WHERE u.user_id=s.user_id;
 
---11. Veranstaltungen (= Events) (Datum, Bemerkung) der Näh-AG seit Beginn des Jahres:
+--13. Veranstaltungen (= Events) (Datum, Bemerkung) der Näh-AG seit Beginn des Jahres:
 SELECT date, annotation FROM events, wgs
 WHERE title LIKE 'Nähen' AND wgs.wg_id=events.wg_id
 AND date>='2021-01-01';
 
---12. Schüler (Vorname, Nachname) mit Tag und Zeit der AGs an denen sie teilnehmen:
+--14. Schüler (Vorname, Nachname) mit Tag und Zeit der AGs an denen sie teilnehmen:
 SELECT firstname, lastname, wgs.day, wgs.time
-FROM users NATURAL JOIN	students NATURAL JOIN participate NATURAL JOIN wgs
+FROM users NATURAL JOIN	students NATURAL JOIN participate NATURAL JOIN wgs;
 
-
-
---14. SuS (Name, Vorname), die an allen Terminen einer AG (Titel) NOCH NICHT FERTIG111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
---anwesend waren.
-SELECT lastname, firstname, title
-FROM users NATURAL JOIN students NATURAL JOIN events NATURAL JOIN present
-WHERE title = 'Basketball' AND NOT EXISTS NOT event_id = (SELECT event_id FROM events NATURAL JOIN wgs WHERE title = 'Basketball');
+--15. SuS (Name, Vorname), die an allen Terminen einer AG (Titel)          
+--anwesend waren aufsteigend sortiert nach AG-Titel.
+SELECT u3.fn AS vorname,u3.ln AS name, u3.canw AS anwesend, u3.title AS ag_name, COUNT(events.event_id) 
+FROM 
+	(SELECT u2.firstname AS fn, u2.lastname AS ln,u2.c1 AS canw,wgs.wg_id AS agname,wgs.title 
+	FROM 
+		(SELECT u1.firstname,u1.lastname,count(events.event_id) AS c1,wg_id 
+		FROM 
+			(SELECT firstname,lastname,event_id 
+			FROM users, present 
+			WHERE users.user_id=present.user_id) AS u1,events 
+		WHERE u1.event_id = events.event_id 
+		GROUP BY u1.firstname,u1.lastname, events.wg_id) AS u2, wgs 
+	WHERE wgs.wg_id= u2.wg_id) AS u3,events 
+WHERE events.wg_id = u3.agname 
+GROUP BY u3.title,u3.fn,u3.ln,u3.canw 
+HAVING u3.canw = COUNT(events.event_id) 
+ORDER BY ag_name ASC;
 
 --******************************************************************
 --Daten mit SELECT auswählen unter Verwendung von Joins, Subqueries
 --und Aggregatfunktionen:
 --******************************************************************
 
---14. Gesucht ist die AG mit den meisten eingeschriebenen Teilnehmern:
+--16. Gesucht ist die AG mit den meisten eingeschriebenen Teilnehmern:
 SELECT title, COUNT(p.user_id) AS count FROM wgs, participate AS p
 WHERE wgs.wg_id = p.wg_id
 GROUP BY wgs.wg_id
 ORDER BY count DESC LIMIT 1;
 
---15. Gesucht ist die Gesamtzahl an AG-Plätzen in AGs mit beschränkter Platzzahl
+--17. Gesucht ist die Gesamtzahl an AG-Plätzen in AGs mit beschränkter Platzzahl
 SELECT SUM(max_num) as anzahl_plaetze_gesamt
 FROM wgs;
 
---16. Gesucht ist eine Tabelle der
+--18. Gesucht ist eine Tabelle der
 --Gesamtdauern aller AG-Termine pro AG, die bisher stattgefunden haben:
 SELECT SUM(events.duration) AS Gesamtdauer,wg_id 
 FROM events NATURAL JOIN wgs 
 GROUP BY wg_id;
 
---17. Gesucht ist eine Tabelle aller AGs (Titel, Schuljahr, Beschreibung)
+--19. Gesucht ist eine Tabelle aller AGs (Titel, Schuljahr, Beschreibung)
 --der Schülerin mit dem Benutzernamen "schneeflocke".
 --Die Sortierung erfolgt absteigend nach Schuljahr und aufsteigend nach Titel.
 SELECT title, p.schoolyear, description FROM wgs, participate AS p
@@ -101,7 +121,7 @@ WHERE p.user_id = (SELECT user_id FROM users WHERE username='schneeflocke')
 AND p.wg_id = wgs.wg_id
 ORDER BY p.schoolyear DESC, wgs.title ASC;
 
---18. Gesucht ist eine Tabelle aller
+--20. Gesucht ist eine Tabelle aller
 --Schüler der Klasse 7a, in welcher die AGs und die Anzahl der besuchten
 --Veranstaltungen (= Events) seit Schuljahresbeginn 2020 aufgelistet werden.
 --Die Sortierung erfolgt nach Nachname, Vorname und Titel aufsteigend:
@@ -112,14 +132,14 @@ AND s.user_id=p.user_id AND p.event_id=e.event_id AND e.wg_id=w.wg_id
 GROUP BY u.user_id, w.wg_id
 ORDER BY lastname,firstname,title ASC;
 
---19. Gesucht ist eine Tabelle aller
+--21. Gesucht ist eine Tabelle aller
 --AGs mit mehr als zwei Leitern:
 SELECT COUNT(wg_id) as AnzLeiter, wg_id, title 
 FROM wgs NATURAL JOIN lead 
 GROUP BY wg_id 
 HAVING COUNT(wg_id) > 2;
 
---20. Gesucht ist eine Tabelle aller
+--22. Gesucht ist eine Tabelle aller
 --Schüler (Vorname, Nachname) mit Tag und Zeit und der Anzahl der AGs an denen sie teilnehmen, 
 --die am selben Tag zur selben Zeit stattfinden:
 SELECT COUNT(user_id) AS Teilnahmen, firstname, lastname, wgs.day, wgs.time 
@@ -127,7 +147,7 @@ FROM users NATURAL JOIN students NATURAL JOIN participate NATURAL JOIN wgs
 GROUP BY user_id, wgs.day, wgs.time 
 HAVING count(user_id) > 1;
 
---21. Gesucht ist eine Tabelle der
+--23. Gesucht ist eine Tabelle der
 --prozentualen Teilnahme des Schülers Edwin Edison an der AG Basketball:
 SELECT (COUNT(wg_id)::FLOAT/anz_termine) AS teilnahme_prozentual, firstname,lastname,title 
 FROM (SELECT COUNT(wg_id) AS anz_termine, wg_id 
