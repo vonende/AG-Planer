@@ -1,4 +1,3 @@
-
 1.
  wg_id |   title    |   day    |   time   | duration | max_num | multiple | schoolyear |                                    description                                    
 -------+------------+----------+----------+----------+---------+----------+------------+-----------------------------------------------------------------------------------
@@ -14,27 +13,18 @@
     username    |  firstname  |   lastname   
 ----------------+-------------+--------------
  admin          | Adam        | Adler
- admin2         | Bertha      | Bentz
- admin3         | Claus       | Clever
  sonnenschein   | Edwin       | Edison
- regenhimmel    | Moritz      | Macker
- winterweite    | Elisabeth   | Engel
- moossteinbrech | Eduard      | Möhrike
- kaulquappe96   | Hannah      | Merkur
- silberstreif   | Jana        | Jensen
- ostseebrise    | Bernd       | Brot
  herbstnebel    | Viki        | Vigor
- rotbaum        | Waldemar    | Wacker
- kartoffelkraut | Xaver       | Xanthopoulos
- stoppelfeld    | Yannis      | Yoghurt
  frühlingsblume | Uschi       | Usus
  schneeflocke   | Nina        | Nadel
  luftballon     | Gregor      | Müller
  weintraube     | Walter      | Dremel
  eisenhut       | Fidora      | Flanell
  rosskastanie   | Liselotte   | Müller
+ silberstreif   | Jana        | Jensen
+ ostseebrise    | Bernd       | Brot
  sabt           | Stephan     | Abt
- Lauda          | Laura       | Dresdner
+ lauda          | Laura       | Dresdner
  selowe         | Sebastian   | Lowe
  dodec          | Doreen      | Decker
  jewex          | Jens        | Wexler
@@ -54,6 +44,15 @@
  wolwi          | Wolfgang    | Wowereit
  jajab          | Jakub       | Jabłoński
  wiszc          | Wisia       | Szczepańska
+ admin2         | Bertha      | Bentz
+ admin3         | Claus       | Clever
+ regenhimmel    | Moritz      | Macker
+ winterweite    | Elisabeth   | Engel
+ moossteinbrech | Eduard      | Möhrike
+ kaulquappe96   | Hannah      | Merkur
+ rotbaum        | Waldemar    | Wacker
+ kartoffelkraut | Xaver       | Xanthopoulos
+ stoppelfeld    | Yannis      | Yoghurt
 (41 Zeilen)
 
 3.
@@ -67,18 +66,6 @@
 (5 Zeilen)
 
 4.
- firstname | lastname |   username   
------------+----------+--------------
- Nina      | Nadel    | schneeflocke
-(1 Zeile)
-
-5.
- wg_id |  title  
--------+---------
-     4 | Technik
-(1 Zeile)
-
-6.
  class 
 -------
  7a
@@ -87,20 +74,13 @@
  8b
 (4 Zeilen)
 
-7.
- event_id | date | annotation 
-----------+------+------------
-(0 Zeilen)
+5.
+ firstname | lastname |   username   
+-----------+----------+--------------
+ Nina      | Nadel    | schneeflocke
+(1 Zeile)
 
-8.
- user_id | firstname | lastname 
----------+-----------+----------
-       1 | Adam      | Adler
-       1 | Adam      | Adler
-       1 | Adam      | Adler
-(3 Zeilen)
-
-9.
+6.
   title  |   day    
 ---------+----------
  Nähen   | Montag
@@ -109,73 +89,66 @@
  Chemie  | Dienstag
 (4 Zeilen)
 
-10.
- lastname | roll 
-----------+------
- Usus     | user
- Müller   | user
- Flanell  | user
- Müller   | user
- Abt      | user
- Dresdner | user
- Lowe     | user
- Decker   | user
- Wexler   | user
- Müller   | user
- Zappa    | user
- Meyer    | user
- Harb     | user
-(13 Zeilen)
+7.
+ wg_id |  title  
+-------+---------
+     4 | Technik
+(1 Zeile)
 
-11.
-  firstname  |  lastname   | shorthand 
--------------+-------------+-----------
- Adam        | Adler       | ADL
- Bertha      | Bentz       | EDI
- Claus       | Clever      | VIG
- Bernd       | Brot        | JEN
- Viki        | Vigor       | BRO
- Wisaam Aram | Cham        | BNZ
- Chu Thành   | Tri         | CLR
- Tôn Ngoc    | Nhi         | MAC
- Wolfgang    | Wowereit    | WCK
- Jakub       | Jabłoński   | XTS
- Wisia       | Szczepańska | YOG
+8.
+ event_id | date | annotation 
+----------+------+------------
+(0 Zeilen)
+
+9.
+ firstname |   lastname   | shorthand 
+-----------+--------------+-----------
+ Adam      | Adler        | ADL
+ Edwin     | Edison       | EDI
+ Viki      | Vigor        | VIG
+ Jana      | Jensen       | JEN
+ Bernd     | Brot         | BRO
+ Bertha    | Bentz        | BNZ
+ Claus     | Clever       | CLR
+ Moritz    | Macker       | MAC
+ Waldemar  | Wacker       | WCK
+ Xaver     | Xanthopoulos | XTS
+ Yannis    | Yoghurt      | YOG
 (11 Zeilen)
 
-12.
- firstname |   lastname   | class | studentnumber 
------------+--------------+-------+---------------
- Edwin     | Edison       | 7a    | usus01
- Yannis    | Yoghurt      | 7a    | lowe01
- Uschi     | Usus         | 7a    | decker01
- Nina      | Nadel        | 7a    | wexler01
- Gregor    | Müller       | 7a    | mueller01
- Walter    | Dremel       | 7a    | mueller02
- Fidora    | Flanell      | 8a    | zappa01
- Liselotte | Müller       | 7a    | baehr01
- Stephan   | Abt          | 7a    | meyer01
- Laura     | Dresdner     | 7a    | harb01
- Sebastian | Lowe         | 7a    | harb02
- Doreen    | Decker       | 7a    | cham01
- Jens      | Wexler       | 7a    | tri01
- Laura     | Müller       | 7a    | nhi01
- Katja     | Müller       | 7a    | kwiatkowska01
- Frank     | Zappa        | 7a    | zajac01
- Elisabeth | Engel        | 7a    | grmü01
- Moritz    | Macker       | 7b    | nina01
- Eduard    | Möhrike      | 7b    | wadr01
- Herbert   | Bähr         | 7b    | wisn01
- Alexander | Meyer        | 7b    | wowi01
- Hamudi    | Harb         | 7b    | jabl01
- Habudi    | Harb         | 7b    | szcz01
- Hannah    | Merkur       | 8a    | fifl01
- Jana      | Jensen       | 8a    | limü01
- Waldemar  | Wacker       | 8b    | abt01
- Xaver     | Xanthopoulos | 8b    | dresdner01
+10.
+  firstname  |  lastname   | class | studentnumber 
+-------------+-------------+-------+---------------
+ Uschi       | Usus        | 7a    | usus01
+ Nina        | Nadel       | 7b    | nina01
+ Gregor      | Müller      | 7a    | grmü01
+ Walter      | Dremel      | 7b    | wadr01
+ Fidora      | Flanell     | 8a    | fifl01
+ Liselotte   | Müller      | 8a    | limü01
+ Stephan     | Abt         | 8b    | abt01
+ Laura       | Dresdner    | 8b    | dresdner01
+ Sebastian   | Lowe        | 7a    | lowe01
+ Doreen      | Decker      | 7a    | decker01
+ Jens        | Wexler      | 7a    | wexler01
+ Laura       | Müller      | 7a    | mueller01
+ Katja       | Müller      | 7a    | mueller02
+ Frank       | Zappa       | 8a    | zappa01
+ Herbert     | Bähr        | 7a    | baehr01
+ Alexander   | Meyer       | 7a    | meyer01
+ Hamudi      | Harb        | 7a    | harb01
+ Habudi      | Harb        | 7a    | harb02
+ Wisaam Aram | Cham        | 7a    | cham01
+ Chu Thành   | Tri         | 7a    | tri01
+ Tôn Ngoc    | Nhi         | 7a    | nhi01
+ Wisława     | Kwiatkowska | 7a    | kwiatkowska01
+ Natasza     | Zając       | 7a    | zajac01
+ Walery      | Wiśniewski  | 7b    | wisn01
+ Wolfgang    | Wowereit    | 7b    | wowi01
+ Jakub       | Jabłoński   | 7b    | jabl01
+ Wisia       | Szczepańska | 7b    | szcz01
 (27 Zeilen)
 
-13.
+11.
     date    |        annotation         
 ------------+---------------------------
  2021-03-22 | Gemeinsames Kennenlernen
@@ -184,82 +157,64 @@
  2021-05-03 | Datum in der Zukunft
 (4 Zeilen)
 
-14.
- firstname |   lastname   |   day    |   time   
------------+--------------+----------+----------
- Edwin     | Edison       | Montag   | 15:00:00
- Edwin     | Edison       | Mittwoch | 16:00:00
- Moritz    | Macker       | Mittwoch | 15:30:00
- Eduard    | Möhrike      | Mittwoch | 16:00:00
- Elisabeth | Engel        | Mittwoch | 16:00:00
- Moritz    | Macker       | Mittwoch | 16:00:00
- Jana      | Jensen       | Mittwoch | 15:30:00
- Hannah    | Merkur       | Mittwoch | 15:30:00
- Moritz    | Macker       | Montag   | 15:00:00
- Moritz    | Macker       | Montag   | 15:00:00
- Elisabeth | Engel        | Montag   | 15:00:00
- Edwin     | Edison       | Freitag  | 14:00:00
- Eduard    | Möhrike      | Freitag  | 14:00:00
- Waldemar  | Wacker       | Mittwoch | 16:00:00
- Uschi     | Usus         | Mittwoch | 16:00:00
- Hannah    | Merkur       | Mittwoch | 16:00:00
- Yannis    | Yoghurt      | Mittwoch | 16:00:00
- Jana      | Jensen       | Mittwoch | 16:00:00
- Laura     | Müller       | Mittwoch | 16:00:00
- Xaver     | Xanthopoulos | Mittwoch | 16:00:00
- Fidora    | Flanell      | Mittwoch | 16:00:00
- Alexander | Meyer        | Mittwoch | 15:30:00
- Liselotte | Müller       | Mittwoch | 15:30:00
- Waldemar  | Wacker       | Mittwoch | 15:30:00
- Uschi     | Usus         | Mittwoch | 15:30:00
- Waldemar  | Wacker       | Montag   | 15:00:00
- Waldemar  | Wacker       | Montag   | 15:00:00
- Waldemar  | Wacker       | Freitag  | 14:00:00
- Liselotte | Müller       | Freitag  | 14:00:00
- Doreen    | Decker       | Freitag  | 14:00:00
- Uschi     | Usus         | Freitag  | 14:00:00
- Fidora    | Flanell      | Montag   | 15:00:00
- Hannah    | Merkur       | Montag   | 15:00:00
- Hamudi    | Harb         | Montag   | 15:00:00
- Laura     | Dresdner     | Mittwoch | 15:30:00
- Stephan   | Abt          | Mittwoch | 15:30:00
- Gregor    | Müller       | Mittwoch | 15:30:00
- Frank     | Zappa        | Mittwoch | 15:30:00
- Jens      | Wexler       | Mittwoch | 15:30:00
- Sebastian | Lowe         | Montag   | 15:00:00
+12.
+  firstname  | lastname  |   day    |   time   
+-------------+-----------+----------+----------
+ Uschi       | Usus      | Montag   | 15:00:00
+ Uschi       | Usus      | Mittwoch | 16:00:00
+ Nina        | Nadel     | Mittwoch | 15:30:00
+ Walter      | Dremel    | Mittwoch | 16:00:00
+ Gregor      | Müller    | Mittwoch | 16:00:00
+ Nina        | Nadel     | Mittwoch | 16:00:00
+ Liselotte   | Müller    | Mittwoch | 15:30:00
+ Fidora      | Flanell   | Mittwoch | 15:30:00
+ Nina        | Nadel     | Montag   | 15:00:00
+ Nina        | Nadel     | Montag   | 15:00:00
+ Gregor      | Müller    | Montag   | 15:00:00
+ Uschi       | Usus      | Freitag  | 14:00:00
+ Walter      | Dremel    | Freitag  | 14:00:00
+ Stephan     | Abt       | Mittwoch | 16:00:00
+ Doreen      | Decker    | Mittwoch | 16:00:00
+ Fidora      | Flanell   | Mittwoch | 16:00:00
+ Sebastian   | Lowe      | Mittwoch | 16:00:00
+ Liselotte   | Müller    | Mittwoch | 16:00:00
+ Tôn Ngoc    | Nhi       | Mittwoch | 16:00:00
+ Laura       | Dresdner  | Mittwoch | 16:00:00
+ Frank       | Zappa     | Mittwoch | 16:00:00
+ Wolfgang    | Wowereit  | Mittwoch | 15:30:00
+ Herbert     | Bähr      | Mittwoch | 15:30:00
+ Stephan     | Abt       | Mittwoch | 15:30:00
+ Doreen      | Decker    | Mittwoch | 15:30:00
+ Stephan     | Abt       | Montag   | 15:00:00
+ Stephan     | Abt       | Montag   | 15:00:00
+ Stephan     | Abt       | Freitag  | 14:00:00
+ Herbert     | Bähr      | Freitag  | 14:00:00
+ Wisaam Aram | Cham      | Freitag  | 14:00:00
+ Doreen      | Decker    | Freitag  | 14:00:00
+ Frank       | Zappa     | Montag   | 15:00:00
+ Fidora      | Flanell   | Montag   | 15:00:00
+ Habudi      | Harb      | Montag   | 15:00:00
+ Jakub       | Jabłoński | Montag   | 15:00:00
+ Hamudi      | Harb      | Mittwoch | 15:30:00
+ Alexander   | Meyer     | Mittwoch | 15:30:00
+ Laura       | Müller    | Mittwoch | 15:30:00
+ Natasza     | Zając     | Mittwoch | 15:30:00
+ Chu Thành   | Tri       | Mittwoch | 15:30:00
 (40 Zeilen)
 
-15.
-  vorname  |  name   | anwesend |  ag_name   | count 
------------+---------+----------+------------+-------
- Elisabeth | Engel   |        5 | Basketball |     5
- Moritz    | Macker  |        5 | Basketball |     5
- Moritz    | Macker  |        3 | Karate     |     3
- Edwin     | Edison  |        4 | Nähen      |     4
- Fidora    | Flanell |        1 | Schach     |     1
- Moritz    | Macker  |        1 | Schach     |     1
- Waldemar  | Wacker  |        1 | Schach     |     1
- Elisabeth | Engel   |        1 | Schach     |     1
- Doreen    | Decker  |        1 | Technik    |     1
- Eduard    | Möhrike |        1 | Technik    |     1
- Uschi     | Usus    |        1 | Technik    |     1
- Liselotte | Müller  |        1 | Technik    |     1
- Waldemar  | Wacker  |        1 | Technik    |     1
-(13 Zeilen)
-
-16.
-   title    | count 
-------------+-------
- Basketball |    12
+13.
+ user_id | firstname | lastname 
+---------+-----------+----------
+      11 | Bernd     | Brot
 (1 Zeile)
 
-17.
+14.
  anzahl_plaetze_gesamt 
 -----------------------
                     54
 (1 Zeile)
 
-18.
+15.
  gesamtdauer | wg_id 
 -------------+-------
          270 |     1
@@ -268,50 +223,118 @@
          450 |     6
 (4 Zeilen)
 
+16.
+ anzleiter | wg_id | title  
+-----------+-------+--------
+         2 |     2 | Schach
+         2 |     1 | Nähen
+(2 Zeilen)
+
+17.
+   title    | count 
+------------+-------
+ Basketball |    12
+(1 Zeile)
+
+18.
+ lastname  | roll 
+-----------+------
+ Usus      | user
+ Nadel     | user
+ Müller    | user
+ Dremel    | user
+ Flanell   | user
+ Müller    | user
+ Abt       | user
+ Dresdner  | user
+ Lowe      | user
+ Decker    | user
+ Müller    | user
+ Zappa     | user
+ Bähr      | user
+ Meyer     | user
+ Harb      | user
+ Harb      | user
+ Cham      | user
+ Tri       | user
+ Nhi       | user
+ Zając     | user
+ Wowereit  | user
+ Jabłoński | user
+(22 Zeilen)
+
 19.
- title | schoolyear | description 
--------+------------+-------------
-(0 Zeilen)
+   title    | schoolyear |                           description                           
+------------+------------+-----------------------------------------------------------------
+ Basketball | 2020/21    | Was gibt es da zu erklären?
+ Karate     | 2020/21    | Shotokan-Karate für die persönliche Entwicklung.
+ Nähen      | 2020/21    | Wir nähen alle einen Teddybären.
+ Schach     | 2020/21    | Klassisches Schachspiel für jung und alt. Beginn: 29. März 2021
+(4 Zeilen)
 
 20.
- firstname | lastname |   title    | count 
------------+----------+------------+-------
- Stephan   | Abt      | Karate     |     1
- Doreen    | Decker   | Technik    |     1
- Laura     | Dresdner | Karate     |     1
- Edwin     | Edison   | Basketball |     3
- Edwin     | Edison   | Nähen      |     4
- Elisabeth | Engel    | Basketball |     5
- Elisabeth | Engel    | Schach     |     1
- Sebastian | Lowe     | Nähen      |     1
- Gregor    | Müller   | Karate     |     1
- Laura     | Müller   | Basketball |     1
- Liselotte | Müller   | Karate     |     1
- Liselotte | Müller   | Technik    |     1
- Uschi     | Usus     | Basketball |     1
- Uschi     | Usus     | Karate     |     1
- Uschi     | Usus     | Technik    |     1
- Jens      | Wexler   | Karate     |     1
- Yannis    | Yoghurt  | Basketball |     1
- Frank     | Zappa    | Karate     |     1
+  firstname  | lastname |   title    | count 
+-------------+----------+------------+-------
+ Herbert     | Bähr     | Karate     |     1
+ Herbert     | Bähr     | Technik    |     1
+ Wisaam Aram | Cham     | Technik    |     1
+ Doreen      | Decker   | Basketball |     1
+ Doreen      | Decker   | Karate     |     1
+ Doreen      | Decker   | Technik    |     1
+ Habudi      | Harb     | Nähen      |     1
+ Hamudi      | Harb     | Karate     |     1
+ Sebastian   | Lowe     | Basketball |     1
+ Alexander   | Meyer    | Karate     |     1
+ Gregor      | Müller   | Basketball |     5
+ Gregor      | Müller   | Schach     |     1
+ Laura       | Müller   | Karate     |     1
+ Tôn Ngoc    | Nhi      | Basketball |     1
+ Chu Thành   | Tri      | Karate     |     1
+ Uschi       | Usus     | Basketball |     5
+ Uschi       | Usus     | Nähen      |     4
+ Natasza     | Zając    | Karate     |     1
 (18 Zeilen)
 
 21.
- anzleiter | wg_id | title  
------------+-------+--------
-         3 |     2 | Schach
-(1 Zeile)
-
-22.
  teilnahmen | firstname | lastname |  day   |   time   
 ------------+-----------+----------+--------+----------
-          2 | Waldemar  | Wacker   | Montag | 15:00:00
-          2 | Moritz    | Macker   | Montag | 15:00:00
+          2 | Stephan   | Abt      | Montag | 15:00:00
+          2 | Nina      | Nadel    | Montag | 15:00:00
 (2 Zeilen)
 
-23.
+22.
  teilnahme_prozentual | firstname | lastname |   title    
 ----------------------+-----------+----------+------------
-                  0.6 | Edwin     | Edison   | Basketball
-(1 Zeile)
+                    1 | Gregor    | Müller   | Basketball
+                    1 | Uschi     | Usus     | Basketball
+                    1 | Nina      | Nadel    | Basketball
+                  0.8 | Walter    | Dremel   | Basketball
+                  0.2 | Laura     | Dresdner | Basketball
+                  0.2 | Liselotte | Müller   | Basketball
+                  0.2 | Frank     | Zappa    | Basketball
+                  0.2 | Sebastian | Lowe     | Basketball
+                  0.2 | Stephan   | Abt      | Basketball
+                  0.2 | Tôn Ngoc  | Nhi      | Basketball
+                  0.2 | Fidora    | Flanell  | Basketball
+                  0.2 | Doreen    | Decker   | Basketball
+(12 Zeilen)
+
+23.
+   vorname   |  name  | anwesend |  ag_name   | count 
+-------------+--------+----------+------------+-------
+ Nina        | Nadel  |        5 | Basketball |     5
+ Uschi       | Usus   |        5 | Basketball |     5
+ Gregor      | Müller |        5 | Basketball |     5
+ Nina        | Nadel  |        3 | Karate     |     3
+ Uschi       | Usus   |        4 | Nähen      |     4
+ Stephan     | Abt    |        1 | Schach     |     1
+ Frank       | Zappa  |        1 | Schach     |     1
+ Nina        | Nadel  |        1 | Schach     |     1
+ Gregor      | Müller |        1 | Schach     |     1
+ Wisaam Aram | Cham   |        1 | Technik    |     1
+ Walter      | Dremel |        1 | Technik    |     1
+ Stephan     | Abt    |        1 | Technik    |     1
+ Doreen      | Decker |        1 | Technik    |     1
+ Herbert     | Bähr   |        1 | Technik    |     1
+(14 Zeilen)
 
