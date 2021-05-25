@@ -37,15 +37,23 @@ Das PHP-Script sql_insert_data.php liest die Datenbank aus und stellt deren Inha
 
 ## Diskussion
 
-###Werden Sessions schon gespeichert?
+### Werden Sessions schon gespeichert?
+Ja, sobald du dich anmeldest, ist die Session gespeichert.
 
-### Man könnte noch constraints wie "ein Schüler kann nicht an zwei AG's die zur selben Zeit stattfinden/sich überschneiden teilnehmen" hinzufügen und AG-Termine können nur für den Wochentag angelegt werden, an dem die AG auch stattfindet und nur ab dem Tag rückwirkend, nicht im Vorhinein.
+### Man könnte noch constraints wie "ein Schüler kann nicht an zwei AG's die zur selben Zeit stattfinden/sich überschneiden teilnehmen" hinzufügen.
+Ist im Alltag nicht wirklich relevant. Falls es zwischen zwei AGs eine leichte zeitliche Überschneidung geben sollte, ist das auch ok, wenn es mit den Leiter*innen abgesprochen wird.
+
+### AG-Termine können nur für den Wochentag angelegt werden, an dem die AG auch stattfindet und nur ab dem Tag rückwirkend, nicht im Vorhinein.
+Nein, es gibt bei AGs auch abweichende Termine, wie zum Beispiel am "Tag der offenen Tür" oder bei Exkursionen. Daher halte ich dies nicht für sinnvoll.
 
 ### wäre es sinnvoll eine maxAnzahl für besuchte AGs pro Schüler einzuführen?
+Sollte ein(e) Schüler*in echt so fleißig und interessiert sein, wer wollte ihn/sie davon abhalten? Zu Beginn gibt es sowieso Fluktuationen.
 
 ### Beim editieren kann man aktuell Klasse und Schülernummer nicht ändern - Absicht?
+Erledigt.
 
 ### Sortieren von Tabellen nach verschiedenen Attributen ist nicht notwendig, wäre aber vllt. nett
+Wäre nett, aber nicht notwendig und auch keine Ahnung wie. Momentan sind andere Dinge wichtiger.
 
 ### Das Attribut email bei users könnte auch unique, sein, oder?
 Ja, durchaus. Wenn aber Eltern eine Mailadresse für mehrere Kinder verwenden wollen, ist das doof. Das passiert ständig bei unserer HPI-Schulcloud.

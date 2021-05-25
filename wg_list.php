@@ -27,13 +27,18 @@ require 'try_sessionlogin.php';
 				<div class="flexbox">
 
 <?php
-$query = 'SELECT * FROM wgs WHERE schoolyear = :sy ORDER BY day, time, title ASC';
-$values = array(':sy' => $schoolyear);
+$query = 'SELECT * FROM wgs
+          NATURAL LEFT JOIN
+				     (SELECT count(user_id),wg_id FROM participate
+						  WHERE schoolyear = :sy GROUP BY wg_id) AS one
+				  WHERE schoolyear=:sy
+					ORDER BY day, time, title ASC';
 $aglist = array();
 try
 {
   $res = $pdo->prepare($query);
-  $res->execute($values);
+	$res->bindValue(':sy',$schoolyear,PDO::PARAM_STR);
+  $res->execute();
 	$aglist = $res->fetchAll(PDO::FETCH_ASSOC);
 }
 catch (PDOException $e)
@@ -50,7 +55,7 @@ catch (PDOException $e)
     <th>Wochentag</th>
     <th>Uhrzeit</th>
     <th>Dauer</th>
-    <th>Maximum</th>
+    <th>freie Plätze</th>
     <th>fortsetzbar</th>
   </tr>
 </thead>
@@ -59,7 +64,7 @@ catch (PDOException $e)
 $count = 0;
 foreach ($aglist as $row) {
 	$leiter = getLeaders($row['wg_id']);
-  $max = ($row['max_num']==0)?'keins':(string)$row['max_num'];
+  $max = ($row['max_num']==0)?'unbekannt':(string)((int)$row['max_num']-(int)$row['count']);
   $mul = $row['multiple']?'ja':'nein';
   echo <<<EOF
   <tr>
