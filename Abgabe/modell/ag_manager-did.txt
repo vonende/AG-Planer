@@ -1,0 +1,83 @@
+Didaktisch-Methodische Hinweise
+
+
+Angaben zum Schwierigkeitsgrad, Umfang und Zeitbedarf der bis hierher geleisteten Arbeit:
+
+Das Projekt AG-Planer ist inzwischen eine voll funktionsfähige Datenbank, auf die von Schülern, 
+Lehrern und Administratoren per Browser zugegriffen werden kann. Der Arbeitsumfang und Schwierigkeitsgrad 
+variiert zwischen den einzelnen Entwicklungsstufen. Den höchsten Arbeitsaufwand und Schwierigkeitsgrad würden 
+wir der Entwicklung der php-Views zuordnen. Eine Übersicht zu den einzelnen Sichten findet sich im Dokument 
+„Sichten und Anwendungsprogramm“. Der Zeitbedarf für einen einigermaßen erfahrenen php-Programmierer liegt 
+hier bei etwa 42 Stunden. Das entspricht ca. 1,5 Stunden pro php-Skript, in der natürlich Entwicklung, 
+Fehlersuche und Testung enthalten sind. Sollte ein ähnliches Projekt in der Schule verwirklicht werden, 
+müssen die php-Skripte der Views durch die Lehrkraft geliefert werden. Eine andere Möglichkeit ist natürlich 
+die Verringerung der Anwenderszenarien, die durch Views unterstützt werden sollen.
+ 
+Die Erstellung der SQL-Abfragen ist eigentlich nicht von der Initialisierung der Views zu trennen. Dennoch 
+sollen Sie hier noch einmal gesondert betrachtet werden. Denn SQL Abfragen könnten auch von Schülern entwickelt 
+werden. Denkbar wäre eine Art Projektarbeit, in der die von den Schüler*innen entwickelten SQL-Abfragen durch 
+die Lehrkraft in die php-Skripte aufgenommen werden. Das Finden von SQL-Abfragen zu einer bestimmten Problemstellung 
+kann je nach Aufgabenstellung in allen möglichen Schwierigkeitsbereichen liegen. Angefangen von der Anzeige 
+einzelner Spalten aus bestimmten Tabellen bis hin zu so komplexen Abfragen, wie sie teilweise für die in diesem 
+Projekt verwirklichen Views nötig waren. 
+Ein vergleichsweise geringerer Aufwand stellte die Erstellung des ER-Modells dar. Die Erstellung des ER-Modells 
+ist eine Aufgabe, die auch Schüler*innen übernehmen könnten. Der Zeitliche Aufwand zur Erstellung, Prüfung und 
+Verbesserung sowie dem Eintragen der Kardinalitäten betrug  ungefähr 5-8 Stunden. Zusätzlich mussten auch die 
+Integritätsbedingungen und funktionale Abhängigkeiten diskutiert werden.
+Das erstellen der Datenbank mit postgresql stellt auch einen eher geringeren Aufwand dar. Die zur Erstellung 
+der Tabellen und zum Einfügen der Daten notwendigen SQL Befehle stellen für Schüler*innen eine gute Fingerübung 
+dar, vorausgesetzt das zugrunde liegende ER-Modell war gut durchdacht. Dennoch sollte der zeitliche Aufwand dafür 
+nicht unterschätzt werden. Hier würde sich für eine etwaige Umsetzung im Unterricht eine kooperative Lernform anbieten. 
+Die Schüler*innen implementieren in Teilgruppen jeweils einen Teil der SQL-Befehle, die dann zusammengeführt werden.
+
+Angaben zur Bedeutsamkeit im Kontext des Informatikunterrichts der bis hierher geleisteten Arbeit:
+
+Das Projekt AG-Planer greift alle wichtigen Inhalte einer Unterrichtssequenz zum Thema Datenbank auf. Das zugrunde 
+liegende ER-Modell ist nicht zu komplex, sodass es von Schüler*innen erstellt werden kann. Sollte ein solches Projekt, 
+eventuell etwas reduziert, im Unterricht verwirklicht werden, sollte den Schüler*innen schnell bewusst werden, wie 
+wichtig ein gut erstelltes ER-Modell mit zugehörigen Kardinalitäten für die spätere Verwirklichung ist. Die häufig als 
+trocken empfundene Theorie wird hier zu einer Notwendigkeit, die spätere Entwicklungsschritte erheblich strukturiert 
+und erleichtert. Abgesehen von dem offensichtlichen Datenbankbezug wird auch das Thema Rechnernetze tangiert, zumindest 
+falls angestrebt wird einen Zugriff auf die Datenbank über Internetbrowser zu verwirklichen. Dabei können oder müssten 
+die php-Skripte von der Lehrkraft vorgegeben werden. Die Begriffe Server, IP-Adressen und Ports können hier im Sinne 
+eines Spiralprinzips thematisiert werden. Entweder dient das Thema als erster Berührpunkt mit dem Thema oder es können 
+Inhalte des Themas Rechnernetze gezielt wiederholt werden.
+
+Bei welchen Inhhalten ist eine didaktische Reduktion nötig bzw, angebracht? - Fakultative und Unverzichtbare Teile des AG-Planers
+
+Die Funktionalität des AG-Planers lässt sich natürlich reduzieren, falls im Unterricht nur eine geringere Komplexität 
+umgesetzt werden kann bzw. soll. Mögliche Gründe für eine Reduktion können zum Beispiel das geringe Leistungsniveau 
+des Kurses oder eine zu geringe Stundenanzahl für die Unterrichtsreihe Datenbaken sein. Bei der Reduktion muss natürlich 
+aufgepasst werden, dass das Ergebnis des Projekts immer noch ein AG-Planer ist. Manche Inhalte sind fakultativ und 
+könnten bei Bedarf auch weggelassen werden. Andere Inhalte sind unverzichtbar. Als fakultativ würden wir die Verwirklichung 
+der Sichten beschreiben. Die dem AG-Planer zugrundeliegende Datenbank könnte auch in posgresql durch einen  Admin Bearbeitet 
+und gepflegt werden. Natürlich ist ein Benutzerzugang über einen Browser praktisch besser einsetzbar. Jedoch reicht es unter 
+Umständen bei der Umsetzung eines Projekts im Informationsunterricht nur eine AG-Verwaltung als Datenbank via postgresql 
+anzustreben. 
+Außerdem ist es möglich das ER-Modell zu reduzieren. Fakultativ ist (insbesondere, wenn man keine Sichten per php verwirklichen 
+will) im ER-Modell die Entität Session und Termine mit den zugehörigen Relationen. Ohne durch php verwirklichte Sichten, macht 
+es keinen Sinn die Session der Benutzer zu verwalten, um  bei einem erneuten login keine Zugangsdaten mehr angeben zu müssen. 
+Wann eine AG stattfindet wird in der Entität Termine gespeichert, das ist natürlich schön, wenn Benutzer gucken könnten, wann 
+eine bestimmte AG stattfinden soll oder welche AGs zu einem bestimmten Termin angeboten werden. Dennoch ist dieses Feature für 
+einen AG-Planer nicht essenziell. Es würde ja schon ausreichen, dass der reduzierte AG-Planer AGs mit den zugehörigen AG-Leitern 
+und Teilnehmenden Schülern verwaltet. Diese Datenbank kann dann natürlich bei Bedarf um neue Funktionalitäten erweitert werden.
+Unverzichtbar sind daher die Verwirklichung der Entitäten Benutzer, Andere, Schüler, Lehrer und AGs mit den jeweiligen Relationen. 
+Dazu zählt nicht nur die Erstellung des ER-Modells, sondern auch das Erstellen von Tabellen und der insert-Dateien.
+
+Vorschläge zur methodischen Umsetzung dieses oder eines ähnlichen Projekts im Informatikunterricht:
+
+Es bietet sich an, die Vielzahl an Aufgaben auf mehrere Gruppen aufzuteilen und die Arbeitsergebnisse der Einzelgruppen zu einem 
+Großen und Ganzen zusammen zu fügen. Dabei könnten die Gruppenergebnisse und Gruppenarbeiten wie in einer fiktiven Firma organisiert 
+werden. In regelmäßigen Abständen wird der Fortschritt der einzelnen Gruppen in einer Art „Kurzmeeting“ mitgeteilt. In diesen 
+Meetings geht es vorrangig um Erfahrungsaustausch und darum, dass die Schüler*innen das Gefühl haben zusammen an einem Projekt zu 
+arbeiten und nicht jede Gruppe für sich. Außerdem kann die Lehrkraft so auch den Lernfortschritt beobachten. 
+Bevor die Teilaufgaben auf einzelne Gruppen verteilt werden können muss sich die Lerngruppe auf ein gemeinsames ER-Modell einigen. 
+Die einzelnen Gruppen könnten Vorschläge entwickeln und im Plenum vorstellen. Gemeinschaftlich wird sich dann auf ein ER-Modell 
+geeinigt, das natürlich auch aus mehreren Vorschlägen zusammengesetzt werden kann. 
+Nachdem das ER-Modell feststeht und das Ziel der Projektarbeit festgelegt ist, müssen Teilaufgaben identifiziert werden und auf die 
+Gruppen verteilt werden und dann kann die kooperative Gruppenarbeit beginnen.
+
+Weiterführende sinnvolle Fragestellungen
+
+Weiterführende sinnvolle Fragestellungen könnten sein: Wie sollen Schüler, Lehrer und Externe Zugriff auf die Datenbank erlangen? 
+Gibt es einen Schulserver, auf dem der AG-Planer abgelegt werden kann? 
