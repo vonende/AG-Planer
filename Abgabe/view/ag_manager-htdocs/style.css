@@ -1,0 +1,313 @@
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+  font-size: 18px;
+}
+
+body {
+  background-color: #435165;
+}
+
+p {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.alert {
+  padding: 20px;
+  color: white;
+  background-color: #ff0000;
+}
+
+.confirm {
+  padding: 20px;
+  color: white;
+  background-color: #009900;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+.login {
+  	max-width: 400px;
+  	background-color: #ffffff;
+  	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+  	margin: 100px auto;
+}
+
+.login h1 {
+  	text-align: center;
+  	color: #5b6574;
+  	font-size: 24px;
+  	padding: 20px 0 20px 0;
+  	border-bottom: 1px solid #dee0e4;
+}
+
+.login form {
+  	display: flex;
+  	flex-wrap: wrap;
+  	justify-content: center;
+  	padding-top: 20px;
+}
+
+.login form label {
+  	display: flex;
+  	justify-content: left;
+    width: 310px;
+    padding: 5px;
+  	background-color: lightgray;
+  	color: black;
+}
+
+.login form input[type="password"], .login form input[type="text"] {
+  	width: 310px;
+  	height: 50px;
+  	border: 1px solid #dee0e4;
+  	margin-bottom: 20px;
+  	padding: 0 15px;
+}
+
+.login form input[type="submit"] {
+  	width: 100%;
+  	padding: 15px;
+ 	  margin-top: 20px;
+  	background-color: #3274d6;
+  	border: 0;
+  	cursor: pointer;
+  	font-weight: bold;
+  	color: #ffffff;
+  	transition: background-color 0.2s;
+}
+
+.login form input[type="submit"]:hover {
+	background-color: #2868c7;
+  transition: background-color 0.2s;
+}
+
+.navtop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+	background-color: #2f3947;
+	height: 60px;
+	width: 100%;
+	border: 0;
+}
+
+.navtop > h1 {
+  margin: 0 10px;
+  flex: 1;
+}
+
+.navtop h1>a, .navtop h1{
+	font-size: 24px;
+	color: #eaebed;
+	font-weight: normal;
+  text-decoration: none;
+}
+
+.navtop > a {
+  margin: 0 10px;
+  flex: 0;
+	text-decoration: none;
+	color: #c1c4c8;
+	font-weight: bold;
+}
+
+.navtop a:hover {
+	color: #eaebed;
+  background-color: #1f2937;
+}
+
+@media screen and (max-width: 800px) {
+  .navtop {
+    flex-direction: column;
+  	height: auto;
+  }
+  .navtop > h1, .navtop > a {
+    margin: 0;
+    padding: 10px;
+    flex: 0;
+  }
+}
+
+.navsub {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+	background-color: #3f4957;
+	height: 50px;
+	width: 100%;
+	border: 0;
+}
+
+.navsub > a {
+  margin: 0 10px;
+	text-decoration: none;
+	color: #c1c4c8;
+	font-weight: bold;
+}
+
+.navsub a:hover {
+	color: #eaebed;
+  background-color: #1f2937;
+}
+
+@media screen and (max-width: 800px) {
+  .navsub {
+    flex-direction: column;
+  	height: auto;
+  }
+  .navsub > a {
+    margin: 0;
+    padding: 10px;
+    flex: 0;
+  }
+}
+
+
+body.loggedin {
+	background-color: #f3f4f7;
+}
+.content {
+	/*max-width: 1000px;*/
+	margin: 0 auto;
+
+}
+.content h2 {
+	margin: 0;
+	padding: 25px 10px;
+	font-size: 24px;
+	border-bottom: 1px solid #e0e0e3;
+	color: #4a536e;
+}
+
+.content > div, .content > form, .content > p {
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+	margin: 25px 0;
+	padding: 30px;
+	background-color: #fff;
+  width: 100%;
+}
+
+.fullwidth {
+  margin-top:    30px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.content input, .content select {
+  height: 50px;
+}
+
+.content textarea {
+  height: 100px;
+}
+
+.content input, .content textarea, .content select {
+  width: 400px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.content input[type="radio"]{
+  width: 20px;
+  height: 20px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.content input[type="checkbox"]{
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.greenbutton, .redbutton {
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.greenbutton{
+  background-color: #00AA00;
+}
+
+.greenbutton:hover{
+  background-color: #008800;
+}
+
+.redbutton{
+  background-color: #CC0000;
+}
+
+.redbutton:hover{
+  background-color: #AA0000;
+}
+
+.content ul > li, .content ol > li {
+  padding: 5px 0;
+}
+
+.flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x:auto;
+  width: 100%;
+}
+
+.flexbox > div {
+  margin-right: 20px;
+}
+
+.flexbox table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.flexbox thead tr{
+  background-color: #d2b4de  ;
+}
+
+.flexbox table th {
+  text-align: left;
+	padding: 10px;
+  margin: 0;
+}
+
+.flexbox table td {
+	padding: 10px;
+  margin: 0;
+}
+
+.flexbox tbody tr:nth-child(odd){
+    background-color:  #ebdef0 ;
+}
+
+.flexbox tbody tr:nth-child(even){
+    background-color:  #f5eef8 ;
+}
+
+@media screen and (max-width: 1000px) {
+  .content input, .content textarea, .content select {
+    width: 100%;
+  }
+  .flexbox > div {
+    width: 100%;
+    margin: 0;
+  }
+}
