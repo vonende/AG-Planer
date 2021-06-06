@@ -1,0 +1,12 @@
+DELETE FROM sessions;
+DELETE FROM teachers;
+DELETE FROM students;
+DELETE FROM lead;
+DELETE FROM present;
+DELETE FROM participate;
+DELETE FROM events;
+ALTER SEQUENCE events_event_id_seq RESTART WITH 1;
+DELETE FROM wgs;
+ALTER SEQUENCE wgs_wg_id_seq RESTART WITH 1;
+DELETE FROM users;
+ALTER SEQUENCE users_user_id_seq RESTART WITH 1;

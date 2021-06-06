@@ -1,0 +1,5 @@
+ToDO
+Didaktische Aufgaben zur Verwendung der DB im Unterricht.
+in der Doku: 			Didaktisch-Methodisches
+in den sql Ordner: 		delete Database, Users und drop tables
+optional: 				go-Programm
