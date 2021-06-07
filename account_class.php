@@ -327,8 +327,7 @@ class Account
     	}
     	catch (PDOException $e)
     	{
-    	   throw new Exception("Datenbankfehler beim Login");
-         exit;
+    	   throw new Exception("Datenbankfehler beim Login: <br> ".$e);
       }
 
       $row = $res->fetch(PDO::FETCH_ASSOC);
@@ -365,7 +364,6 @@ class Account
            	 }
            	 catch (PDOException $e) {
            	   throw new Exception("Datenbankfehler beim Login <br>".$e->getMessage());
-               exit;
              }
              $row = $res->fetch(PDO::FETCH_ASSOC);
              $this->isStudent = is_array($row)?true:false;

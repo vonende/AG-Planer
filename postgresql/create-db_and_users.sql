@@ -24,4 +24,4 @@ anmelden möchte, sondern es wird das Passwort abgefragt.
 CREATE USER ag_admin WITH PASSWORD 'kq9Ba8kf61;6]f';
 CREATE USER ag_user WITH PASSWORD 'kd83kCd[dj0i';
 
-CREATE DATABASE ag_manager WITH OWNER ag_admin;
+CREATE DATABASE ag_manager WITH OWNER ag_admin ENCODING 'UTF8';
